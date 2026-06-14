@@ -1,0 +1,49 @@
+.exam-counter-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+.counter-card {
+  background-color: #191c24;
+  border: 1px solid #2c2e3e;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: #ffffff;
+}
+
+.counter-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.counter-top i {
+  width: 18px;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.counter-number {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.1;
+}
+
+@media (max-width: 991px) {
+  .exam-counter-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 575px) {
+  .exam-counter-grid { grid-template-columns: 1fr; }
+}

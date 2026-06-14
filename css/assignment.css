@@ -1,0 +1,10 @@
+.assignment-card { background: white; border-radius: 12px; padding: 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 1rem; border-left: 4px solid; }
+.assignment-card.status-submitted { border-left-color: #10b981; }
+.assignment-card.status-not-submitted { border-left-color: #ef4444; }
+.assignment-card.status-pending { border-left-color: #f59e0b; }
+.assignment-card .assignment-title { font-weight: 600; margin-bottom: 0.3rem; }
+.assignment-card .assignment-subject { color: #4f46e5; font-size: 0.9rem; margin-bottom: 0.5rem; }
+.assignment-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+.assignment-stats .stat { text-align: center; padding: 1rem; background: white; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+.assignment-stats .stat .number { font-size: 1.5rem; font-weight: 700; }
+.assignment-stats .stat .label { font-size: 0.8rem; color: #666; }

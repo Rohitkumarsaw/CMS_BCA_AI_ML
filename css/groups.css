@@ -1,0 +1,8 @@
+.group-card { background: white; border-radius: 12px; padding: 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 1rem; }
+.group-card .group-name { font-weight: 600; margin-bottom: 0.3rem; }
+.group-card .group-type { color: #666; font-size: 0.9rem; margin-bottom: 0.5rem; }
+.group-type-badge { padding: 3px 10px; border-radius: 15px; font-size: 0.8rem; font-weight: 500; }
+.group-attendance { background: #dbeafe; color: #1e40af; }
+.group-homework { background: #fef3c7; color: #92400e; }
+.group-projects { background: #d1fae5; color: #065f46; }
+.group-general { background: #f3f4f6; color: #6b7280; }

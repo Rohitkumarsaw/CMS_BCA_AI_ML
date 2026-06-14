@@ -1,0 +1,8 @@
+.lab-card { background: white; border-radius: 12px; padding: 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 1rem; }
+.lab-card .lab-name { font-weight: 600; margin-bottom: 0.3rem; }
+.lab-card .lab-subject { color: #4f46e5; font-size: 0.9rem; margin-bottom: 0.5rem; }
+.lab-progress { height: 8px; border-radius: 4px; background: #e5e7eb; margin-top: 0.5rem; }
+.lab-progress .progress-fill { height: 100%; border-radius: 4px; background: #10b981; }
+.lab-status-completed { background: #d1fae5; color: #065f46; }
+.lab-status-in-progress { background: #fef3c7; color: #92400e; }
+.lab-status-not-started { background: #f3f4f6; color: #6b7280; }

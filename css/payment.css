@@ -1,0 +1,7 @@
+.payment-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+.payment-summary .summary-card { background: white; border-radius: 12px; padding: 1.2rem; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.payment-summary .summary-card .amount { font-size: 1.8rem; font-weight: 700; }
+.payment-summary .summary-card .label { font-size: 0.85rem; color: #666; }
+.status-paid { background: #d1fae5; color: #065f46; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; }
+.status-unpaid { background: #fee2e2; color: #991b1b; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; }
+.status-partial { background: #fef3c7; color: #92400e; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; }

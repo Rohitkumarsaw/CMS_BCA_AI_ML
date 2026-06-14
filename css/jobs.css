@@ -1,0 +1,13 @@
+.job-card { background: white; border-radius: 12px; padding: 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 1rem; }
+.job-card .job-title { font-weight: 600; font-size: 1.1rem; margin-bottom: 0.3rem; }
+.job-card .company { color: #4f46e5; font-weight: 500; margin-bottom: 0.5rem; }
+.job-card .job-details { display: flex; flex-wrap: wrap; gap: 1rem; color: #666; font-size: 0.9rem; }
+.job-card .job-details i { margin-right: 4px; }
+.job-status { padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 500; }
+.job-applied { background: #dbeafe; color: #1e40af; }
+.job-interviewing { background: #fef3c7; color: #92400e; }
+.job-selected { background: #d1fae5; color: #065f46; }
+.job-rejected { background: #fee2e2; color: #991b1b; }
+.job-summary { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+.job-summary .summary-item { text-align: center; padding: 1rem; background: white; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+.job-summary .summary-item .count { font-size: 1.5rem; font-weight: 700; }

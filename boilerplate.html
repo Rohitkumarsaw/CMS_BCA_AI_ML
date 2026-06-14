@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMS (BCA AI/ML) — Cyberpunk Glass Design System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+      body { background: #07070d; }
+      .demo-section { margin-bottom: 40px; }
+      .demo-section h3 { color: #00f0ff; font-weight: 700; font-size: 1.1rem; margin-bottom: 16px; letter-spacing: 0.5px; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+<div class="app-wrapper">
+    <!-- ===== SIDEBAR ===== -->
+    <div class="app-sidebar" id="sidebar">
+        <div class="app-sidebar-header">
+            <h4><i class="fas fa-graduation-cap"></i> CMS (BCA AI/ML)</h4>
+            <button class="close-sidebar" onclick="toggleSidebar()">&times;</button>
+        </div>
+        <div class="app-sidebar-nav">
+            <a href="#" class="active"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
+            <a href="#"><i class="fas fa-check-circle"></i><span>Attendance</span></a>
+            <a href="#"><i class="fas fa-book"></i><span>Homework</span></a>
+            <a href="#"><i class="fas fa-calendar-alt"></i><span>Schedule</span></a>
+            <a href="#"><i class="fas fa-file-alt"></i><span>Exams</span></a>
+            <a href="#"><i class="fas fa-list-check"></i><span>Syllabus</span></a>
+            <div class="sidebar-divider"></div>
+            <a href="#"><i class="fas fa-sticky-note"></i><span>Notes</span></a>
+            <a href="#"><i class="fas fa-chart-line"></i><span>Grades</span></a>
+            <a href="#"><i class="fas fa-project-diagram"></i><span>Projects</span></a>
+            <a href="#"><i class="fas fa-building"></i><span>Internships</span></a>
+            <a href="#"><i class="fas fa-credit-card"></i><span>Payments</span></a>
+            <div class="sidebar-divider"></div>
+            <a href="#"><i class="fas fa-user-circle"></i><span>Profile</span></a>
+            <a href="#" class="text-danger"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
+        </div>
+    </div>
+
+    <!-- ===== NAVBAR ===== -->
+    <div class="app-navbar">
+        <div class="navbar-left">
+            <button class="sidebar-toggle-btn" onclick="toggleSidebar()" aria-label="Toggle sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            <span class="app-navbar-brand"><i class="fas fa-graduation-cap"></i>CMS (BCA AI/ML)</span>
+        </div>
+        <div class="navbar-right">
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                <i id="themeIcon" class="fas fa-moon"></i>
+            </button>
+            <div class="dropdown">
+                <button class="notif-btn" data-bs-toggle="dropdown" aria-label="Notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="notif-badge">3</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-end" style="width:280px;">
+                    <h6 class="dropdown-header">Notifications</h6>
+                    <a class="dropdown-item" href="#"><i class="fas fa-book me-2 text-warning"></i>Homework due tomorrow</a>
+                    <a class="dropdown-item" href="#"><i class="fas fa-file-alt me-2 text-danger"></i>Exam next week</a>
+                    <a class="dropdown-item" href="#"><i class="fas fa-credit-card me-2 text-info"></i>Fee payment reminder</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="user-dropdown-btn" data-bs-toggle="dropdown">
+                    <span class="user-avatar">A</span>
+                    <span class="d-none d-md-inline user-name">Alex Rivera</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <div class="app-content">
+
+        <!-- PAGE HEADER -->
+        <div class="page-header">
+            <div>
+                <h2><i class="fas fa-tachometer-alt"></i> Dashboard</h2>
+                <p>Welcome back, Alex. Here's your overview.</p>
+            </div>
+            <div class="d-flex gap-2">
+                <button class="btn btn-primary"><i class="fas fa-plus"></i> New Entry</button>
+                <button class="btn btn-outline-primary"><i class="fas fa-download"></i> Export</button>
+            </div>
+        </div>
+
+        <!-- STAT CARDS -->
+        <div class="grid-4 stagger-fade-in" style="margin-bottom:28px;">
+            <div class="card stat-card stat-card-primary">
+                <div class="card-body d-flex align-items-center gap-3">
+                    <div class="stat-icon" style="background:linear-gradient(135deg,#00f0ff,#7c3aed);">%</div>
+                    <div>
+                        <h3>92.5%</h3>
+                        <div class="text-muted">Attendance Rate</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card stat-card stat-card-success">
+                <div class="card-body d-flex align-items-center gap-3">
+                    <div class="stat-icon" style="background:linear-gradient(135deg,#10b981,#34d399);"><i class="fas fa-book"></i></div>
+                    <div>
+                        <h3>12</h3>
+                        <div class="text-muted">Pending Homework</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card stat-card stat-card-info">
+                <div class="card-body d-flex align-items-center gap-3">
+                    <div class="stat-icon" style="background:linear-gradient(135deg,#3b82f6,#60a5fa);"><i class="fas fa-chart-line"></i></div>
+                    <div>
+                        <h3>3.8</h3>
+                        <div class="text-muted">Current GPA</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card stat-card stat-card-warning">
+                <div class="card-body d-flex align-items-center gap-3">
+                    <div class="stat-icon" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);"><i class="fas fa-tasks"></i></div>
+                    <div>
+                        <h3>5</h3>
+                        <div class="text-muted">Upcoming Exams</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ROW: CHART + UPCOMING -->
+        <div class="grid-2" style="margin-bottom:28px;">
+            <!-- CHART CARD -->
+            <div class="card chart-card">
+                <div class="card-header">
+                    <h6><i class="fas fa-chart-bar me-2" style="color:#00f0ff;"></i>Attendance Overview</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="demoChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UPCOMING CARD -->
+            <div class="card">
+                <div class="card-header">
+                    <h6><i class="fas fa-calendar-day me-2" style="color:#7c3aed;"></i>Upcoming Deadlines</h6>
+                    <a href="#" class="btn btn-sm btn-outline-primary">View All</a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="upcoming-list">
+                        <div class="upcoming-item px-3">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h6>Mathematics Assignment</h6>
+                                    <small><i class="far fa-clock me-1"></i>Due Jun 18, 2026</small>
+                                </div>
+                                <span class="badge bg-danger">Homework</span>
+                            </div>
+                        </div>
+                        <div class="upcoming-item px-3">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h6>Database Systems Exam</h6>
+                                    <small><i class="far fa-clock me-1"></i>Due Jun 21, 2026</small>
+                                </div>
+                                <span class="badge bg-warning">Exam</span>
+                            </div>
+                        </div>
+                        <div class="upcoming-item px-3">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h6>Web Development Project</h6>
+                                    <small><i class="far fa-clock me-1"></i>Due Jun 25, 2026</small>
+                                </div>
+                                <span class="badge bg-info">Project</span>
+                            </div>
+                        </div>
+                        <div class="upcoming-item px-3">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h6>Physics Lab Report</h6>
+                                    <small><i class="far fa-clock me-1"></i>Due Jun 28, 2026</small>
+                                </div>
+                                <span class="badge bg-success">Lab</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUICK LINKS -->
+        <div class="demo-section">
+            <h3>Quick Links</h3>
+            <div class="grid-6">
+                <a href="#" class="quick-link-card">
+                    <div class="quick-link-icon" style="background:linear-gradient(135deg,#00f0ff,#06b6d4);"><i class="fas fa-check-circle"></i></div>
+                    <span>Attendance</span>
+                </a>
+                <a href="#" class="quick-link-card">
+                    <div class="quick-link-icon" style="background:linear-gradient(135deg,#7c3aed,#a855f7);"><i class="fas fa-book"></i></div>
+                    <span>Homework</span>
+                </a>
+                <a href="#" class="quick-link-card">
+                    <div class="quick-link-icon" style="background:linear-gradient(135deg,#10b981,#34d399);"><i class="fas fa-calendar-alt"></i></div>
+                    <span>Schedule</span>
+                </a>
+                <a href="#" class="quick-link-card">
+                    <div class="quick-link-icon" style="background:linear-gradient(135deg,#f59e0b,#fbbf24);"><i class="fas fa-file-alt"></i></div>
+                    <span>Exams</span>
+                </a>
+                <a href="#" class="quick-link-card">
+                    <div class="quick-link-icon" style="background:linear-gradient(135deg,#3b82f6,#60a5fa);"><i class="fas fa-sticky-note"></i></div>
+                    <span>Notes</span>
+                </a>
+                <a href="#" class="quick-link-card">
+                    <div class="quick-link-icon" style="background:linear-gradient(135deg,#ef4444,#f87171);"><i class="fas fa-chart-line"></i></div>
+                    <span>Grades</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- TABLE -->
+        <div class="demo-section">
+            <h3>Data Table</h3>
+            <div class="card">
+                <div class="card-header">
+                    <h6><i class="fas fa-list me-2" style="color:#00f0ff;"></i>Recent Submissions</h6>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Add</button>
+                        <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-filter"></i> Filter</button>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Type</th>
+                                    <th>Status</th>
+                                    <th>Due Date</th>
+                                    <th class="text-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Data Structures</td>
+                                    <td>Homework</td>
+                                    <td><span class="status-badge status-submitted"><i class="fas fa-check-circle"></i> Submitted</span></td>
+                                    <td>Jun 14, 2026</td>
+                                    <td class="text-end">
+                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Database Systems</td>
+                                    <td>Exam</td>
+                                    <td><span class="status-badge status-pending"><i class="fas fa-clock"></i> Pending</span></td>
+                                    <td>Jun 21, 2026</td>
+                                    <td class="text-end">
+                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Web Development</td>
+                                    <td>Project</td>
+                                    <td><span class="status-badge status-late"><i class="fas fa-exclamation-triangle"></i> Late</span></td>
+                                    <td>Jun 10, 2026</td>
+                                    <td class="text-end">
+                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Physics</td>
+                                    <td>Lab</td>
+                                    <td><span class="status-badge status-present"><i class="fas fa-check-circle"></i> Completed</span></td>
+                                    <td>Jun 12, 2026</td>
+                                    <td class="text-end">
+                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Mathematics</td>
+                                    <td>Homework</td>
+                                    <td><span class="status-badge status-absent"><i class="fas fa-times-circle"></i> Not Submitted</span></td>
+                                    <td>Jun 7, 2026</td>
+                                    <td class="text-end">
+                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FORMS -->
+        <div class="grid-2" style="margin-bottom:28px;">
+            <div class="demo-section">
+                <h3>Form Controls</h3>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Student Name</label>
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="fas fa-user" style="color:var(--text-muted);"></i>
+                                <input type="text" class="form-control" placeholder="Enter your name">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-control" placeholder="name@example.com">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Subject</label>
+                            <select class="form-select">
+                                <option>Select a subject...</option>
+                                <option>Data Structures</option>
+                                <option>Database Systems</option>
+                                <option>Web Development</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Message</label>
+                            <textarea class="form-control" placeholder="Type your message here..." rows="3"></textarea>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-primary"><i class="fas fa-paper-plane"></i> Submit</button>
+                            <button class="btn btn-secondary"><i class="fas fa-times"></i> Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-section">
+                <h3>Button Variants</h3>
+                <div class="card">
+                    <div class="card-body d-flex flex-column gap-3">
+                        <div class="d-flex flex-wrap gap-2">
+                            <button class="btn btn-primary">Primary</button>
+                            <button class="btn btn-success">Success</button>
+                            <button class="btn btn-danger">Danger</button>
+                            <button class="btn btn-warning">Warning</button>
+                            <button class="btn btn-info">Info</button>
+                            <button class="btn btn-secondary">Secondary</button>
+                        </div>
+                        <div class="d-flex flex-wrap gap-2">
+                            <button class="btn btn-outline-primary">Outline</button>
+                            <button class="btn btn-outline-success">Outline</button>
+                            <button class="btn btn-outline-danger">Outline</button>
+                            <button class="btn btn-outline-warning">Outline</button>
+                            <button class="btn btn-outline-info">Outline</button>
+                            <button class="btn btn-outline-secondary">Outline</button>
+                        </div>
+                        <div class="d-flex flex-wrap gap-2 align-items-center">
+                            <button class="btn btn-primary btn-sm">Small</button>
+                            <button class="btn btn-primary">Default</button>
+                            <button class="btn btn-primary btn-lg">Large</button>
+                        </div>
+                        <div class="d-flex flex-wrap gap-2">
+                            <span class="badge bg-primary">Primary</span>
+                            <span class="badge bg-success">Success</span>
+                            <span class="badge bg-danger">Danger</span>
+                            <span class="badge bg-warning">Warning</span>
+                            <span class="badge bg-info">Info</span>
+                            <span class="badge bg-secondary">Secondary</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ALERTS -->
+        <div class="demo-section">
+            <h3>Alerts</h3>
+            <div class="alert alert-success"><i class="fas fa-check-circle"></i> Data saved successfully!</div>
+            <div class="alert alert-danger"><i class="fas fa-exclamation-circle"></i> An error occurred while processing.</div>
+            <div class="alert alert-warning"><i class="fas fa-exclamation-triangle"></i> Your session is about to expire.</div>
+            <div class="alert alert-info"><i class="fas fa-info-circle"></i> New updates are available.</div>
+        </div>
+
+        <!-- EMPTY STATE -->
+        <div class="demo-section">
+            <h3>Empty State</h3>
+            <div class="card">
+                <div class="empty-state">
+                    <i class="fas fa-inbox"></i>
+                    <h5>No data yet</h5>
+                    <p>Get started by creating your first entry.</p>
+                    <button class="btn btn-primary mt-3"><i class="fas fa-plus"></i> Create Entry</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONFIRM MODAL DEMO -->
+        <div class="demo-section">
+            <h3>Confirm Modal</h3>
+            <button class="btn btn-danger" onclick="document.getElementById('demoConfirm').classList.add('show')">
+                <i class="fas fa-trash-alt"></i> Delete Demo
+            </button>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="app-footer">
+        &copy; 2026 <a href="#">CMS (BCA AI/ML)</a>. All rights reserved. Built with Cyberpunk Glass.
+    </div>
+</div>
+
+<!-- CONFIRM MODAL -->
+<div class="confirm-overlay" id="demoConfirm" onclick="if(event.target===this)this.classList.remove('show')">
+    <div class="confirm-modal">
+        <div class="confirm-icon-wrap">
+            <div class="confirm-icon"><i class="fas fa-trash-alt"></i></div>
+        </div>
+        <h3 id="confirmTitle">Delete this entry?</h3>
+        <p class="confirm-msg" id="confirmMsg">Are you sure? This action cannot be undone.</p>
+        <div class="confirm-actions">
+            <button class="confirm-btn-cancel" onclick="document.getElementById('demoConfirm').classList.remove('show')">Cancel</button>
+            <button class="confirm-btn-delete" onclick="document.getElementById('demoConfirm').classList.remove('show')">Delete</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Theme toggle
+function toggleTheme() {
+    var h = document.documentElement;
+    var isDark = h.getAttribute('data-theme') === 'dark';
+    h.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    var icon = document.getElementById('themeIcon');
+    if (icon) icon.className = isDark ? 'fa-moon' : 'fa-sun';
+}
+// Sidebar toggle
+function toggleSidebar() {
+    var s = document.getElementById('sidebar');
+    var o = document.getElementById('sidebarOverlay');
+    if (s) s.classList.toggle('show');
+    if (o) o.classList.toggle('show');
+}
+// Demo chart
+document.addEventListener('DOMContentLoaded', function() {
+    var ctx = document.getElementById('demoChart');
+    if (!ctx) return;
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            datasets: [{
+                label: 'Attendance %',
+                data: [88, 92, 87, 94, 91, 93],
+                borderColor: '#00f0ff',
+                backgroundColor: 'rgba(0,240,255,0.08)',
+                fill: true,
+                tension: 0.4,
+                pointBackgroundColor: '#00f0ff',
+                pointBorderColor: '#07070d',
+                pointBorderWidth: 2,
+                pointRadius: 4,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                x: {
+                    grid: { color: 'rgba(255,255,255,0.04)' },
+                    ticks: { color: 'rgba(255,255,255,0.4)', font: { size: 11 } }
+                },
+                y: {
+                    grid: { color: 'rgba(255,255,255,0.04)' },
+                    ticks: { color: 'rgba(255,255,255,0.4)', font: { size: 11 } },
+                    min: 60, max: 100
+                }
+            }
+        }
+    });
+    // Apply saved theme
+    var t = localStorage.getItem('theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+.exam-prep-card { background: white; border-radius: 12px; padding: 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 1rem; }
+.exam-prep-card .prep-name { font-weight: 600; margin-bottom: 0.3rem; }
+.exam-prep-card .prep-subject { color: #4f46e5; font-size: 0.9rem; margin-bottom: 0.5rem; }
+.prep-progress { height: 10px; border-radius: 5px; background: #e5e7eb; margin: 0.5rem 0; }
+.prep-progress .progress-fill { height: 100%; border-radius: 5px; background: linear-gradient(90deg, #3b82f6, #10b981); transition: width 0.3s; }
+.prep-status-planned { background: #dbeafe; color: #1e40af; }
+.prep-status-in-progress { background: #fef3c7; color: #92400e; }
+.prep-status-completed { background: #d1fae5; color: #065f46; }

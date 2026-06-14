@@ -1,0 +1,228 @@
+.backup-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.backup-card {
+  background: #191c24;
+  border: 1px solid #2c2e3e;
+  border-radius: 10px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.backup-card-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  margin-bottom: 18px;
+}
+
+.backup-card-icon.export {
+  background: rgba(0,240,255,0.1);
+  color: #00f0ff;
+  box-shadow: 0 0 20px rgba(0,240,255,0.1);
+}
+
+.backup-card-icon.import {
+  background: rgba(124,58,237,0.1);
+  color: #a78bfa;
+  box-shadow: 0 0 20px rgba(124,58,237,0.1);
+}
+
+.backup-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 8px;
+}
+
+.backup-card p {
+  font-size: 0.82rem;
+  color: #a3a6b7;
+  line-height: 1.6;
+  margin: 0 0 22px;
+  max-width: 340px;
+}
+
+.backup-btn {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.25s ease;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.backup-btn.export {
+  background: linear-gradient(135deg, #00f0ff, #0891b2);
+  box-shadow: 0 0 16px rgba(0,240,255,0.15);
+}
+
+.backup-btn.export:hover {
+  box-shadow: 0 0 30px rgba(0,240,255,0.3);
+  transform: translateY(-2px);
+}
+
+.backup-btn.import {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  box-shadow: 0 0 16px rgba(124,58,237,0.15);
+}
+
+.backup-btn.import:hover {
+  box-shadow: 0 0 30px rgba(124,58,237,0.3);
+  transform: translateY(-2px);
+}
+
+.backup-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.backup-upload-area {
+  width: 100%;
+  margin-bottom: 18px;
+}
+
+.backup-upload-area input[type="file"] {
+  width: 100%;
+  padding: 12px;
+  background: #1a1d28;
+  border: 2px dashed #3d4352;
+  border-radius: 8px;
+  color: #a3a6b7;
+  font-size: 0.82rem;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.backup-upload-area input[type="file"]:hover {
+  border-color: #7c3aed;
+}
+
+.backup-upload-area input[type="file"]::file-selector-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #7c3aed;
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 12px;
+  transition: background 0.2s ease;
+}
+
+.backup-upload-area input[type="file"]::file-selector-button:hover {
+  background: #6d28d9;
+}
+
+/* === STATUS ALERTS === */
+.backup-alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  margin-top: 20px;
+  width: 100%;
+  text-align: left;
+}
+
+.backup-alert.success {
+  background: rgba(16,185,129,0.1);
+  border: 1px solid rgba(16,185,129,0.2);
+  color: #86efac;
+}
+
+.backup-alert.error {
+  background: rgba(239,68,68,0.1);
+  border: 1px solid rgba(239,68,68,0.2);
+  color: #fca5a5;
+}
+
+.backup-alert.info {
+  background: rgba(59,130,246,0.1);
+  border: 1px solid rgba(59,130,246,0.2);
+  color: #93c5fd;
+}
+
+.backup-alert i {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.backup-alert .alert-close {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.5;
+  font-size: 1.1rem;
+  padding: 0 4px;
+}
+
+.backup-alert .alert-close:hover {
+  opacity: 1;
+}
+
+.backup-meta {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.72rem;
+  color: #6c7293;
+}
+
+.backup-meta span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 991px) {
+  .backup-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 575px) {
+  .backup-card {
+    padding: 20px;
+  }
+
+  .backup-card-icon {
+    width: 52px;
+    height: 52px;
+    font-size: 1.3rem;
+  }
+
+  .backup-btn {
+    width: 100%;
+    padding: 11px 20px;
+  }
+}

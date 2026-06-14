@@ -1,0 +1,13 @@
+.schedule-tabs .nav-link { padding: 8px 16px; border-radius: 8px; margin: 0 2px; font-size: 0.9rem; }
+.schedule-tabs .nav-link.active { background: #4f46e5; color: white; }
+.schedule-table th { background: #f8fafc; font-weight: 600; }
+.schedule-table td { vertical-align: middle; }
+.class-type { padding: 3px 10px; border-radius: 15px; font-size: 0.8rem; font-weight: 500; }
+.type-lecture { background: #dbeafe; color: #1e40af; }
+.type-lab { background: #d1fae5; color: #065f46; }
+.type-tutorial { background: #fef3c7; color: #92400e; }
+.type-activity { background: #ede9fe; color: #5b21b6; }
+.current-class { background: #eff6ff; border-left: 3px solid #4f46e5; }
+.today-schedule-card { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+.today-schedule-card h5 { margin-bottom: 1rem; }
+.today-class-item { background: rgba(255,255,255,0.15); border-radius: 8px; padding: 0.8rem; margin-bottom: 0.5rem; }

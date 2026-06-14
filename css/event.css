@@ -1,0 +1,456 @@
+/* ===== CALENDAR & EVENT SCHEDULER — Corona Dark ===== */
+
+.ec-container {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 24px;
+  align-items: start;
+}
+
+.ec-left,
+.ec-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* === CARDS === */
+.ec-card {
+  background: #191c24;
+  border: 1px solid #2c2e3e;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.ec-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.ec-card-header h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ec-card-header h3 i {
+  color: #0090e7;
+}
+
+/* === LIVE CLOCK === */
+.ec-clock-card {
+  text-align: center;
+  padding: 16px 20px;
+}
+
+.ec-clock-time {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #ffffff;
+  font-family: 'Inter', monospace;
+  letter-spacing: 2px;
+  line-height: 1.2;
+}
+
+.ec-clock-date {
+  font-size: 0.78rem;
+  color: #6c7293;
+  margin-top: 4px;
+}
+
+/* === CALENDAR HEADER === */
+.ec-cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.ec-nav-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid #2c2e3e;
+  background: transparent;
+  color: #6c7293;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.ec-nav-btn:hover {
+  background: rgba(255,255,255,0.04);
+  color: #ffffff;
+  border-color: #3d4352;
+}
+
+.ec-cal-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ec-cal-month {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.ec-cal-year {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #6c7293;
+}
+
+/* === WEEKDAYS === */
+.ec-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin-bottom: 8px;
+}
+
+.ec-weekdays span {
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #6c7293;
+  padding: 6px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* === CALENDAR GRID === */
+.ec-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.ec-cell {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  position: relative;
+  min-height: 44px;
+}
+
+.ec-cell:hover {
+  background: rgba(255,255,255,0.04);
+}
+
+.ec-cell.ec-other {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.ec-day-num {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.ec-today {
+  background: rgba(0,144,231,0.15);
+  border: 1px solid rgba(0,144,231,0.3);
+}
+
+.ec-today .ec-day-num {
+  color: #0090e7;
+  font-weight: 700;
+}
+
+.ec-has-event {
+  font-weight: 600;
+}
+
+/* === EVENT DOTS === */
+.ec-dots {
+  display: flex;
+  gap: 3px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.ec-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.ec-dot-exam { background: #ef4444; box-shadow: 0 0 4px rgba(239,68,68,0.5); }
+.ec-dot-holiday { background: #10b981; box-shadow: 0 0 4px rgba(16,185,129,0.5); }
+.ec-dot-personal-task { background: #0090e7; box-shadow: 0 0 4px rgba(0,144,231,0.5); }
+.ec-dot-sports { background: #10b981; box-shadow: 0 0 4px rgba(16,185,129,0.5); }
+.ec-dot-technical { background: #3b82f6; box-shadow: 0 0 4px rgba(59,130,246,0.5); }
+.ec-dot-cultural { background: #8b5cf6; box-shadow: 0 0 4px rgba(139,92,246,0.5); }
+.ec-dot-workshop { background: #f59e0b; box-shadow: 0 0 4px rgba(245,158,11,0.5); }
+.ec-dot-other { background: #6c7293; box-shadow: 0 0 4px rgba(108,114,147,0.5); }
+
+/* === FORM === */
+.ec-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ec-field label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #a3a6b7;
+  margin-bottom: 5px;
+}
+
+.ec-field input,
+.ec-field select {
+  width: 100%;
+  padding: 10px 14px;
+  background: #2a3038;
+  border: 1px solid #3d4352;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ec-field input:focus,
+.ec-field select:focus {
+  border-color: #0090e7;
+  box-shadow: 0 0 0 2px rgba(0,144,231,0.1);
+}
+
+.ec-field input::placeholder {
+  color: #6c7293;
+}
+
+.ec-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.ec-btn {
+  padding: 11px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.25s ease;
+  color: #ffffff;
+}
+
+.ec-btn-primary {
+  background: linear-gradient(135deg, #0090e7, #7c3aed);
+  box-shadow: 0 0 16px rgba(0,144,231,0.15);
+}
+
+.ec-btn-primary:hover {
+  box-shadow: 0 0 28px rgba(0,144,231,0.3);
+  transform: translateY(-1px);
+}
+
+/* === EVENT LIST === */
+.ec-event-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.ec-event-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.ec-event-list::-webkit-scrollbar-thumb {
+  background: #2c2e3e;
+  border-radius: 4px;
+}
+
+.ec-event-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ec-event-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  background: #1a1d28;
+  border: 1px solid #2c2e3e;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.ec-event-item:hover {
+  border-color: #3d4352;
+}
+
+.ec-event-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 40px;
+  flex-shrink: 0;
+}
+
+.ec-event-daynum {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.ec-event-dayname {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #6c7293;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ec-event-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.ec-event-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 3px;
+}
+
+.ec-event-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.72rem;
+  color: #6c7293;
+  flex-wrap: wrap;
+}
+
+.ec-event-badge {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 9999px;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.ec-badge-exam { background: rgba(239,68,68,0.12); color: #fca5a5; }
+.ec-badge-holiday { background: rgba(16,185,129,0.12); color: #86efac; }
+.ec-badge-personal-task { background: rgba(0,144,231,0.12); color: #93c5fd; }
+.ec-badge-sports { background: rgba(16,185,129,0.12); color: #86efac; }
+.ec-badge-technical { background: rgba(59,130,246,0.12); color: #93c5fd; }
+.ec-badge-cultural { background: rgba(139,92,246,0.12); color: #c4b5fd; }
+.ec-badge-workshop { background: rgba(245,158,11,0.12); color: #fde68a; }
+.ec-badge-other { background: rgba(108,114,147,0.12); color: #cbd5e1; }
+
+.ec-event-actions {
+  flex-shrink: 0;
+}
+
+.ec-event-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: #6c7293;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.ec-event-btn.text-danger:hover {
+  background: rgba(239,68,68,0.1);
+  color: #ef4444;
+}
+
+/* === EMPTY STATE === */
+.ec-empty {
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.ec-empty i {
+  font-size: 2rem;
+  color: #3d4352;
+  margin-bottom: 10px;
+}
+
+.ec-empty p {
+  font-size: 0.82rem;
+  color: #6c7293;
+  margin: 0;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 991px) {
+  .ec-container {
+    grid-template-columns: 1fr;
+  }
+
+  .ec-right {
+    order: -1;
+  }
+}
+
+@media (max-width: 575px) {
+  .ec-card {
+    padding: 14px;
+  }
+
+  .ec-clock-time {
+    font-size: 1.5rem;
+  }
+
+  .ec-field-row {
+    grid-template-columns: 1fr;
+  }
+
+  .ec-cell {
+    min-height: 36px;
+  }
+
+  .ec-day-num {
+    font-size: 0.75rem;
+  }
+
+  .ec-event-item {
+    padding: 10px 12px;
+  }
+}

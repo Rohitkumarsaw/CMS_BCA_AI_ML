@@ -1,0 +1,9 @@
+.homework-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+.homework-summary .summary-card { background: white; border-radius: 12px; padding: 1.2rem; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.homework-summary .summary-card .number { font-size: 2rem; font-weight: 700; }
+.homework-summary .summary-card .label { font-size: 0.85rem; color: #666; margin-top: 0.3rem; }
+.status-submitted { background: #d1fae5; color: #065f46; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; }
+.status-not-submitted { background: #fee2e2; color: #991b1b; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; }
+.status-pending { background: #fef3c7; color: #92400e; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; }
+.table-overdue { background-color: #fff5f5 !important; }
+.overdue-badge { background: #ef4444; color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; margin-left: 5px; }

@@ -1,0 +1,7 @@
+.reports-section { background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 1.5rem; }
+.reports-section h5 { margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #f3f4f6; }
+.report-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+.report-stat { text-align: center; padding: 1rem; background: #f8fafc; border-radius: 10px; }
+.report-stat .number { font-size: 1.5rem; font-weight: 700; color: #4f46e5; }
+.report-stat .label { font-size: 0.8rem; color: #666; }
+.export-buttons { display: flex; gap: 0.5rem; margin-top: 1rem; }

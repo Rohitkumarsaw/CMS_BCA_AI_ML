@@ -1,0 +1,15 @@
+.announcement-card { background: white; border-radius: 12px; padding: 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 1rem; border-left: 4px solid; }
+.announcement-card.priority-high { border-left-color: #ef4444; }
+.announcement-card.priority-medium { border-left-color: #f59e0b; }
+.announcement-card.priority-low { border-left-color: #3b82f6; }
+.announcement-card .card-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem; }
+.announcement-type { padding: 3px 10px; border-radius: 15px; font-size: 0.8rem; font-weight: 500; }
+.announcement-priority { padding: 3px 10px; border-radius: 15px; font-size: 0.75rem; font-weight: 500; }
+.priority-high { background: #fee2e2; color: #991b1b; }
+.priority-medium { background: #fef3c7; color: #92400e; }
+.priority-low { background: #dbeafe; color: #1e40af; }
+.type-homework { background: #fef3c7; color: #92400e; }
+.type-exam { background: #fee2e2; color: #991b1b; }
+.type-holiday { background: #d1fae5; color: #065f46; }
+.type-event { background: #ede9fe; color: #5b21b6; }
+.type-general { background: #f3f4f6; color: #6b7280; }

@@ -1,0 +1,394 @@
+/* ==========================================================================
+   DARK FIX — Global Force-Dark Override
+   Kills all white/light Bootstrap leaks, forces Corona Admin dark aesthetic
+   ========================================================================== */
+
+/* --- 1. GLOBAL CARD CONTAINERS --- */
+.card,
+.card-panel,
+.detail-card,
+.info-card,
+.modal-content,
+.list-group-item,
+.card-header,
+.card-footer {
+  background-color: #191c24 !important;
+  color: #ffffff;
+}
+
+.card .card-header,
+.card .card-footer {
+  background-color: #191c24 !important;
+  border-color: #2c2e3e;
+}
+
+.card .card-body {
+  background-color: transparent;
+  color: #ffffff;
+}
+
+/* --- 2. TABLES — Force dark backgrounds --- */
+.table {
+  background-color: #191c24 !important;
+  color: #d5d5e2;
+  border-color: #2c2e3e;
+}
+
+.table-bordered,
+.table-bordered th,
+.table-bordered td {
+  border-color: #2c2e3e !important;
+}
+
+.table th {
+  background-color: #191c24 !important;
+  color: #6c7293 !important;
+  border-color: #2c2e3e;
+  font-weight: 600;
+}
+
+.table td {
+  background-color: #191c24 !important;
+  color: #d5d5e2;
+  border-color: #2c2e3e;
+}
+
+.table tbody tr:hover td {
+  background-color: #1f2233 !important;
+}
+
+/* Kill Bootstrap's .table-light, .bg-light on table elements */
+.table-light,
+.table-light th,
+.table-light td,
+.bg-light,
+th.bg-light,
+td.bg-light,
+thead.bg-light,
+tbody.bg-light {
+  background-color: #191c24 !important;
+  color: #6c7293 !important;
+}
+
+.table thead th {
+  background-color: #191c24 !important;
+  color: #6c7293 !important;
+  border-bottom-color: #2c2e3e !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) td {
+  background-color: #1a1d28 !important;
+}
+
+.table-striped tbody tr:nth-of-type(even) td {
+  background-color: #191c24 !important;
+}
+
+.table-hover tbody tr:hover td {
+  background-color: #1f2233 !important;
+}
+
+/* Detail view label column (view.php uses th.bg-light) */
+.table-bordered th,
+.table-bordered td {
+  background-color: #191c24 !important;
+}
+
+/* --- 3. FORM ELEMENTS --- */
+.form-control,
+.form-select,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+input[type="url"],
+input[type="file"],
+input[type="search"],
+input[type="tel"],
+textarea,
+select {
+  background-color: #2a3038 !important;
+  border: 1px solid #3d4352 !important;
+  color: #ffffff !important;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus,
+.form-select:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  background-color: #2a3038 !important;
+  border-color: #6c63ff !important;
+  color: #ffffff !important;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.15);
+}
+
+.form-control::placeholder,
+input::placeholder,
+textarea::placeholder {
+  color: #6c7293 !important;
+  opacity: 1;
+}
+
+.form-control:disabled,
+.form-select:disabled {
+  background-color: #1f2233 !important;
+  color: #6c7293 !important;
+  cursor: not-allowed;
+}
+
+.form-label {
+  color: #b5b5c8 !important;
+  font-weight: 600;
+  font-size: 0.8rem;
+  margin-bottom: 6px;
+}
+
+/* Native <select> dropdown arrow fix */
+.form-select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%236c7293' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+  padding-right: 2.5rem;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Native <option> elements inside <select> */
+select option {
+  background-color: #2a3038 !important;
+  color: #ffffff !important;
+}
+
+select option:hover,
+select option:checked,
+select option:focus {
+  background-color: #3d4352 !important;
+}
+
+/* Input groups and add-ons */
+.input-group-text {
+  background-color: #1f2233 !important;
+  border-color: #3d4352 !important;
+  color: #6c7293 !important;
+}
+
+/* File input override */
+input[type="file"]::file-selector-button {
+  background-color: #3d4352 !important;
+  color: #ffffff !important;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+/* --- 4. MODAL CLOSE BUTTON --- */
+.btn-close {
+  background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='%236c7293' d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat !important;
+  opacity: 0.8;
+  filter: none !important;
+  border-radius: 4px;
+}
+
+.btn-close:hover {
+  opacity: 1;
+}
+
+/* --- 5. LIST GROUP AND DETAIL PANELS --- */
+.list-group-item {
+  background-color: #191c24 !important;
+  border-color: #2c2e3e !important;
+  color: #d5d5e2;
+}
+
+/* --- 6. CARD TITLE / TEXT INSIDE CARDS --- */
+.card .card-title,
+.card-title {
+  color: #ffffff !important;
+}
+
+.card .card-text,
+.card-text {
+  color: #b5b5c8 !important;
+}
+
+.text-muted {
+  color: #8f94a8 !important;
+}
+
+/* --- 7. PAGE-LEVEL WRAPPERS --- */
+.modal-header,
+.modal-body,
+.modal-footer {
+  background-color: #191c24 !important;
+  border-color: #2c2e3e !important;
+}
+
+.modal-header .btn-close {
+  margin-left: auto;
+}
+
+/* --- 8. BADGE OVERRIDES --- */
+.badge {
+  color: #ffffff !important;
+  font-weight: 600;
+}
+
+.badge.bg-primary {
+  background-color: #6c63ff !important;
+}
+
+.badge.bg-secondary {
+  background-color: #3d4352 !important;
+}
+
+.badge.bg-success {
+  background-color: #00c853 !important;
+}
+
+.badge.bg-danger {
+  background-color: #ff3d71 !important;
+}
+
+.badge.bg-warning {
+  background-color: #ffaa00 !important;
+}
+
+.badge.bg-info {
+  background-color: #0095ff !important;
+}
+
+.badge.bg-light {
+  background-color: #3d4352 !important;
+  color: #ffffff !important;
+}
+
+/* --- 9. DROPDOWN MENU INJECTION FIX --- */
+.dropdown-menu {
+  background-color: #1f2233 !important;
+  border: 1px solid #2c2e3e !important;
+}
+
+.dropdown-item {
+  color: #b5b5c8 !important;
+}
+
+.dropdown-item:hover {
+  background-color: #2a3038 !important;
+  color: #ffffff !important;
+}
+
+.dropdown-divider {
+  border-color: #2c2e3e !important;
+}
+
+.dropdown-header {
+  color: #6c7293 !important;
+}
+
+/* --- 10. ALERT OVERRIDES --- */
+.alert {
+  background-color: #191c24 !important;
+  border-color: #2c2e3e !important;
+  color: #d5d5e2 !important;
+}
+
+/* --- 11. BUTTON OVERRIDES --- */
+.btn-outline-secondary {
+  border-color: #3d4352 !important;
+  color: #b5b5c8 !important;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #3d4352 !important;
+  color: #ffffff !important;
+}
+
+.btn-secondary {
+  background-color: #3d4352 !important;
+  border-color: #3d4352 !important;
+  color: #ffffff !important;
+}
+
+.btn-secondary:hover {
+  background-color: #4a5163 !important;
+  border-color: #4a5163 !important;
+}
+
+/* --- 12. PROGRESS BARS --- */
+.progress {
+  background-color: #1f2233 !important;
+}
+
+.progress-bar {
+  background-color: #6c63ff !important;
+}
+
+/* --- 13. PAGINATION --- */
+.page-link {
+  background-color: #191c24 !important;
+  border-color: #2c2e3e !important;
+  color: #b5b5c8 !important;
+}
+
+.page-link:hover {
+  background-color: #2a3038 !important;
+  color: #ffffff !important;
+}
+
+.page-item.active .page-link {
+  background-color: #6c63ff !important;
+  border-color: #6c63ff !important;
+}
+
+/* --- 14. TOAST / NOTIFICATION POPUPS --- */
+.toast,
+.toast-header {
+  background-color: #191c24 !important;
+  border-color: #2c2e3e !important;
+  color: #ffffff !important;
+}
+
+/* --- 15. NATIVE BROWSER AUTOCOMPLETE OVERRIDE --- */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #2a3038 inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff;
+}
+
+/* --- 16. MODAL BACKDROP --- */
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+/* --- 17. BOOTSTRAP TABLE > THEAD TABLE-LIGHT OVERRIDE (HIGH SPECIFICITY) --- */
+table.table thead.table-light th,
+table.table thead.table-light,
+table.table thead tr.table-light th,
+table.table tbody.table-light td {
+  background-color: #191c24 !important;
+  color: #6c7293 !important;
+}
+
+/* --- 18. ANY WHITE BACKGROUND LEFT BY BOOTSTRAP UTILITIES --- */
+[class*="bg-white"],
+[class*="bg-light"]:not(.badge) {
+  background-color: transparent !important;
+}
+

@@ -1,0 +1,8 @@
+.study-plan-card { background: white; border-radius: 12px; padding: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 0.8rem; border-left: 4px solid; }
+.study-plan-card.priority-high { border-left-color: #ef4444; }
+.study-plan-card.priority-medium { border-left-color: #f59e0b; }
+.study-plan-card.priority-low { border-left-color: #10b981; }
+.time-slot { background: #f3f4f6; padding: 4px 10px; border-radius: 8px; font-size: 0.8rem; color: #4f46e5; font-weight: 500; }
+.status-planned { background: #dbeafe; color: #1e40af; }
+.status-in-progress { background: #fef3c7; color: #92400e; }
+.status-completed { background: #d1fae5; color: #065f46; }

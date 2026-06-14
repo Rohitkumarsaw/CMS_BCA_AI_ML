@@ -1,0 +1,11 @@
+.syllabus-card { background: white; border-radius: 12px; padding: 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 1rem; }
+.syllabus-progress { height: 10px; border-radius: 5px; background: #e5e7eb; overflow: hidden; }
+.syllabus-progress .progress-bar { height: 100%; border-radius: 5px; transition: width 0.3s; }
+.topic-item { display: flex; align-items: center; padding: 8px 12px; border-bottom: 1px solid #f3f4f6; }
+.topic-item:last-child { border-bottom: none; }
+.topic-status { padding: 3px 10px; border-radius: 15px; font-size: 0.8rem; font-weight: 500; }
+.topic-completed { background: #d1fae5; color: #065f46; }
+.topic-in-progress { background: #fef3c7; color: #92400e; }
+.topic-not-started { background: #f3f4f6; color: #6b7280; }
+.syllabus-overall { background: linear-gradient(135deg, #10b981, #059669); color: white; border-radius: 12px; padding: 1.5rem; text-align: center; }
+.syllabus-overall .percentage { font-size: 3rem; font-weight: 700; }

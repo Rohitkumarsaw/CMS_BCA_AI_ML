@@ -1,0 +1,5 @@
+.cert-card { background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 1rem; border-left: 4px solid #f59e0b; }
+.cert-card .cert-icon { width: 50px; height: 50px; background: #fef3c7; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #f59e0b; font-size: 1.5rem; margin-bottom: 0.8rem; }
+.cert-card .cert-name { font-weight: 600; margin-bottom: 0.3rem; }
+.cert-card .cert-org { color: #666; font-size: 0.9rem; margin-bottom: 0.5rem; }
+.cert-card .cert-details { display: flex; gap: 1rem; color: #999; font-size: 0.85rem; }

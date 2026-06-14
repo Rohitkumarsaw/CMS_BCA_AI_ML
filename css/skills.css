@@ -1,0 +1,18 @@
+.skill-card { background: white; border-radius: 12px; padding: 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 1rem; transition: transform 0.2s; }
+.skill-card:hover { transform: translateY(-2px); }
+.skill-level { height: 6px; border-radius: 3px; background: #e5e7eb; margin-top: 0.5rem; }
+.skill-level .fill { height: 100%; border-radius: 3px; }
+.skill-level .fill-beginner { width: 33%; background: #3b82f6; }
+.skill-level .fill-intermediate { width: 66%; background: #f59e0b; }
+.skill-level .fill-advanced { width: 100%; background: #10b981; }
+.level-badge { padding: 3px 10px; border-radius: 15px; font-size: 0.8rem; font-weight: 500; }
+.level-beginner { background: #dbeafe; color: #1e40af; }
+.level-intermediate { background: #fef3c7; color: #92400e; }
+.level-advanced { background: #d1fae5; color: #065f46; }
+.category-badge { padding: 3px 10px; border-radius: 15px; font-size: 0.8rem; font-weight: 500; }
+.category-programming { background: #dbeafe; color: #1e40af; }
+.category-ai { background: #ede9fe; color: #5b21b6; }
+.category-ml { background: #d1fae5; color: #065f46; }
+.category-data { background: #fef3c7; color: #92400e; }
+.category-webdev { background: #fce7f3; color: #9d174d; }
+.category-other { background: #f3f4f6; color: #6b7280; }

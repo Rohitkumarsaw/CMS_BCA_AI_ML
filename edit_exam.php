@@ -1,0 +1,174 @@
+<?php
+require_once 'config/config.php';
+require_once 'config/db_connection.php';
+require_once 'includes/functions.php';
+requireLogin();
+requireCSRF();
+
+$pageTitle = 'Edit Exam';
+$extraCSS = ['style.css', 'exam.css'];
+$extraJS = ['main.js', 'exam.js'];
+
+$user_id = $_SESSION['user_id'];
+
+$exam_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+
+if ($exam_id <= 0) {
+    setFlashMessage('danger', 'Invalid exam ID.');
+    redirect('exam.php');
+}
+
+$stmt = $pdo->prepare("SELECT * FROM exams WHERE id = ? AND user_id = ?");
+$stmt->execute([$exam_id, $user_id]);
+$record = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$record) {
+    setFlashMessage('danger', 'Exam not found.');
+    redirect('exam.php');
+}
+
+$errors = [];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $semester = intval($_POST['semester'] ?? 1);
+    $examName = sanitize($_POST['exam_name'] ?? '');
+    $subject = sanitize($_POST['subject'] ?? '');
+    $date = sanitize($_POST['date'] ?? '');
+    $startTime = sanitize($_POST['start_time'] ?? '');
+    $endTime = sanitize($_POST['end_time'] ?? '');
+    $roomNo = sanitize($_POST['room_no'] ?? '');
+    $type = sanitize($_POST['type'] ?? '');
+
+    if (empty($examName)) $errors[] = 'Exam name is required';
+    if (empty($subject)) $errors[] = 'Subject is required';
+    if (empty($date)) $errors[] = 'Date is required';
+    if (empty($startTime)) $errors[] = 'Start time is required';
+    if (empty($endTime)) $errors[] = 'End time is required';
+    if (empty($roomNo)) $errors[] = 'Room number is required';
+    if (empty($type)) $errors[] = 'Type is required';
+    if ($startTime >= $endTime) $errors[] = 'End time must be after start time';
+    if (strtotime($date) === false) $errors[] = 'Invalid date format';
+
+    if (empty($errors)) {
+        $stmt = $pdo->prepare("UPDATE exams SET semester = ?, exam_name = ?, subject = ?, date = ?, start_time = ?, end_time = ?, room_no = ?, type = ? WHERE id = ? AND user_id = ?");
+        $stmt->execute([$semester, $examName, $subject, $date, $startTime, $endTime, $roomNo, $type, $exam_id, $user_id]);
+
+        setFlashMessage('success', 'Exam updated successfully!');
+        header('Location: exam.php?semester=' . $semester);
+        exit();
+    }
+}
+
+require 'includes/header.php';
+require 'includes/navbar.php';
+require 'includes/sidebar.php';
+?>
+
+<div class="app-content">
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2><i class="fas fa-edit me-2"></i>Edit Exam</h2>
+            <a href="exam.php" class="btn btn-secondary">
+                <i class="fas fa-arrow-left me-1"></i>Back to Exams
+            </a>
+        </div>
+
+        <?php if (!empty($errors)): ?>
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                <?php foreach ($errors as $error): ?>
+                <li><?php echo $error; ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+        <?php endif; ?>
+
+        <div class="card">
+            <div class="card-body">
+                <form method="POST" action="" id="examForm">
+                    <?= csrfField() ?>
+<form method="POST" action="" id="examForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="semester" class="form-label">Semester *</label>
+                            <select class="form-select" id="semester" name="semester" required>
+                                <?php for ($i = 1; $i <= 8; $i++): ?>
+                                <option value="<?php echo $i; ?>" <?php echo $record['semester'] == $i ? 'selected' : ''; ?>>
+                                    Semester <?php echo $i; ?>
+                                </option>
+                                <?php endfor; ?>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="exam_name" class="form-label">Exam Name *</label>
+                            <input type="text" class="form-control" id="exam_name" name="exam_name" 
+                                   value="<?php echo htmlspecialchars($record['exam_name']); ?>" 
+                                   placeholder="e.g., Mid Semester Exam" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="subject" class="form-label">Subject *</label>
+                            <input type="text" class="form-control" id="subject" name="subject" 
+                                   value="<?php echo htmlspecialchars($record['subject']); ?>" 
+                                   placeholder="e.g., Machine Learning" required>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="type" class="form-label">Exam Type *</label>
+                            <input type="text" class="form-control" id="type" name="type" list="type_list" required value="<?php echo htmlspecialchars($record['type']); ?>" placeholder="Theory, Practical, Viva, Internal, or custom">
+                            <datalist id="type_list">
+                                <option value="Theory">
+                                <option value="Practical">
+                                <option value="Viva">
+                                <option value="Internal">
+                            </datalist>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="date" class="form-label">Date *</label>
+                            <input type="date" class="form-control" id="date" name="date" 
+                                   value="<?php echo htmlspecialchars($record['date']); ?>" required>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="start_time" class="form-label">Start Time *</label>
+                            <input type="time" class="form-control" id="start_time" name="start_time" 
+                                   value="<?php echo htmlspecialchars($record['start_time']); ?>" required>
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="end_time" class="form-label">End Time *</label>
+                            <input type="time" class="form-control" id="end_time" name="end_time" 
+                                   value="<?php echo htmlspecialchars($record['end_time']); ?>" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="room_no" class="form-label">Room No *</label>
+                            <input type="text" class="form-control" id="room_no" name="room_no" 
+                                   value="<?php echo htmlspecialchars($record['room_no']); ?>" 
+                                   placeholder="e.g., Room 101" required>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="d-flex justify-content-end gap-2">
+                        <a href="exam.php" class="btn btn-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-1"></i>Update Exam
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php require 'includes/footer.php'; ?>

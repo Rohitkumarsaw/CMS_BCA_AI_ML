@@ -1,0 +1,11 @@
+.attendance-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+.attendance-summary .summary-card { background: white; border-radius: 12px; padding: 1.2rem; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.attendance-summary .summary-card .number { font-size: 2rem; font-weight: 700; }
+.attendance-summary .summary-card .label { font-size: 0.85rem; color: #666; margin-top: 0.3rem; }
+.summary-card.present .number { color: #10b981; }
+.summary-card.absent .number { color: #ef4444; }
+.summary-card.late .number { color: #f59e0b; }
+.summary-card.percentage .number { color: #4f46e5; }
+.status-present { background: #d1fae5; color: #065f46; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; }
+.status-absent { background: #fee2e2; color: #991b1b; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; }
+.status-late { background: #fef3c7; color: #92400e; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; }
