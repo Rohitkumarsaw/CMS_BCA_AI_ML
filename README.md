@@ -99,12 +99,6 @@ copy CMS_BCA_AI_ML C:\xampp\htdocs\bca-portal
 #    http://localhost/bca-portal
 ```
 
-### Default Login
-
-| Username | Password | Role |
-|---|---|---|
-| `rohit_sitm` | `Sitm@2026` | Admin |
-
 ---
 
 ## 🎯 Sample Data
