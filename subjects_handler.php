@@ -2,12 +2,16 @@
 require_once 'config/db_connection.php';
 require_once 'includes/functions.php';
 requireLogin();
-requireCSRF();
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    redirect('manage_subjects.php');
+}
 
 $userId = $_SESSION['user_id'];
 $action = $_POST['action'] ?? '';
 
 if ($action === 'add') {
+    requireCSRF();
     $semester = intval($_POST['semester'] ?? 1);
     $subjectName = sanitize($_POST['subject_name'] ?? '');
 

@@ -11,7 +11,6 @@
             <?php endif; ?>
         <?php endforeach; ?>
     <?php endif; ?>
-    <script src="js/main.js?v=<?php echo filemtime(__DIR__ . '/../js/main.js'); ?>"></script>
     <div id="confirmDeleteOverlay" class="confirm-overlay">
       <div class="confirm-modal">
         <div class="confirm-icon-wrap">

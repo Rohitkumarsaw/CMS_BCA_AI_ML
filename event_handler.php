@@ -2,12 +2,16 @@
 require_once 'config/db_connection.php';
 require_once 'includes/functions.php';
 requireLogin();
-requireCSRF();
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    redirect('event.php');
+}
 
 $userId = $_SESSION['user_id'];
 $action = $_POST['action'] ?? '';
 
 if ($action === 'add') {
+    requireCSRF();
     $title = trim($_POST['title'] ?? '');
     $date = $_POST['date'] ?? '';
     $time = $_POST['time'] ?? null;

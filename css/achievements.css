@@ -1,0 +1,208 @@
+/* ── Filters ── */
+.achievement-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.achievement-filter {
+  padding: 6px 16px;
+  border-radius: 9999px;
+  border: 1px solid #2c2e3e;
+  background: transparent;
+  color: #8f94a8;
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.achievement-filter:hover {
+  border-color: #3d4352;
+  color: #ffffff;
+}
+.achievement-filter.active {
+  background: linear-gradient(135deg, rgba(0,240,255,0.12), rgba(124,58,237,0.12));
+  border-color: #7c3aed;
+  color: #00f0ff;
+}
+
+/* ── Grid ── */
+.achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+/* ── Card ── */
+.achievement-card {
+  background: #191c24;
+  border: 1px solid #2c2e3e;
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.25s ease;
+}
+.achievement-card:hover {
+  border-color: #3d4352;
+  background: #1f2233;
+}
+.achievement-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  border-left: 3px solid;
+  padding-left: 12px;
+}
+.achievement-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+.achievement-card-actions {
+  display: flex;
+  gap: 4px;
+}
+.achievement-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 6px;
+}
+.achievement-category {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 10px;
+  border-radius: 9999px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  margin-bottom: 8px;
+}
+.achievement-issuer {
+  font-size: 0.75rem;
+  color: #a3a6b7;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+.achievement-date {
+  font-size: 0.72rem;
+  color: #8f94a8;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.achievement-desc {
+  font-size: 0.78rem;
+  color: #a3a6b7;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+.achievement-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: #00f0ff;
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid rgba(0,240,255,0.2);
+  transition: all 0.2s ease;
+}
+.achievement-link:hover {
+  background: rgba(0,240,255,0.08);
+  border-color: rgba(0,240,255,0.4);
+  color: #00f0ff;
+}
+
+/* ── Modal ── */
+#achievementModal .modal-content {
+  background: #191c24;
+  border: 1px solid #2c2e3e;
+  border-radius: 12px;
+}
+#achievementModal .modal-header {
+  border-bottom: 1px solid #2c2e3e;
+  padding: 16px 20px;
+}
+#achievementModal .modal-title {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+}
+#achievementModal .btn-close {
+  filter: invert(0.6);
+}
+#achievementModal .modal-body {
+  padding: 20px;
+}
+#achievementModal .modal-footer {
+  border-top: 1px solid #2c2e3e;
+  padding: 14px 20px;
+}
+#achievementModal .form-control {
+  background: #2a3038;
+  border: 1px solid #3d4352;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 0.85rem;
+  padding: 10px 14px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+#achievementModal .form-control:focus {
+  border-color: #00f0ff;
+  box-shadow: 0 0 0 2px rgba(0,240,255,0.1);
+}
+#achievementModal .form-control::placeholder {
+  color: #6c7293;
+}
+#achievementModal .form-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #a3a6b7;
+  margin-bottom: 6px;
+}
+#achievementModal select.form-control {
+  cursor: pointer;
+}
+
+/* ── Empty state ── */
+.achievement-empty {
+  text-align: center;
+  padding: 60px 20px;
+}
+.achievement-empty i {
+  font-size: 2.5rem;
+  color: #3d4352;
+  margin-bottom: 10px;
+}
+.achievement-empty h5 {
+  font-size: 0.95rem;
+  color: #ffffff;
+  margin: 0 0 4px;
+}
+.achievement-empty p {
+  font-size: 0.8rem;
+  color: #8f94a8;
+  margin: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 991px) {
+  .achievement-grid {
+    grid-template-columns: 1fr;
+  }
+}

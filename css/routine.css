@@ -78,15 +78,6 @@
   transform: translateY(-50%);
 }
 
-.routine-slot.active .routine-slot-time::after {
-  background: #00f0ff;
-  box-shadow: 0 0 10px rgba(0,240,255,0.5);
-}
-
-.routine-slot.active .routine-slot-time {
-  color: #00f0ff;
-}
-
 .routine-slot-connector {
   position: absolute;
   right: -5px;
@@ -99,10 +90,6 @@
 
 .routine-slot:last-child .routine-slot-connector {
   display: none;
-}
-
-.routine-slot.active .routine-slot-connector {
-  background: linear-gradient(180deg, #00f0ff, #2c2e3e);
 }
 
 /* === TASK CARD === */
@@ -119,9 +106,32 @@
   border-left: 3px solid #3d4352;
 }
 
-.routine-slot.active .routine-task {
-  border-left-color: #00f0ff;
-  background: rgba(0,240,255,0.03);
+/* === TASK STATES — completed vs pending === */
+.routine-task.task-pending {
+  border-left-color: #3d4352;
+}
+.routine-task.task-completed {
+  border-left: 4px solid #00d25b !important;
+  background: rgba(0,210,91,0.03);
+  opacity: 0.75;
+}
+.routine-task.task-completed .routine-task-title {
+  text-decoration: line-through;
+  text-decoration-color: rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.55);
+}
+.routine-task.task-completed .routine-task-meta .routine-task-time {
+  color: rgba(143,148,168,0.5);
+}
+.routine-task.task-completed .routine-badge {
+  opacity: 0.5;
+}
+.routine-slot.task-completed .routine-slot-connector {
+  background: linear-gradient(180deg, #00d25b, #2c2e3e);
+}
+.task-done-badge {
+  background: rgba(16,185,129,0.12) !important;
+  color: #86efac !important;
 }
 
 .routine-task:hover {
@@ -190,16 +200,21 @@
   box-shadow: 0 0 8px rgba(239,68,68,0.12);
 }
 
+/* === ACTION BUTTONS — premium glassmorphic === */
 .routine-task-actions {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
   flex-shrink: 0;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 8px;
+  padding: 2px;
 }
 
-.routine-task-btn {
-  width: 30px;
-  height: 30px;
+.routine-action-btn {
+  width: 32px;
+  height: 32px;
   border-radius: 6px;
   border: none;
   background: transparent;
@@ -208,23 +223,35 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   transition: all 0.2s ease;
 }
 
-.routine-task-btn:hover {
-  background: rgba(255,255,255,0.06);
+.routine-action-btn:hover {
+  background: rgba(255,255,255,0.08);
   color: #ffffff;
+  transform: scale(1.05);
 }
 
-.routine-task-btn.edit:hover {
-  background: rgba(0,240,255,0.1);
+.routine-action-btn.action-toggle:hover {
+  background: rgba(0,210,91,0.12);
+  color: #00d25b;
+  box-shadow: 0 0 10px rgba(0,210,91,0.15);
+}
+.task-completed .routine-action-btn.action-toggle {
+  color: #00d25b;
+}
+
+.routine-action-btn.action-edit:hover {
+  background: rgba(0,240,255,0.12);
   color: #00f0ff;
+  box-shadow: 0 0 10px rgba(0,240,255,0.15);
 }
 
-.routine-task-btn.delete:hover {
-  background: rgba(239,68,68,0.1);
-  color: #ef4444;
+.routine-action-btn.action-delete:hover {
+  background: rgba(239,68,68,0.12);
+  color: #ff4d4d;
+  box-shadow: 0 0 10px rgba(239,68,68,0.15);
 }
 
 /* === FORM === */

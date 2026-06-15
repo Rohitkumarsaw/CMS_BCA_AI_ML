@@ -27,6 +27,7 @@ if (!isset($pageTitle)) $pageTitle = 'Dashboard';
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="css/sweetalert2-dark.css?v=<?php echo filemtime(__DIR__.'/../css/sweetalert2-dark.css'); ?>">
+    <script src="js/main.js?v=<?php echo filemtime(__DIR__.'/../js/main.js'); ?>"></script>
     <script>document.documentElement.setAttribute('data-theme', 'dark');</script>
 </head>
 <body>

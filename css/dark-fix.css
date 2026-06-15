@@ -307,25 +307,14 @@ input[type="file"]::file-selector-button {
 }
 
 /* --- 11. BUTTON OVERRIDES --- */
+/* Overridden globally via style.css — kept only for Bootstrap compat */
 .btn-outline-secondary {
   border-color: #3d4352 !important;
   color: #b5b5c8 !important;
 }
-
 .btn-outline-secondary:hover {
   background-color: #3d4352 !important;
   color: #ffffff !important;
-}
-
-.btn-secondary {
-  background-color: #3d4352 !important;
-  border-color: #3d4352 !important;
-  color: #ffffff !important;
-}
-
-.btn-secondary:hover {
-  background-color: #4a5163 !important;
-  border-color: #4a5163 !important;
 }
 
 /* --- 12. PROGRESS BARS --- */

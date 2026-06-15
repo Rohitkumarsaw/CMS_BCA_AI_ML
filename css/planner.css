@@ -1,0 +1,468 @@
+.planner-wrapper {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 25px;
+  align-items: start;
+}
+
+.planner-left,
+.planner-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.planner-card {
+  background: #191c24;
+  border: 1px solid #2c2e3e;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.planner-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.planner-card-header h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.planner-card-header h3 i {
+  color: #00f0ff;
+}
+
+/* ── Shopping List Tiles ── */
+
+.planner-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 560px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.planner-list::-webkit-scrollbar {
+  width: 4px;
+}
+.planner-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+.planner-list::-webkit-scrollbar-thumb {
+  background: #2c2e3e;
+  border-radius: 4px;
+}
+
+.planner-tile {
+  background: #1a1d28;
+  border: 1px solid #2c2e3e;
+  border-left: 3px solid #3d4352;
+  border-radius: 10px;
+  padding: 14px 16px;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.planner-tile:hover {
+  border-color: #3d4352;
+  background: #1f2233;
+}
+
+.planner-tile.purchased {
+  border-left: 4px solid #00d25b;
+  background: rgba(0,210,91,0.03);
+  opacity: 0.75;
+}
+.planner-tile.purchased .planner-tile-title {
+  text-decoration: line-through;
+  text-decoration-color: rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.55);
+}
+
+.planner-tile.approaching {
+  border-left: 4px solid #f59e0b;
+  background: rgba(245,158,11,0.03);
+}
+
+.planner-tile-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.planner-tile-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.planner-tile-tags {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.planner-tag {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 9999px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.planner-tag-pending {
+  background: rgba(245,158,11,0.12);
+  color: #fbbf24;
+}
+.planner-tag-purchased {
+  background: rgba(16,185,129,0.12);
+  color: #86efac;
+}
+.planner-tag-urgent {
+  background: rgba(239,68,68,0.12);
+  color: #fca5a5;
+  box-shadow: 0 0 6px rgba(239,68,68,0.15);
+}
+
+.planner-tile-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 10px;
+}
+
+.planner-tile-reason,
+.planner-tile-purpose {
+  font-size: 0.75rem;
+  color: #8f94a8;
+  line-height: 1.5;
+}
+
+.planner-tile-reason strong,
+.planner-tile-purpose strong {
+  color: #a3a6b7;
+  font-weight: 600;
+}
+
+.planner-tile-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.planner-tile-date {
+  font-size: 0.7rem;
+  color: #6c7293;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.planner-tile-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 8px;
+  padding: 2px;
+}
+
+.planner-action-btn.action-toggle:hover {
+  background: rgba(0,210,91,0.12);
+  color: #00d25b;
+  box-shadow: 0 0 8px rgba(0,210,91,0.15);
+}
+.planner-tile.purchased .planner-action-btn.action-toggle {
+  color: #00d25b;
+}
+
+/* ── Form ── */
+
+.planner-form .form-group {
+  margin-bottom: 14px;
+}
+
+.planner-form .form-group label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #a3a6b7;
+  margin-bottom: 6px;
+}
+
+.planner-form .form-group input,
+.planner-form .form-group select,
+.planner-form .form-group textarea {
+  width: 100%;
+  padding: 10px 14px;
+  background: #2a3038;
+  border: 1px solid #3d4352;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  resize: vertical;
+}
+
+.planner-form .form-group input:focus,
+.planner-form .form-group select:focus,
+.planner-form .form-group textarea:focus {
+  border-color: #00f0ff;
+  box-shadow: 0 0 0 2px rgba(0,240,255,0.1);
+}
+
+.planner-form .form-group input::placeholder,
+.planner-form .form-group textarea::placeholder {
+  color: #6c7293;
+}
+
+.planner-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.planner-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #00f0ff, #7c3aed);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.25s ease;
+}
+
+.planner-btn:hover {
+  box-shadow: 0 0 20px rgba(0,240,255,0.2);
+  transform: translateY(-1px);
+}
+
+.planner-btn-secondary {
+  background: #3d4352;
+}
+.planner-btn-secondary:hover {
+  background: #4a5162;
+  box-shadow: none;
+}
+
+.planner-btn-group {
+  display: flex;
+  gap: 8px;
+}
+.planner-btn-group .planner-btn {
+  flex: 1;
+}
+
+/* ── Inventory Grid ── */
+
+.inventory-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.inventory-item {
+  background: #1a1d28;
+  border: 1px solid #2c2e3e;
+  border-radius: 10px;
+  padding: 12px 14px;
+  text-align: center;
+  transition: all 0.25s ease;
+}
+
+.inventory-item:hover {
+  background: #1f2233;
+  border-color: #3d4352;
+}
+
+.inventory-item-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  background: rgba(0,240,255,0.08);
+  color: #00f0ff;
+}
+
+.inventory-item-name {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.inventory-item-qty {
+  font-size: 0.7rem;
+  color: #8f94a8;
+  margin-bottom: 6px;
+}
+
+.inventory-item .inventory-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.inventory-badge-available {
+  background: rgba(16,185,129,0.12);
+  color: #86efac;
+}
+
+.inventory-badge-low {
+  background: rgba(245,158,11,0.12);
+  color: #fbbf24;
+}
+
+.inventory-badge-out {
+  background: rgba(239,68,68,0.12);
+  color: #fca5a5;
+}
+
+.inventory-item-actions {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 8px;
+}
+
+.inventory-item .planner-action-btn {
+  width: 26px;
+  height: 26px;
+  font-size: 0.65rem;
+}
+
+/* ── Form toggle tabs ── */
+.planner-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 16px;
+  background: #1a1d28;
+  border: 1px solid #2c2e3e;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.planner-tab {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  color: #8f94a8;
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-align: center;
+}
+
+.planner-tab.active {
+  background: rgba(0,240,255,0.08);
+  color: #00f0ff;
+  box-shadow: inset 0 -2px 0 #00f0ff;
+}
+
+.planner-tab:hover:not(.active) {
+  color: #ffffff;
+  background: rgba(255,255,255,0.03);
+}
+
+/* ── Form sections toggle ── */
+.planner-form-section {
+  display: none;
+}
+.planner-form-section.active {
+  display: block;
+}
+
+/* ── Empty state ── */
+.planner-empty {
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.planner-empty i {
+  font-size: 2rem;
+  color: #3d4352;
+  margin-bottom: 10px;
+}
+
+.planner-empty h5 {
+  font-size: 0.95rem;
+  color: #ffffff;
+  margin: 0 0 4px;
+}
+
+.planner-empty p {
+  font-size: 0.8rem;
+  color: #8f94a8;
+  margin: 0;
+}
+
+/* ── Inventory empty state inline ── */
+.inventory-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 24px;
+  color: #8f94a8;
+  font-size: 0.8rem;
+}
+
+/* ── Responsive ── */
+@media (max-width: 991px) {
+  .planner-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .inventory-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 575px) {
+  .planner-card {
+    padding: 14px;
+  }
+  .planner-form .form-row {
+    grid-template-columns: 1fr;
+  }
+  .inventory-grid {
+    grid-template-columns: 1fr;
+  }
+}
