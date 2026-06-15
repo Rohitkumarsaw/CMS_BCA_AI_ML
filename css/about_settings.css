@@ -191,49 +191,10 @@
 
 .btn-save-about,
 .btn-save-partner {
-  padding: 10px 24px;
-  border: none;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #00f0ff, #7c3aed);
-  color: #ffffff;
-  font-size: 0.82rem;
-  font-weight: 700;
-  font-family: 'Inter', sans-serif;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.25s ease;
+  /* Styled globally in style.css (unified button system) */
 }
 
-.btn-save-about:hover,
-.btn-save-partner:hover {
-  box-shadow: 0 0 20px rgba(0,240,255,0.2);
-  transform: translateY(-1px);
-}
-
-.btn-cancel-about,
-.btn-cancel-partner {
-  padding: 10px 24px;
-  border: 1px solid #3d4352;
-  border-radius: 8px;
-  background: transparent;
-  color: #a3a6b7;
-  font-size: 0.82rem;
-  font-weight: 600;
-  font-family: 'Inter', sans-serif;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.2s ease;
-}
-
-.btn-cancel-about:hover,
-.btn-cancel-partner:hover {
-  border-color: #5a5f72;
-  color: #ffffff;
-}
+/* .btn-cancel-about, .btn-cancel-partner handled globally by style.css secondary section */
 
 .btn-group-about,
 .btn-group-partner {

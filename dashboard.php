@@ -111,7 +111,7 @@ include 'includes/navbar.php';
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
                     <h4 class="mb-1">Welcome back, <?= htmlspecialchars($user_name) ?>!</h4>
-                    <p class="text-muted mb-0">Here's your dashboard overview for Semester <?= $user_semester ?></p>
+                    <p class="text-muted mb-0">Here's your dashboard overview for your course</p>
                 </div>
                 <div>
                     <span class="badge bg-primary fs-6"><i class="fas fa-calendar-day me-1"></i> <?= date('l, F j, Y') ?></span>
@@ -284,8 +284,12 @@ include 'includes/navbar.php';
                             <span class="badge bg-primary"><?= date('l') ?></span>
                         </div>
                         <div class="card-body p-0">
+                            <div class="section-search-container">
+                                <i class="fas fa-search section-search-icon"></i>
+                                <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#dashboardTable tbody">
+                            </div>
                             <div class="table-responsive">
-                                <table class="table table-hover mb-0">
+                                <table class="table table-hover mb-0" id="dashboardTable">
                                     <thead class="table-light">
                                         <tr>
                                             <th>Time</th>

@@ -36,7 +36,7 @@ require 'includes/sidebar.php';
       <p>View and manage faculty members</p>
     </div>
     <div class="d-flex gap-2 flex-wrap">
-      <button class="btn btn-outline-primary btn-sm" id="addFacultyBtn"><i class="fas fa-plus"></i> Add Faculty</button>
+      <button class="btn btn-primary btn-sm" id="addFacultyBtn"><i class="fas fa-plus"></i> Add Faculty</button>
     </div>
   </div>
 
@@ -47,7 +47,11 @@ require 'includes/sidebar.php';
       <p>Add your first faculty member to get started</p>
     </div>
   <?php else: ?>
-    <div class="faculty-grid">
+            <div class="section-search-container">
+                <i class="fas fa-search section-search-icon"></i>
+                <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#facultyGrid">
+            </div>
+    <div class="faculty-grid" id="facultyGrid">
       <?php foreach ($faculty as $f): ?>
         <div class="faculty-card" data-id="<?= $f['id'] ?>">
           <div class="faculty-avatar">

@@ -50,8 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (strtotime($date) === false) $errors[] = 'Invalid date format';
 
     if (empty($errors)) {
-        $stmt = $pdo->prepare("UPDATE exams SET semester = ?, exam_name = ?, subject = ?, date = ?, start_time = ?, end_time = ?, room_no = ?, type = ? WHERE id = ? AND user_id = ?");
-        $stmt->execute([$semester, $examName, $subject, $date, $startTime, $endTime, $roomNo, $type, $exam_id, $user_id]);
+        $status = sanitize($_POST['status'] ?? 'upcoming');
+        $stmt = $pdo->prepare("UPDATE exams SET semester = ?, exam_name = ?, subject = ?, date = ?, start_time = ?, end_time = ?, room_no = ?, type = ?, status = ? WHERE id = ? AND user_id = ?");
+        $stmt->execute([$semester, $examName, $subject, $date, $startTime, $endTime, $roomNo, $type, $status, $exam_id, $user_id]);
 
         setFlashMessage('success', 'Exam updated successfully!');
         header('Location: exam.php?semester=' . $semester);
@@ -154,6 +155,14 @@ require 'includes/sidebar.php';
                             <input type="text" class="form-control" id="room_no" name="room_no" 
                                    value="<?php echo htmlspecialchars($record['room_no']); ?>" 
                                    placeholder="e.g., Room 101" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="status" class="form-label">Status</label>
+                            <select class="form-select" id="status" name="status">
+                                <option value="upcoming" <?php echo $record['status'] === 'upcoming' ? 'selected' : ''; ?>>Upcoming</option>
+                                <option value="active" <?php echo $record['status'] === 'active' ? 'selected' : ''; ?>>Active</option>
+                                <option value="completed" <?php echo $record['status'] === 'completed' ? 'selected' : ''; ?>>Completed</option>
+                            </select>
                         </div>
                     </div>
 

@@ -34,6 +34,8 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
         <a href="routine.php" style="--nav-color:#00f0ff" class="<?php echo $currentPage == 'routine' ? 'active' : ''; ?>"><i class="fas fa-clock"></i><span>Routine</span></a>
         <a href="planner.php" style="--nav-color:#ffab00" class="<?php echo $currentPage == 'planner' ? 'active' : ''; ?>"><i class="fas fa-clipboard-list"></i><span>Planner</span></a>
         <div class="sidebar-divider"></div>
+        <a href="roadmap.php" style="--nav-color:#8a2be2" class="<?php echo $currentPage == 'roadmap' ? 'active' : ''; ?>"><i class="fas fa-road"></i><span>Roadmap</span></a>
+        <a href="history.php" style="--nav-color:#0090e7" class="<?php echo $currentPage == 'history' ? 'active' : ''; ?>"><i class="fas fa-history"></i><span>History</span></a>
         <a href="circular.php" style="--nav-color:#fc424a" class="<?php echo $currentPage == 'circular' ? 'active' : ''; ?>"><i class="fas fa-scroll"></i><span>Circulars</span></a>
         <a href="lab.php" style="--nav-color:#ff5e00" class="<?php echo $currentPage == 'lab' ? 'active' : ''; ?>"><i class="fas fa-flask"></i><span>Labs</span></a>
         <a href="presentation.php" style="--nav-color:#ff007f" class="<?php echo $currentPage == 'presentation' ? 'active' : ''; ?>"><i class="fas fa-desktop"></i><span>Presentations</span></a>

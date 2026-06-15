@@ -215,37 +215,18 @@
 .auth-pass-toggle:hover { color: rgba(255,255,255,0.5); }
 
 .auth-btn {
-  width: 100%; padding: 14px 20px; border: none;
-  border-radius: 14px;
-  background: linear-gradient(135deg, rgba(0,240,255,0.8), rgba(124,58,237,0.8), rgba(255,0,229,0.8));
-  background-size: 200% 200%;
-  animation: gradientShift 4s ease-in-out infinite;
-  color: #fff; font-size: 14px; font-weight: 600;
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  gap: 8px; transition: all 0.3s ease; margin-top: 4px;
-  letter-spacing: 0.3px; position: relative; overflow: hidden;
-  box-sizing: border-box;
+  width: 100%; margin-top: 4px;
+  position: relative; overflow: hidden;
+  box-sizing: border-box; letter-spacing: 0.3px;
 }
 
 .auth-btn::before {
-  content: ''; position: absolute; inset: 0; border-radius: 14px;
+  content: ''; position: absolute; inset: 0; border-radius: var(--btn-radius);
   background: linear-gradient(135deg, rgba(0,240,255,0.3), rgba(255,0,229,0.3));
   opacity: 0; transition: opacity 0.3s ease;
 }
 
 .auth-btn:hover::before { opacity: 1; }
-
-.auth-btn:hover {
-  box-shadow: 0 0 30px rgba(0,240,255,0.2), 0 0 60px rgba(255,0,229,0.1), 0 8px 32px rgba(0,0,0,0.3);
-  transform: translateY(-2px);
-}
-
-.auth-btn:active { transform: translateY(0); }
-
-@keyframes gradientShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
 
 .auth-btn svg { position: relative; z-index: 1; transition: transform 0.3s ease; }
 .auth-btn:hover svg { transform: translateX(4px); }
@@ -261,5 +242,5 @@
   .auth-brand-icon i { font-size: 22px; }
   .auth-input-wrap { border-radius: 12px; }
   .auth-input-wrap input { padding: 13px 14px; }
-  .auth-btn { border-radius: 12px; padding: 13px 20px; }
+  .auth-btn { border-radius: 12px !important; padding: 13px 20px !important; }
 }

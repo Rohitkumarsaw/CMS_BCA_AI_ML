@@ -62,7 +62,11 @@ include 'includes/navbar.php';
                 <?php endforeach; ?>
             </div>
 
-            <div class="row">
+            <div class="section-search-container">
+                <i class="fas fa-search section-search-icon"></i>
+                <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#certGrid">
+            </div>
+            <div class="row" id="certGrid">
                 <?php if (!empty($certifications)): ?>
                     <?php foreach ($certifications as $cert): ?>
                         <div class="col-md-6 col-lg-4 mb-4">

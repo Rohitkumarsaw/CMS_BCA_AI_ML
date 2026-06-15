@@ -228,6 +228,25 @@ function paginationLinks($currentPage, $totalPages, $pageKey = 'page') {
     return $html;
 }
 
+function logActivity($pdo, $userId, $userName, $actionType, $sectionName, $referenceId = null, $details = null) {
+    if (!$pdo || !$userId) return;
+    try {
+        $pdo->prepare("CREATE TABLE IF NOT EXISTS activity_logs (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT NOT NULL,
+            user_name VARCHAR(100) NOT NULL,
+            action_type VARCHAR(255) NOT NULL,
+            section_name VARCHAR(100) NOT NULL,
+            reference_id INT DEFAULT NULL,
+            details TEXT,
+            logged_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4")->execute();
+    } catch (PDOException $e) {}
+    $stmt = $pdo->prepare("INSERT INTO activity_logs (user_id, user_name, action_type, section_name, reference_id, details) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->execute([$userId, $userName, $actionType, $sectionName, $referenceId, $details]);
+}
+
 function syncNotifications($pdo, $userId) {
     if (!$pdo || !$userId) return;
 

@@ -5,15 +5,7 @@
         </button>
         <span class="app-navbar-brand"><i class="fas fa-graduation-cap"></i><?php echo SITE_NAME; ?></span>
     </div>
-    <div class="navbar-search">
-        <div class="search-input-wrap">
-            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-            <input type="text" class="search-input" placeholder="Search exams, subjects..." aria-label="Search">
-        </div>
-    </div>
+
     <div class="navbar-right">
         <!-- Notification Bell -->
         <div class="dropdown me-2">

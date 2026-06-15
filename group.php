@@ -55,7 +55,11 @@ include 'includes/navbar.php';
             <?= getFlashMessage() ?>
 
             <?php if (!empty($groups)): ?>
-                <div class="row">
+            <div class="section-search-container">
+                <i class="fas fa-search section-search-icon"></i>
+                <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#groupGrid">
+            </div>
+                <div class="row" id="groupGrid">
                     <?php foreach ($groups as $group): ?>
                         <div class="col-md-6 col-lg-4 mb-4">
                             <div class="card h-100 shadow-sm group-card">

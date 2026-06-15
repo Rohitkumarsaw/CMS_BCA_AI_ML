@@ -34,6 +34,7 @@ require 'includes/sidebar.php';
 ?>
 
 <div class="app-content">
+  <?= getFlashMessage() ?>
   <div class="ec-container">
 
     <!-- LEFT COLUMN -->
@@ -112,9 +113,10 @@ require 'includes/sidebar.php';
         <div class="ec-card-header">
           <h3><i class="fas fa-plus-circle"></i> <span id="ecFormTitle">Add Event</span></h3>
         </div>
-        <form class="ec-form" method="POST" action="event_handler.php">
+        <form class="ec-form" method="POST" action="event_handler.php" id="ecForm">
           <?= csrfField() ?>
-          <input type="hidden" name="action" value="add">
+          <input type="hidden" name="action" id="ecFormAction" value="add">
+          <input type="hidden" name="event_id" id="ecInputEventId" value="">
           <input type="hidden" name="month" value="<?php echo $month; ?>">
           <input type="hidden" name="year" value="<?php echo $year; ?>">
 
@@ -148,7 +150,10 @@ require 'includes/sidebar.php';
             </select>
           </div>
 
-          <button type="submit" class="ec-btn ec-btn-primary"><i class="fas fa-calendar-plus"></i> Save Event</button>
+          <div class="ec-form-buttons" style="display:flex;gap:8px;">
+            <button type="submit" class="ec-btn ec-btn-primary flex-fill" id="ecFormSubmit"><i class="fas fa-calendar-plus"></i> <span id="ecSubmitText">Save Event</span></button>
+            <button type="button" class="ec-btn ec-btn-secondary" id="ecCancelEdit" style="display:none;background:#3d4352;color:#fff;">Cancel</button>
+          </div>
         </form>
       </div>
 
@@ -157,6 +162,10 @@ require 'includes/sidebar.php';
         <div class="ec-card-header">
           <h3><i class="fas fa-list"></i> Upcoming Events</h3>
         </div>
+            <div class="section-search-container">
+                <i class="fas fa-search section-search-icon"></i>
+                <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#ecEventList">
+            </div>
         <div class="ec-event-list" id="ecEventList">
           <?php if (empty($events)): ?>
             <div class="ec-empty">
@@ -186,7 +195,8 @@ require 'includes/sidebar.php';
                   </div>
                 </div>
                 <div class="ec-event-actions">
-                  <a href="delete.php?type=event&id=<?php echo $e['id']; ?>&redirect=event.php?month=<?php echo $month; ?>&year=<?php echo $year; ?>" class="ec-event-btn text-danger" onclick="return confirm('Delete this event?')" title="Delete"><i class="fas fa-trash"></i></a>
+                  <button type="button" class="ec-event-btn text-info ec-edit-event" data-id="<?php echo $e['id']; ?>" title="Edit"><i class="fas fa-pen"></i></button>
+                  <button type="button" class="ec-event-btn text-danger ec-delete-event" data-id="<?php echo $e['id']; ?>" data-title="<?php echo htmlspecialchars($e['event_name']); ?>" title="Delete"><i class="fas fa-trash"></i></button>
                 </div>
               </div>
             <?php endforeach; ?>

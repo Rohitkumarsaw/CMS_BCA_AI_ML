@@ -134,7 +134,11 @@ include 'includes/navbar.php';
             </div>
 
             <?php if (!empty($announcements)): ?>
-                <div class="row">
+            <div class="section-search-container">
+                <i class="fas fa-search section-search-icon"></i>
+                <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#announcementGrid">
+            </div>
+                <div class="row" id="announcementGrid">
                     <?php foreach ($announcements as $announcement): ?>
                         <div class="col-lg-6 mb-4">
                             <div class="card announcement-card h-100 <?php echo $announcement['priority'] === 'High' ? 'high-priority' : ''; ?>">

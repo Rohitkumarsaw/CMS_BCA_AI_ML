@@ -73,7 +73,7 @@ require 'includes/sidebar.php';
       <p>Manage your personal timetable and track daily progress</p>
     </div>
     <div class="d-flex gap-2 flex-wrap">
-      <button class="btn btn-outline-primary btn-sm" onclick="document.getElementById('routineForm').scrollIntoView({behavior:'smooth'})">
+      <button class="btn btn-primary btn-sm" onclick="document.getElementById('routineForm').scrollIntoView({behavior:'smooth'})">
         <i class="fas fa-plus"></i> Add Task
       </button>
     </div>
@@ -87,6 +87,10 @@ require 'includes/sidebar.php';
         <div class="routine-card-header">
           <h3><i class="fas fa-list"></i> Today's Schedule</h3>
           <span style="font-size:0.75rem;color:#8f94a8;"><?php echo date('l, d M Y'); ?></span>
+        </div>
+        <div class="section-search-container">
+            <i class="fas fa-search section-search-icon"></i>
+            <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#routineTimeline">
         </div>
         <div class="routine-timeline" id="routineTimeline">
           <?php if (empty($tasks)): ?>

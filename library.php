@@ -117,8 +117,12 @@ include 'includes/navbar.php';
             <div class="card">
                 <div class="card-body">
                     <?php if (!empty($books)): ?>
+                        <div class="section-search-container">
+                            <i class="fas fa-search section-search-icon"></i>
+                            <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#libraryTable tbody">
+                        </div>
                         <div class="table-responsive">
-                            <table class="table table-hover align-middle">
+                            <table class="table table-hover align-middle" id="libraryTable">
                                 <thead>
                                     <tr>
                                         <th>Title</th>

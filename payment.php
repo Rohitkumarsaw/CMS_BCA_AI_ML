@@ -165,8 +165,12 @@ include 'includes/navbar.php';
                     <h6 class="card-title mb-0"><i class="fas fa-receipt me-2 text-primary"></i>Per Semester Fee Summary</h6>
                 </div>
                 <div class="card-body">
+                    <div class="section-search-container">
+                        <i class="fas fa-search section-search-icon"></i>
+                        <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#paymentDuesTable tbody">
+                    </div>
                     <div class="table-responsive">
-                        <table class="table table-hover mb-0">
+                        <table class="table table-hover mb-0" id="paymentDuesTable">
                             <thead class="table-light">
                                 <tr>
                                     <th>Semester</th>
@@ -200,8 +204,12 @@ include 'includes/navbar.php';
                     <h6 class="card-title mb-0"><i class="fas fa-table me-2 text-primary"></i>Payment Records</h6>
                 </div>
                 <div class="card-body p-0">
+                    <div class="section-search-container">
+                        <i class="fas fa-search section-search-icon"></i>
+                        <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#paymentRecordsTable tbody">
+                    </div>
                     <div class="table-responsive">
-                        <table class="table table-hover mb-0">
+                        <table class="table table-hover mb-0" id="paymentRecordsTable">
                             <thead class="table-light">
                                 <tr>
                                     <th>#</th>

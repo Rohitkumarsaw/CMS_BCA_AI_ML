@@ -59,7 +59,7 @@ require 'includes/sidebar.php';
       <h2><i class="fas fa-trophy" style="color:#ffab00;"></i> Achievements Wall</h2>
       <p>Showcase your awards, hackathon wins & extracurricular achievements</p>
     </div>
-    <button class="btn btn-outline-primary btn-sm" id="addAchievementBtn"><i class="fas fa-plus"></i> Add Achievement</button>
+    <button class="btn btn-primary btn-sm" id="addAchievementBtn"><i class="fas fa-plus"></i> Add Achievement</button>
   </div>
 
   <!-- Category Filter -->
@@ -78,6 +78,10 @@ require 'includes/sidebar.php';
       <p>Add your first achievement to showcase your accomplishments</p>
     </div>
   <?php else: ?>
+            <div class="section-search-container">
+                <i class="fas fa-search section-search-icon"></i>
+                <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#achievementGrid">
+            </div>
     <div class="achievement-grid" id="achievementGrid">
       <?php foreach ($achievements as $a): ?>
         <div class="achievement-card" data-id="<?= $a['id'] ?>" data-category="<?= $a['category'] ?>">

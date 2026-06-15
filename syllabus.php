@@ -163,8 +163,12 @@ require 'includes/sidebar.php';
                     </div>
 
                     <?php if(!empty($data['topics'])): ?>
+                    <div class="section-search-container">
+                        <i class="fas fa-search section-search-icon"></i>
+                        <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#syllabus-<?php echo md5($subject); ?> tbody">
+                    </div>
                     <div class="table-responsive">
-                        <table class="table table-sm">
+                        <table class="table table-sm" id="syllabus-<?php echo md5($subject); ?>">
                             <thead>
                                 <tr>
                                     <th>Topic</th>
@@ -199,7 +203,7 @@ require 'includes/sidebar.php';
                     <?php else: ?>
                     <div class="text-center py-3 text-muted">
                         <i class="fas fa-info-circle me-1"></i>No topics added yet. 
-                        <a href="update_syllabus.php?semester=<?php echo $semester; ?>&subject=<?php echo urlencode($subject); ?>">Add topics</a>
+                        <a class="btn btn-primary btn-sm" href="update_syllabus.php?semester=<?php echo $semester; ?>&subject=<?php echo urlencode($subject); ?>"><i class="fas fa-plus"></i> Add topics</a>
                     </div>
                     <?php endif; ?>
                 </div>

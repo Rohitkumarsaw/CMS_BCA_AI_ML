@@ -124,7 +124,11 @@ include 'includes/navbar.php';
                             </div>
                         </div>
                         <div class="card-body">
-                            <table class="table table-bordered text-center mb-0">
+                            <div class="section-search-container">
+                                <i class="fas fa-search section-search-icon"></i>
+                                <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#holidayCalendarTable tbody">
+                            </div>
+                            <table class="table table-bordered text-center mb-0" id="holidayCalendarTable">
                                 <thead>
                                     <tr>
                                         <th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th>
@@ -198,8 +202,12 @@ include 'includes/navbar.php';
                     <h6 class="card-title mb-0"><i class="fas fa-table me-2 text-primary"></i>Holiday List</h6>
                 </div>
                 <div class="card-body p-0">
+                    <div class="section-search-container">
+                        <i class="fas fa-search section-search-icon"></i>
+                        <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#holidayListTable tbody">
+                    </div>
                     <div class="table-responsive">
-                        <table class="table table-hover mb-0">
+                        <table class="table table-hover mb-0" id="holidayListTable">
                             <thead class="table-light">
                                 <tr>
                                     <th>#</th>

@@ -137,8 +137,12 @@ include 'includes/sidebar.php';
 
         <div class="card">
             <div class="card-body">
+                <div class="section-search-container">
+                    <i class="fas fa-search section-search-icon"></i>
+                    <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#gradesTable tbody">
+                </div>
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-hover" id="gradesTable">
                         <thead>
                             <tr>
                                 <th>Subject</th>
@@ -162,7 +166,7 @@ include 'includes/sidebar.php';
                                 <?php foreach ($grades as $grade): ?>
                                     <?php 
                                     $percentage = ($grade['marks_obtained'] / $grade['total_marks']) * 100;
-                                    $letterGrade = calculateGrade($grade['marks_obtained'], $grade['total_marks']);
+                                    $letterGrade = !empty($grade['letter_grade']) ? $grade['letter_grade'] : calculateGrade($grade['marks_obtained'], $grade['total_marks']);
                                     
                                     $gradeColors = [
                                         'A+' => 'success', 'A' => 'success',

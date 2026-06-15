@@ -57,7 +57,7 @@ require 'includes/sidebar.php';
       <h2><i class="fas fa-video" style="color:#2d8cff;"></i> Meeting & Class Links</h2>
       <p>Store all your Zoom, Google Meet & Teams links in one place</p>
     </div>
-    <button class="btn btn-outline-primary btn-sm" id="addMeetingBtn"><i class="fas fa-plus"></i> Add Link</button>
+    <button class="btn btn-primary btn-sm" id="addMeetingBtn"><i class="fas fa-plus"></i> Add Link</button>
   </div>
 
   <div class="meeting-stats">
@@ -74,6 +74,10 @@ require 'includes/sidebar.php';
       <p>Add your first class or meeting link</p>
     </div>
   <?php else: ?>
+            <div class="section-search-container">
+                <i class="fas fa-search section-search-icon"></i>
+                <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#meetingGrid">
+            </div>
     <div class="meeting-grid" id="meetingGrid">
       <?php foreach ($meetings as $m): ?>
         <div class="meeting-card" data-id="<?= $m['id'] ?>" data-platform="<?= $m['platform'] ?>">

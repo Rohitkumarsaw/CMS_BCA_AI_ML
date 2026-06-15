@@ -169,7 +169,11 @@ include 'includes/navbar.php';
                 </div>
             </div>
 
-            <div class="row">
+            <div class="section-search-container">
+                <i class="fas fa-search section-search-icon"></i>
+                <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#resourcesGrid">
+            </div>
+            <div class="row" id="resourcesGrid">
                 <?php if (!empty($resources)): ?>
                     <?php foreach ($resources as $resource): ?>
                         <div class="col-md-6 col-lg-4 mb-4">

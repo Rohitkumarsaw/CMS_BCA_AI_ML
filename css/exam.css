@@ -40,6 +40,43 @@
   line-height: 1.1;
 }
 
+.exam-status-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.exam-status-upcoming {
+  background: rgba(34,211,238,0.12);
+  color: #22d3ee;
+  border: 1px solid rgba(34,211,238,0.2);
+}
+.exam-status-active {
+  background: rgba(251,191,36,0.12);
+  color: #fbbf24;
+  border: 1px solid rgba(251,191,36,0.2);
+}
+.exam-status-completed {
+  background: rgba(16,185,129,0.12);
+  color: #34d399;
+  border: 1px solid rgba(16,185,129,0.2);
+}
+
+.exam-status-toggle {
+  background: #2a3038 !important;
+  border: 1px solid #3d4352 !important;
+  color: #ffffff !important;
+  cursor: pointer;
+  border-radius: 6px;
+}
+.exam-status-toggle:focus {
+  border-color: #0090e7 !important;
+  box-shadow: 0 0 0 2px rgba(0,144,231,0.1) !important;
+}
+
 @media (max-width: 991px) {
   .exam-counter-grid { grid-template-columns: repeat(2, 1fr); }
 }

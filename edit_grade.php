@@ -33,14 +33,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $totalMarks = (float)$_POST['total_marks'];
     $date = sanitize($_POST['date']);
     $semester = (int)$_POST['semester'];
+    $letterGrade = sanitize($_POST['letter_grade'] ?? '');
+    if ($letterGrade === '' || $letterGrade === 'auto') $letterGrade = null;
 
-    $query = "UPDATE grades SET subject = :subject, exam_name = :exam_name, marks_obtained = :marks_obtained, total_marks = :total_marks, date = :date, semester = :semester WHERE id = :id AND user_id = :user_id";
+    $query = "UPDATE grades SET subject = :subject, exam_name = :exam_name, marks_obtained = :marks_obtained, total_marks = :total_marks, letter_grade = :letter_grade, date = :date, semester = :semester WHERE id = :id AND user_id = :user_id";
     $stmt = $pdo->prepare($query);
     $stmt->execute([
         ':subject' => $subject,
         ':exam_name' => $examName,
         ':marks_obtained' => $marksObtained,
         ':total_marks' => $totalMarks,
+        ':letter_grade' => $letterGrade,
         ':date' => $date,
         ':semester' => $semester,
         ':id' => $grade_id,
@@ -112,6 +115,15 @@ include 'includes/sidebar.php';
                                 <div class="col-md-6 mb-3">
                                     <label for="date" class="form-label">Date *</label>
                                     <input type="date" class="form-control" id="date" name="date" value="<?php echo $record['date']; ?>" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="letter_grade" class="form-label">Letter Grade <small class="text-muted">(optional — leave as Auto to calculate)</small></label>
+                                    <select class="form-select" id="letter_grade" name="letter_grade">
+                                        <option value="auto">Auto Calculate</option>
+                                        <?php foreach (['A+','A','B+','B','C','D','F'] as $g): ?>
+                                        <option value="<?= $g ?>" <?php echo $record['letter_grade'] === $g ? 'selected' : ''; ?>><?= $g ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
                             </div>
 

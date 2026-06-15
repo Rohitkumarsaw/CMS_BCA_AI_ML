@@ -61,7 +61,7 @@ require 'includes/sidebar.php';
       <h2><i class="fas fa-briefcase" style="color:#0090e7;"></i> Placement Tracker</h2>
       <p>Track your job applications, interview rounds & placement status</p>
     </div>
-    <button class="btn btn-outline-primary btn-sm" id="addPlacementBtn"><i class="fas fa-plus"></i> Add Application</button>
+    <button class="btn btn-primary btn-sm" id="addPlacementBtn"><i class="fas fa-plus"></i> Add Application</button>
   </div>
 
   <!-- Quick Stats -->
@@ -121,6 +121,10 @@ require 'includes/sidebar.php';
       <p>Add your first job application to start tracking</p>
     </div>
   <?php else: ?>
+    <div class="section-search-container">
+        <i class="fas fa-search section-search-icon"></i>
+        <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#placementGrid">
+    </div>
     <div class="placement-grid" id="placementGrid">
       <?php foreach ($applications as $app): ?>
         <div class="placement-card" data-id="<?= $app['id'] ?>" data-status="<?= $app['status'] ?>">

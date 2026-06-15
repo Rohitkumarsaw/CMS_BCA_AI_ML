@@ -98,8 +98,12 @@ require 'includes/sidebar.php';
                 <h5 class="mb-0"><i class="fas fa-sun me-2"></i>Today's Quick View - <?php echo $todayName; ?></h5>
             </div>
             <div class="card-body">
+                <div class="section-search-container">
+                    <i class="fas fa-search section-search-icon"></i>
+                    <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#scheduleDailyTable tbody">
+                </div>
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-hover" id="scheduleDailyTable">
                         <thead>
                             <tr>
                                 <th>Subject</th>
@@ -183,8 +187,12 @@ require 'includes/sidebar.php';
                                 <p class="text-muted">No classes scheduled for <?php echo $day; ?></p>
                             </div>
                         <?php else: ?>
+                        <div class="section-search-container">
+                            <i class="fas fa-search section-search-icon"></i>
+                            <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#scheduleWeeklyTable tbody">
+                        </div>
                         <div class="table-responsive">
-                            <table class="table table-bordered table-hover">
+                            <table class="table table-bordered table-hover" id="scheduleWeeklyTable">
                                 <thead class="table-dark">
                                     <tr>
                                         <th>#</th>

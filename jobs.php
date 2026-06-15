@@ -118,8 +118,12 @@ include 'includes/navbar.php';
             <div class="card">
                 <div class="card-body">
                     <?php if (!empty($jobs)): ?>
+                        <div class="section-search-container">
+                            <i class="fas fa-search section-search-icon"></i>
+                            <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#jobsTable tbody">
+                        </div>
                         <div class="table-responsive">
-                            <table class="table table-hover align-middle">
+                            <table class="table table-hover align-middle" id="jobsTable">
                                 <thead>
                                     <tr>
                                         <th>Job Title</th>

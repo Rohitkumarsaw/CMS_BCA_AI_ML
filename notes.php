@@ -132,8 +132,12 @@ include 'includes/sidebar.php';
 
         <div class="card">
             <div class="card-body">
+                <div class="section-search-container">
+                    <i class="fas fa-search section-search-icon"></i>
+                    <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#notesTable tbody">
+                </div>
                 <div class="table-responsive">
-                    <table class="table table-hover">
+                    <table class="table table-hover" id="notesTable">
                         <thead>
                             <tr>
                                 <th>Title</th>

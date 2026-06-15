@@ -300,28 +300,8 @@
 .routine-btn {
   width: 100%;
   padding: 12px;
-  border: none;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #00f0ff, #7c3aed);
-  color: #ffffff;
   font-size: 0.85rem;
-  font-weight: 700;
-  font-family: 'Inter', sans-serif;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: all 0.25s ease;
-}
-
-.routine-btn:hover {
-  box-shadow: 0 0 20px rgba(0,240,255,0.2);
-  transform: translateY(-1px);
-}
-
-.routine-btn:active {
-  transform: translateY(0);
 }
 
 /* === PROGRESS WIDGET === */

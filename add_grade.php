@@ -17,9 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $totalMarks = (float)$_POST['total_marks'];
     $date = sanitize($_POST['date']);
     $semester = (int)$_POST['semester'];
+    $letterGrade = sanitize($_POST['letter_grade'] ?? '');
+    if ($letterGrade === '' || $letterGrade === 'auto') $letterGrade = null;
     
-    $query = "INSERT INTO grades (user_id, subject, exam_name, marks_obtained, total_marks, date, semester, created_at) 
-              VALUES (:user_id, :subject, :exam_name, :marks_obtained, :total_marks, :date, :semester, NOW())";
+    $query = "INSERT INTO grades (user_id, subject, exam_name, marks_obtained, total_marks, letter_grade, date, semester, created_at) 
+              VALUES (:user_id, :subject, :exam_name, :marks_obtained, :total_marks, :letter_grade, :date, :semester, NOW())";
     $stmt = $pdo->prepare($query);
     $stmt->execute([
         ':user_id' => $userId,
@@ -27,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ':exam_name' => $examName,
         ':marks_obtained' => $marksObtained,
         ':total_marks' => $totalMarks,
+        ':letter_grade' => $letterGrade,
         ':date' => $date,
         ':semester' => $semester
     ]);
@@ -95,6 +98,19 @@ include 'includes/sidebar.php';
                                 <div class="col-md-6 mb-3">
                                     <label for="date" class="form-label">Date *</label>
                                     <input type="date" class="form-control" id="date" name="date" value="<?php echo date('Y-m-d'); ?>" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="letter_grade" class="form-label">Letter Grade <small class="text-muted">(optional — leave as Auto to calculate)</small></label>
+                                    <select class="form-select" id="letter_grade" name="letter_grade">
+                                        <option value="auto">Auto Calculate</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A">A</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B">B</option>
+                                        <option value="C">C</option>
+                                        <option value="D">D</option>
+                                        <option value="F">F</option>
+                                    </select>
                                 </div>
                             </div>
                             

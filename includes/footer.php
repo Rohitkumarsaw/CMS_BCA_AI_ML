@@ -6,8 +6,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <?php if (isset($extraJS)): ?>
         <?php foreach ($extraJS as $js): ?>
-            <?php if ($js !== 'main.js'): ?>
-                <script src="js/<?php echo $js; ?>"></script>
+            <?php if ($js !== 'main.js'):
+                $jsPath = __DIR__ . '/../js/' . $js;
+                $v = file_exists($jsPath) ? filemtime($jsPath) : time(); ?>
+                <script src="js/<?php echo $js; ?>?v=<?php echo $v; ?>"></script>
             <?php endif; ?>
         <?php endforeach; ?>
     <?php endif; ?>

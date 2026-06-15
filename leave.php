@@ -118,7 +118,11 @@ require 'includes/sidebar.php';
         <h3><i class="fas fa-list"></i> My Applications</h3>
         <span style="font-size:0.72rem;color:#8f94a8;"><?= count($leaves) ?> total</span>
       </div>
-      <div class="leave-list">
+            <div class="section-search-container">
+                <i class="fas fa-search section-search-icon"></i>
+                <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#leaveList">
+            </div>
+      <div class="leave-list" id="leaveList">
         <?php if (empty($leaves)): ?>
           <div class="leave-empty">
             <i class="fas fa-inbox"></i>

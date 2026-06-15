@@ -6,7 +6,7 @@ requireLogin();
 
 $pageTitle = 'Exams';
 $extraCSS = ['style.css', 'exam.css'];
-$extraJS = ['main.js'];
+$extraJS = ['main.js', 'exam.js'];
 
 $userId = $_SESSION['user_id'];
 $semester = $_GET['semester'] ?? $_SESSION['user_semester'] ?? 1;
@@ -60,6 +60,8 @@ require 'includes/sidebar.php';
         </ul>
     </div>
     <?php endif; ?>
+
+        <?= csrfField() ?>
 
     <div class="page-header">
         <div>
@@ -150,8 +152,12 @@ require 'includes/sidebar.php';
                 <a href="add_exam.php" class="btn btn-primary"><i class="fas fa-plus"></i> Add Exam</a>
             </div>
             <?php else: ?>
+            <div class="section-search-container">
+                <i class="fas fa-search section-search-icon"></i>
+                <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#examTable tbody">
+            </div>
             <div class="table-responsive">
-                <table class="table table-hover">
+                <table class="table table-hover" id="examTable">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -167,9 +173,7 @@ require 'includes/sidebar.php';
                     </thead>
                     <tbody>
                         <?php foreach($exams as $index => $exam): 
-                            $examDate = strtotime($exam['date']);
-                            $isUpcoming = $examDate >= strtotime('today') && $examDate <= strtotime('+3 days');
-                            $isPast = $examDate < strtotime('today');
+                            $isUpcoming = strtotime($exam['date']) >= strtotime('today') && strtotime($exam['date']) <= strtotime('+3 days');
                         ?>
                         <tr class="<?php echo $isUpcoming ? 'exam-upcoming' : ''; ?>">
                             <td><?php echo $index + 1; ?></td>
@@ -184,13 +188,16 @@ require 'includes/sidebar.php';
                                 </span>
                             </td>
                             <td>
-                                <?php if($isPast): ?>
-                                    <span class="badge bg-secondary">Completed</span>
-                                <?php elseif($isUpcoming): ?>
-                                    <span class="badge bg-danger">Upcoming</span>
-                                <?php else: ?>
-                                    <span class="badge bg-info">Scheduled</span>
-                                <?php endif; ?>
+                                <span class="exam-status-badge exam-status-<?php echo $exam['status']; ?>">
+                                    <?php echo ucfirst($exam['status']); ?>
+                                </span>
+                            </td>
+                            <td>
+                                <select class="form-select form-select-sm exam-status-toggle d-inline-block w-auto" data-id="<?= $exam['id'] ?>" style="font-size:0.72rem;padding:2px 6px;">
+                                    <option value="upcoming" <?php echo $exam['status'] === 'upcoming' ? 'selected' : ''; ?>>Upcoming</option>
+                                    <option value="active" <?php echo $exam['status'] === 'active' ? 'selected' : ''; ?>>Active</option>
+                                    <option value="completed" <?php echo $exam['status'] === 'completed' ? 'selected' : ''; ?>>Completed</option>
+                                </select>
                             </td>
                             <td>
                                 <a href="edit_exam.php?id=<?= $exam['id'] ?>" class="btn btn-sm btn-outline-primary" title="Edit"><i class="fas fa-edit"></i></a>

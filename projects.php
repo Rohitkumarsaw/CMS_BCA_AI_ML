@@ -106,7 +106,11 @@ include 'includes/sidebar.php';
             </div>
         </div>
 
-        <div class="row">
+        <div class="section-search-container">
+            <i class="fas fa-search section-search-icon"></i>
+            <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#projectsGrid">
+        </div>
+        <div class="row" id="projectsGrid">
             <?php if (empty($projects)): ?>
                 <div class="col-12">
                     <div class="card">

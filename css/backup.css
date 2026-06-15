@@ -56,44 +56,14 @@
 
 .backup-btn {
   padding: 12px 28px;
-  border: none;
-  border-radius: 8px;
   font-size: 0.85rem;
-  font-weight: 700;
-  font-family: 'Inter', sans-serif;
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: all 0.25s ease;
   text-decoration: none;
-  color: #ffffff;
-}
-
-.backup-btn.export {
-  background: linear-gradient(135deg, #00f0ff, #0891b2);
-  box-shadow: 0 0 16px rgba(0,240,255,0.15);
-}
-
-.backup-btn.export:hover {
-  box-shadow: 0 0 30px rgba(0,240,255,0.3);
-  transform: translateY(-2px);
-}
-
-.backup-btn.import {
-  background: linear-gradient(135deg, #7c3aed, #6d28d9);
-  box-shadow: 0 0 16px rgba(124,58,237,0.15);
-}
-
-.backup-btn.import:hover {
-  box-shadow: 0 0 30px rgba(124,58,237,0.3);
-  transform: translateY(-2px);
 }
 
 .backup-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
   transform: none !important;
 }
 

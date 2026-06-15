@@ -313,8 +313,12 @@ include 'includes/navbar.php';
 
                     <?php if (!empty($attendanceSubjectWise)): ?>
                     <h6 class="mb-3"><i class="fas fa-book me-1 text-muted"></i>Subject-wise Attendance</h6>
+                    <div class="section-search-container">
+                        <i class="fas fa-search section-search-icon"></i>
+                        <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#report1Table tbody">
+                    </div>
                     <div class="table-responsive">
-                        <table class="table table-sm table-hover">
+                        <table class="table table-sm table-hover" id="report1Table">
                             <thead class="table-light">
                                 <tr>
                                     <th>Subject</th>
@@ -484,8 +488,12 @@ include 'includes/navbar.php';
                         <div class="col-md-8">
                             <h6 class="mb-3">Projects Per Semester</h6>
                             <?php if (!empty($projectSemesterCounts)): ?>
+                                <div class="section-search-container">
+                                    <i class="fas fa-search section-search-icon"></i>
+                                    <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#report2Table tbody">
+                                </div>
                                 <div class="table-responsive">
-                                    <table class="table table-sm table-hover">
+                                    <table class="table table-sm table-hover" id="report2Table">
                                         <thead class="table-light">
                                             <tr>
                                                 <th>Semester</th>
@@ -574,8 +582,12 @@ include 'includes/navbar.php';
                 <div class="card-body">
                     <?php if (!empty($paymentSemesterData)): ?>
                     <canvas id="paymentReportChart" height="250"></canvas>
+                    <div class="section-search-container">
+                        <i class="fas fa-search section-search-icon"></i>
+                        <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#report3Table tbody">
+                    </div>
                     <div class="table-responsive mt-3">
-                        <table class="table table-sm table-hover">
+                        <table class="table table-sm table-hover" id="report3Table">
                             <thead class="table-light">
                                 <tr>
                                     <th>Semester</th>

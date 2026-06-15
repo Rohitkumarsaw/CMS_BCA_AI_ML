@@ -188,7 +188,11 @@ include 'includes/navbar.php';
                 </div>
             </div>
 
-            <div class="row">
+            <div class="section-search-container">
+                <i class="fas fa-search section-search-icon"></i>
+                <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#skillsGrid">
+            </div>
+            <div class="row" id="skillsGrid">
                 <?php if (!empty($skills)): ?>
                     <?php foreach ($skills as $skill): ?>
                         <div class="col-md-6 col-lg-4 mb-4">

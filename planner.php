@@ -119,7 +119,11 @@ require 'includes/sidebar.php';
           <h3><i class="fas fa-cart-plus"></i> To-Buy List</h3>
           <span style="font-size:0.72rem;color:#8f94a8;"><?= count($shoppingItems) ?> items</span>
         </div>
-        <div class="planner-list">
+        <div class="section-search-container">
+            <i class="fas fa-search section-search-icon"></i>
+            <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#plannerList">
+        </div>
+        <div class="planner-list" id="plannerList">
           <?php if (empty($shoppingItems)): ?>
             <div class="planner-empty">
               <i class="fas fa-cart-plus"></i>
@@ -272,7 +276,11 @@ require 'includes/sidebar.php';
             <p>Add items you currently have</p>
           </div>
         <?php else: ?>
-          <div class="inventory-grid">
+          <div class="section-search-container">
+              <i class="fas fa-search section-search-icon"></i>
+              <input type="text" class="custom-section-search" placeholder="Search this section..." data-target="#inventoryGrid">
+          </div>
+          <div class="inventory-grid" id="inventoryGrid">
             <?php foreach ($inventoryItems as $inv):
               $iconMap = ['Available' => 'fa-check-circle text-success', 'Running Low' => 'fa-exclamation-triangle text-warning', 'Out of Stock' => 'fa-times-circle text-danger'];
               $badgeMap = ['Available' => 'inventory-badge-available', 'Running Low' => 'inventory-badge-low', 'Out of Stock' => 'inventory-badge-out'];
