@@ -1,6 +1,6 @@
-# 🎓 CMS (BCA AI/ML) — College Management System
+# 🎓 CMS (BCA AI/ML) — Course Management System
 
-A premium, full‑stack **College Management System** built with **PHP 8**, **MySQL**, and a cyberpunk‑glassmorphism dark UI. Designed for BCA (AI/ML) students at **SITM College**, this CMS streamlines attendance tracking, homework submission, examination management, project portfolios, internship tracking, and more — all wrapped in a modern, responsive dashboard.
+A premium, full‑stack **Course Management System** built with **PHP 8**, **MySQL**, and a cyberpunk‑glassmorphism dark UI. Designed for BCA (AI/ML) students at **SITM College**, this CMS streamlines attendance tracking, homework submission, examination management, project portfolios, internship tracking, and more — all wrapped in a modern, responsive dashboard.
 
 ---
 
