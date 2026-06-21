@@ -337,12 +337,14 @@ function sendMail($subject, $body) {
     try {
         $mail = new PHPMailer\PHPMailer\PHPMailer(true);
         $mail->isSMTP();
+        $mail->SMTPDebug = 0;
         $mail->Host = $host;
         $mail->SMTPAuth = true;
         $mail->Username = $username;
         $mail->Password = $password;
         $mail->SMTPSecure = $encryption;
-        $mail->Port = $port;
+        $mail->Port = (int)$port;
+        $mail->SMTPOptions = ['ssl' => ['verify_peer' => false, 'verify_peer_name' => false, 'allow_self_signed' => true]];
         $mail->setFrom($from, $fromName);
         $mail->addAddress($to);
         $mail->Subject = $subject;
@@ -350,7 +352,10 @@ function sendMail($subject, $body) {
         $mail->Body = $body;
         $mail->send();
         return true;
-    } catch (Exception $e) {
+    } catch (\PHPMailer\PHPMailer\Exception $e) {
+        error_log("Mail error: " . $e->getMessage());
+        return false;
+    } catch (\Exception $e) {
         error_log("Mail error: " . $e->getMessage());
         return false;
     }

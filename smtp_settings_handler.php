@@ -1,4 +1,7 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 require_once 'config/config.php';
 require_once 'config/db_connection.php';
 require_once 'includes/functions.php';
@@ -7,6 +10,18 @@ requireLogin();
 header('Content-Type: application/json');
 
 $action = $_POST['action'] ?? '';
+
+// Ensure table exists
+try {
+    $pdo->exec("CREATE TABLE IF NOT EXISTS system_settings (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        site_name VARCHAR(255) DEFAULT NULL,
+        site_description TEXT DEFAULT NULL,
+        partner_details TEXT DEFAULT NULL,
+        mail_config TEXT DEFAULT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+} catch (PDOException $e) {}
 
 if ($action === 'save') {
     $mailTo = trim($_POST['mail_to'] ?? '');
@@ -63,9 +78,6 @@ if ($action === 'test') {
     require_once 'libraries/PHPMailer/src/PHPMailer.php';
     require_once 'libraries/PHPMailer/src/SMTP.php';
 
-    use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\Exception;
-
     // Get recipient from DB first, fallback to POST or config
     $stmt = $pdo->prepare("SELECT mail_config FROM system_settings LIMIT 1");
     $stmt->execute();
@@ -77,12 +89,14 @@ if ($action === 'test') {
     $mail = new PHPMailer(true);
     try {
         $mail->isSMTP();
+        $mail->SMTPDebug = 0;
         $mail->Host = MAIL_HOST;
         $mail->SMTPAuth = true;
         $mail->Username = MAIL_USERNAME;
         $mail->Password = MAIL_PASSWORD;
         $mail->SMTPSecure = defined('MAIL_ENCRYPTION') ? MAIL_ENCRYPTION : 'tls';
-        $mail->Port = MAIL_PORT;
+        $mail->Port = (int)MAIL_PORT;
+        $mail->SMTPOptions = ['ssl' => ['verify_peer' => false, 'verify_peer_name' => false, 'allow_self_signed' => true]];
 
         $mail->setFrom(MAIL_FROM, MAIL_FROM_NAME);
         $mail->addAddress($mailTo);
@@ -101,7 +115,9 @@ if ($action === 'test') {
         $mail->send();
         echo json_encode(['status' => 'success', 'message' => 'Test email sent successfully to ' . htmlspecialchars($mailTo) . '! Check your inbox.']);
     } catch (Exception $e) {
-        echo json_encode(['status' => 'error', 'message' => 'Test email failed: ' . $mail->ErrorInfo]);
+        $error = $mail->ErrorInfo;
+        if (empty($error)) $error = $e->getMessage();
+        echo json_encode(['status' => 'error', 'message' => 'Test email failed: ' . $error]);
     }
     exit;
 }
