@@ -130,14 +130,6 @@ copy CMS_BCA_AI_ML C:\xampp\htdocs\bca-portal
 # Access: http://localhost/bca-portal
 ```
 
-### Default Login
-
-| Username | Password |
-|---|---|
-| `rohit_sitm` | `Sitm@2026` |
-
----
-
 ## Database Schema
 
 <details>
@@ -181,13 +173,218 @@ activity_logs      academic_roadmaps     roadmap_items
 
 ```
 bca-portal/
-├── config/              # Database and app configuration
-├── css/                 # Stylesheets (45 files)
-├── js/                  # JavaScript modules (40 files)
-├── includes/            # Header, navbar, sidebar, footer, functions
-├── sql/                 # Database migrations and schema
-├── uploads/             # User-uploaded files
-└── *.php                # 100+ module pages and handlers
+├── ajax/
+│   └── notifications.php
+├── config/
+│   ├── config.php
+│   └── db_connection.php
+├── css/
+│   ├── about_settings.css
+│   ├── achievements.css
+│   ├── announcement.css
+│   ├── assignment.css
+│   ├── attendance.css
+│   ├── auth.css
+│   ├── backup.css
+│   ├── certifications.css
+│   ├── circular.css
+│   ├── dark-fix.css
+│   ├── dashboard.css
+│   ├── event.css
+│   ├── exam.css
+│   ├── exam_prep.css
+│   ├── faculty.css
+│   ├── grades.css
+│   ├── groups.css
+│   ├── history.css
+│   ├── holiday.css
+│   ├── homework.css
+│   ├── internship.css
+│   ├── jobs.css
+│   ├── lab.css
+│   ├── leave.css
+│   ├── library.css
+│   ├── meetings.css
+│   ├── notes.css
+│   ├── payment.css
+│   ├── placement.css
+│   ├── planner.css
+│   ├── presentation.css
+│   ├── profile.css
+│   ├── projects.css
+│   ├── reports.css
+│   ├── resources.css
+│   ├── roadmap.css
+│   ├── routine.css
+│   ├── schedule.css
+│   ├── skills.css
+│   ├── study_plan.css
+│   ├── style.css
+│   ├── sweetalert2-dark.css
+│   └── syllabus.css
+├── includes/
+│   ├── backup_handler.php
+│   ├── footer.php
+│   ├── functions.php
+│   ├── header.php
+│   ├── navbar.php
+│   └── sidebar.php
+├── js/
+│   ├── about_settings.js
+│   ├── achievements.js
+│   ├── announcement.js
+│   ├── assignment.js
+│   ├── attendance.js
+│   ├── certifications.js
+│   ├── circular.js
+│   ├── dashboard.js
+│   ├── event_calendar.js
+│   ├── exam.js
+│   ├── exam_prep.js
+│   ├── faculty.js
+│   ├── grades.js
+│   ├── groups.js
+│   ├── history.js
+│   ├── holiday.js
+│   ├── homework.js
+│   ├── internship.js
+│   ├── jobs.js
+│   ├── lab.js
+│   ├── leave.js
+│   ├── library.js
+│   ├── main.js
+│   ├── meetings.js
+│   ├── notes.js
+│   ├── payment.js
+│   ├── placement.js
+│   ├── planner.js
+│   ├── presentation.js
+│   ├── profile.js
+│   ├── projects.js
+│   ├── reports.js
+│   ├── resources.js
+│   ├── roadmap.js
+│   ├── routine.js
+│   ├── schedule.js
+│   ├── skills.js
+│   ├── study_plan.js
+│   ├── subjects.js
+│   └── syllabus.js
+├── sql/
+│   ├── bca_portal_db.sql
+│   └── migration_v2.sql
+├── uploads/
+├── about_settings.php
+├── about_settings_handler.php
+├── achievements.php
+├── achievements_handler.php
+├── add_announcement.php
+├── add_assignment.php
+├── add_attendance.php
+├── add_book.php
+├── add_certification.php
+├── add_circular.php
+├── add_event.php
+├── add_exam.php
+├── add_exam_prep.php
+├── add_grade.php
+├── add_holiday.php
+├── add_homework.php
+├── add_internship.php
+├── add_job.php
+├── add_lab.php
+├── add_note.php
+├── add_payment.php
+├── add_presentation.php
+├── add_project.php
+├── add_resource.php
+├── add_schedule.php
+├── add_skill.php
+├── add_study_plan.php
+├── announcement.php
+├── assignment.php
+├── attendance.php
+├── backup.php
+├── certifications.php
+├── change_password.php
+├── circular.php
+├── create_group.php
+├── dashboard.php
+├── delete.php
+├── edit_announcement.php
+├── edit_assignment.php
+├── edit_attendance.php
+├── edit_book.php
+├── edit_certification.php
+├── edit_circular.php
+├── edit_event.php
+├── edit_exam.php
+├── edit_exam_prep.php
+├── edit_grade.php
+├── edit_group.php
+├── edit_holiday.php
+├── edit_homework.php
+├── edit_internship.php
+├── edit_job.php
+├── edit_lab.php
+├── edit_note.php
+├── edit_payment.php
+├── edit_presentation.php
+├── edit_profile.php
+├── edit_project.php
+├── edit_resource.php
+├── edit_schedule.php
+├── edit_skill.php
+├── edit_study_plan.php
+├── event.php
+├── event_handler.php
+├── exam.php
+├── exam_actions.php
+├── exam_prep.php
+├── export_excel.php
+├── export_pdf.php
+├── faculty.php
+├── faculty_handler.php
+├── grades.php
+├── group.php
+├── history.php
+├── history_handler.php
+├── holiday.php
+├── homework.php
+├── index.php
+├── internship.php
+├── jobs.php
+├── lab.php
+├── leave.php
+├── leave_handler.php
+├── library.php
+├── login.php
+├── logout.php
+├── manage_subjects.php
+├── meetings.php
+├── meetings_handler.php
+├── notes.php
+├── payment.php
+├── placement.php
+├── placement_handler.php
+├── planner.php
+├── planner_handler.php
+├── presentation.php
+├── profile.php
+├── projects.php
+├── reports.php
+├── resources.php
+├── roadmap.php
+├── roadmap_handler.php
+├── routine.php
+├── routine_handler.php
+├── schedule.php
+├── skills.php
+├── study_plan.php
+├── subjects_handler.php
+├── syllabus.php
+├── update_syllabus.php
+└── view.php
 ```
 
 ---
