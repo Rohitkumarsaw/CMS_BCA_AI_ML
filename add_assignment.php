@@ -47,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$user_id, $title, $subject, $due_date, $status, $file_path]);
 
         setFlashMessage('success', 'Assignment added successfully.');
+        notifyEmail('Assignment', 'added');
         redirect('assignment.php');
     }
 }

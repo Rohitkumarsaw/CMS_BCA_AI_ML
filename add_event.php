@@ -46,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ]);
 
     setFlashMessage('success', 'Event added successfully');
+    notifyEmail('Event', 'added');
     header('Location: event.php');
     exit;
 }

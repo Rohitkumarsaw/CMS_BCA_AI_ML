@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$user_id, $user_semester, $subject, $date, ucfirst(strtolower($status))]);
 
         setFlashMessage('success', 'Attendance added successfully.');
+        notifyEmail('Attendance', 'added');
         redirect('attendance.php');
     }
 }

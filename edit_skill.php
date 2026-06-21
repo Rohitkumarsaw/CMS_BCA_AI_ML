@@ -54,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$skillName, $level, $category, $status, $dateCompleted, $skill_id, $user_id]);
 
         setFlashMessage('success', 'Skill updated successfully.');
+        notifyEmail('Skill', 'updated');
         redirect('skills.php');
     }
 }

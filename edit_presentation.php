@@ -68,6 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$title, $subject, $date, $status, $file_path, $pres_id, $user_id]);
 
         setFlashMessage('success', 'Presentation updated successfully.');
+        notifyEmail('Presentation', 'updated');
         redirect('presentation.php');
     }
 }

@@ -52,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$semester, $day, $subject, $startTime, $endTime, $teacherName, $roomNo, $type, $schedule_id]);
 
         setFlashMessage('success', 'Schedule updated successfully!');
+        notifyEmail('Schedule', 'updated');
         header('Location: schedule.php?semester=' . $semester . '&day=' . $day);
         exit();
     }

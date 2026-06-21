@@ -25,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute([$userId, $title, $message, $type, $priority]);
 
     setFlashMessage('success', 'Announcement added successfully');
+    notifyEmail('Announcement', 'added');
     header('Location: announcement.php');
     exit;
 }

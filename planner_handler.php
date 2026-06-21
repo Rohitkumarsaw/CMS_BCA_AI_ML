@@ -30,6 +30,7 @@ switch ($action) {
         $stmt = $pdo->prepare("INSERT INTO shopping_planner (user_id, item_name, reason_why, purpose_work, target_date) VALUES (?, ?, ?, ?, ?)");
         $stmt->execute([$userId, $itemName, $reasonWhy, $purposeWork, $targetDate ?: null]);
         echo json_encode(['status' => 'success', 'message' => 'Item added to shopping list.']);
+        notifyEmail('Planner', 'added');
         exit;
 
     case 'edit_shopping':
@@ -47,6 +48,7 @@ switch ($action) {
         $stmt = $pdo->prepare("UPDATE shopping_planner SET item_name = ?, reason_why = ?, purpose_work = ?, target_date = ? WHERE id = ? AND user_id = ?");
         $stmt->execute([$itemName, $reasonWhy, $purposeWork, $targetDate ?: null, $id, $userId]);
         echo json_encode(['status' => 'success', 'message' => 'Shopping item updated.']);
+        notifyEmail('Planner', 'updated');
         exit;
 
     case 'delete_shopping':
@@ -56,6 +58,7 @@ switch ($action) {
             $stmt->execute([$id, $userId]);
         }
         echo json_encode(['status' => 'success', 'message' => 'Item removed from shopping list.']);
+        notifyEmail('Planner', 'deleted');
         exit;
 
     case 'toggle_shopping':
@@ -68,6 +71,7 @@ switch ($action) {
             $stmt = $pdo->prepare("UPDATE shopping_planner SET status = ? WHERE id = ? AND user_id = ?");
             $stmt->execute([$newStatus, $id, $userId]);
             echo json_encode(['status' => 'success', 'message' => $newStatus === 'purchased' ? 'Marked as purchased.' : 'Marked as pending.']);
+            notifyEmail('Planner', 'status updated');
             exit;
         }
         echo json_encode(['status' => 'error', 'message' => 'Item not found.']);
@@ -88,6 +92,7 @@ switch ($action) {
         $stmt = $pdo->prepare("INSERT INTO current_inventory (user_id, item_name, quantity, availability_status) VALUES (?, ?, ?, ?)");
         $stmt->execute([$userId, $itemName, $quantity, $availability]);
         echo json_encode(['status' => 'success', 'message' => 'Inventory item added.']);
+        notifyEmail('Planner', 'added');
         exit;
 
     case 'edit_inventory':
@@ -104,6 +109,7 @@ switch ($action) {
         $stmt = $pdo->prepare("UPDATE current_inventory SET item_name = ?, quantity = ?, availability_status = ? WHERE id = ? AND user_id = ?");
         $stmt->execute([$itemName, $quantity, $availability, $id, $userId]);
         echo json_encode(['status' => 'success', 'message' => 'Inventory item updated.']);
+        notifyEmail('Planner', 'updated');
         exit;
 
     case 'delete_inventory':
@@ -113,6 +119,7 @@ switch ($action) {
             $stmt->execute([$id, $userId]);
         }
         echo json_encode(['status' => 'success', 'message' => 'Inventory item removed.']);
+        notifyEmail('Planner', 'deleted');
         exit;
 
     default:

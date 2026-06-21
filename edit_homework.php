@@ -72,6 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$title, $subject, $description, $due_date, $status, $file_path, $hw_id, $user_id]);
 
         setFlashMessage('success', 'Homework updated successfully.');
+        notifyEmail('Homework', 'updated');
         redirect('homework.php');
     }
 }

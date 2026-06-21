@@ -28,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute([$userId, $skillName, $level, $category, $status, $dateCompleted]);
 
     setFlashMessage('success', 'Skill added successfully');
+    notifyEmail('Skill', 'added');
     header('Location: skills.php');
     exit;
 }

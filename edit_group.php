@@ -48,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([$groupName, $groupType, $group_id, $user_id]);
 
             setFlashMessage('success', 'Group "' . htmlspecialchars($groupName) . '" updated successfully.');
+            notifyEmail('Group', 'updated');
             redirect('group.php');
         } catch (PDOException $e) {
             $errors[] = 'Error updating group. Please try again.';

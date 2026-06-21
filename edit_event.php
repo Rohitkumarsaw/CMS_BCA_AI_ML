@@ -66,6 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
 
         setFlashMessage('success', 'Event updated successfully.');
+        notifyEmail('Event', 'updated');
         redirect('event.php');
     }
 }

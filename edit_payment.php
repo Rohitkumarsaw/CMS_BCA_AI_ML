@@ -68,6 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ]);
 
     setFlashMessage('success', 'Payment record updated successfully');
+    notifyEmail('Payment', 'updated');
     header('Location: payment.php');
     exit;
 }

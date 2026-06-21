@@ -52,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ]);
 
     setFlashMessage('success', 'Internship added successfully');
+    notifyEmail('Internship', 'added');
     header('Location: internship.php');
     exit;
 }

@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute([$userId, $title, $author, $subject, $borrowDate, $returnDate, $status]);
 
     setFlashMessage('success', 'Book added successfully');
+    notifyEmail('Book', 'added');
     header('Location: library.php');
     exit;
 }

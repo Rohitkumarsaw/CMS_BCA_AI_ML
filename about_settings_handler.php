@@ -29,6 +29,7 @@ switch ($action) {
         }
 
         echo json_encode(['status' => 'success', 'message' => 'About section updated successfully!']);
+        notifyEmail('About Settings', 'updated');
         exit;
 
     case 'update_partner':
@@ -52,6 +53,7 @@ switch ($action) {
         }
 
         echo json_encode(['status' => 'success', 'message' => 'Partner section updated successfully!']);
+        notifyEmail('About Settings', 'updated');
         exit;
 
     default:

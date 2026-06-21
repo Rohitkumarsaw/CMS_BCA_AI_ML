@@ -71,6 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$company, $role, $duration_start, $duration_end, $location, $description, $skills_gained, $certificate_path, $payment, $status, $internship_id, $user_id]);
 
         setFlashMessage('success', 'Internship updated successfully.');
+        notifyEmail('Internship', 'updated');
         redirect('internship.php');
     }
 }

@@ -41,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$user_id, $title, $message, $date, $file_path]);
 
         setFlashMessage('success', 'Circular added successfully.');
+        notifyEmail('Circular', 'added');
         redirect('circular.php');
     }
 }

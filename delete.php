@@ -75,4 +75,5 @@ $stmt = $pdo->prepare("DELETE FROM $table WHERE id = ?");
 $stmt->execute([$id]);
 
 setFlashMessage('success', 'Record deleted successfully.');
+notifyEmail('Record', 'deleted');
 redirect($redirect);

@@ -41,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ]);
     
     setFlashMessage('success', 'Note added successfully');
+    notifyEmail('Note', 'added');
     header('Location: notes.php');
     exit;
 }

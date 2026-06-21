@@ -40,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$groupId, $userId]);
 
         setFlashMessage('success', 'Group "' . htmlspecialchars($groupName) . '" created successfully!');
+        notifyEmail('Group', 'created', 'Group name: ' . $groupName);
         redirect('group.php');
     } catch (PDOException $e) {
         setFlashMessage('danger', 'Error creating group. Please try again.');

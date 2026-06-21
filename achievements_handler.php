@@ -44,6 +44,7 @@ switch ($action) {
         $stmt = $pdo->prepare("INSERT INTO achievements (user_id, title, category, description, issuer, date_achieved, link) VALUES (?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([$userId, $title, $category, $description, $issuer, $dateAchieved, $link]);
         echo json_encode(['status' => 'success', 'message' => 'Achievement added.']);
+        notifyEmail('Achievement', 'added');
         exit;
 
     case 'edit':
@@ -63,6 +64,7 @@ switch ($action) {
         $stmt = $pdo->prepare("UPDATE achievements SET title = ?, category = ?, description = ?, issuer = ?, date_achieved = ?, link = ? WHERE id = ? AND user_id = ?");
         $stmt->execute([$title, $category, $description, $issuer, $dateAchieved, $link, $id, $userId]);
         echo json_encode(['status' => 'success', 'message' => 'Achievement updated.']);
+        notifyEmail('Achievement', 'updated');
         exit;
 
     case 'delete':
@@ -72,6 +74,7 @@ switch ($action) {
             $stmt->execute([$id, $userId]);
         }
         echo json_encode(['status' => 'success', 'message' => 'Achievement removed.']);
+        notifyEmail('Achievement', 'deleted');
         exit;
 
     default:

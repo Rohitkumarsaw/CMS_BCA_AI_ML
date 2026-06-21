@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute([$userId, $date, $holidayName, $type]);
 
     setFlashMessage('success', 'Holiday added successfully');
+    notifyEmail('Holiday', 'added');
     header('Location: holiday.php');
     exit;
 }

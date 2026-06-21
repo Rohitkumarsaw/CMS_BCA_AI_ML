@@ -30,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute([$userId, $jobTitle, $company, $location, $applicationDate, $status, $jobLink, $salary]);
 
     setFlashMessage('success', 'Job application added successfully');
+    notifyEmail('Job', 'added');
     header('Location: jobs.php');
     exit;
 }

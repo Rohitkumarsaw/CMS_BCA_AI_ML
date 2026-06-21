@@ -51,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$name, $type, $link, $subject, $tags, $resource_id, $user_id]);
 
         setFlashMessage('success', 'Resource updated successfully.');
+        notifyEmail('Resource', 'updated');
         redirect('resources.php');
     }
 }

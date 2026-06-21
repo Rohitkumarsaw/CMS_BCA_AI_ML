@@ -52,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$date, $subject, $status, $att_id, $user_id]);
 
         setFlashMessage('success', 'Attendance updated successfully.');
+        notifyEmail('Attendance', 'updated');
         redirect('attendance.php');
     }
 }

@@ -288,3 +288,52 @@ function getUnreadNotificationCount($pdo, $userId) {
     $stmt->execute([$userId]);
     return (int)$stmt->fetchColumn();
 }
+
+function sendMail($subject, $body) {
+    require_once __DIR__ . '/../config/mail.php';
+    require_once __DIR__ . '/../libraries/PHPMailer/src/Exception.php';
+    require_once __DIR__ . '/../libraries/PHPMailer/src/PHPMailer.php';
+    require_once __DIR__ . '/../libraries/PHPMailer/src/SMTP.php';
+
+    try {
+        $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+        $mail->isSMTP();
+        $mail->Host = MAIL_HOST;
+        $mail->SMTPAuth = true;
+        $mail->Username = MAIL_USERNAME;
+        $mail->Password = MAIL_PASSWORD;
+        $mail->SMTPSecure = 'tls';
+        $mail->Port = MAIL_PORT;
+        $mail->setFrom(MAIL_FROM, MAIL_FROM_NAME);
+        $mail->addAddress(MAIL_TO);
+        $mail->Subject = $subject;
+        $mail->isHTML(true);
+        $mail->Body = $body;
+        $mail->send();
+        return true;
+    } catch (Exception $e) {
+        error_log("Mail error: " . $e->getMessage());
+        return false;
+    }
+}
+
+function notifyEmail($section, $action, $details = null) {
+    $userName = $_SESSION['user_name'] ?? 'System';
+    $subject = "CMS Update - {$section} - " . ucfirst($action);
+    $body = "<div style='font-family:Inter,sans-serif;max-width:600px;margin:0 auto;padding:30px;background:#191c24;border-radius:12px;border:1px solid #2c2e3e;color:#ffffff'>";
+    $body .= "<div style='text-align:center;margin-bottom:25px'><h2 style='margin:0;background:linear-gradient(90deg,#00d2ff,#0090e7,#8a2be2);-webkit-background-clip:text;-webkit-text-fill-color:transparent'>CMS BCA AI/ML</h2></div>";
+    $body .= "<hr style='border-color:#2c2e3e'>";
+    $body .= "<p style='color:#a3a6b7;font-size:14px'>Hello Rohit,</p>";
+    $body .= "<p style='color:#ffffff;font-size:15px'>A new update has been made in the <strong style='color:#00d2ff'>" . htmlspecialchars($section) . "</strong> section.</p>";
+    $body .= "<table style='width:100%;border-collapse:collapse;margin:15px 0'><tr><td style='padding:10px 15px;background:rgba(0,210,255,0.06);border-radius:8px'>";
+    $body .= "<p style='margin:3px 0;color:#a3a6b7'>Action: <strong style='color:#ffffff'>" . ucfirst($action) . "</strong></p>";
+    $body .= "<p style='margin:3px 0;color:#a3a6b7'>By: <strong style='color:#ffffff'>" . htmlspecialchars($userName) . "</strong></p>";
+    if ($details) {
+        $body .= "<p style='margin:3px 0;color:#a3a6b7'>Details: <strong style='color:#ffffff'>" . htmlspecialchars($details) . "</strong></p>";
+    }
+    $body .= "</td></tr></table>";
+    $body .= "<hr style='border-color:#2c2e3e'>";
+    $body .= "<p style='color:#6c7293;font-size:12px;text-align:center'>This is an automated notification from CMS BCA AI/ML.</p>";
+    $body .= "</div>";
+    sendMail($subject, $body);
+}

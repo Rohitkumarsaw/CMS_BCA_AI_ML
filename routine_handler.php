@@ -30,6 +30,7 @@ switch ($action) {
             $stmt = $pdo->prepare("INSERT INTO routine_tasks (user_id, task_name, start_time, end_time, category, task_date) VALUES (?, ?, ?, ?, ?, ?)");
             $stmt->execute([$userId, $taskName, $startTime, $endTime, $category, $taskDate]);
             echo json_encode(['status' => 'success', 'message' => 'Task added successfully.']);
+            notifyEmail('Routine Task', 'added');
         }
         exit;
 
@@ -49,6 +50,7 @@ switch ($action) {
             $stmt = $pdo->prepare("UPDATE routine_tasks SET task_name = ?, start_time = ?, end_time = ?, category = ? WHERE id = ? AND user_id = ?");
             $stmt->execute([$taskName, $startTime, $endTime, $category, $id, $userId]);
             echo json_encode(['status' => 'success', 'message' => 'Task updated successfully.']);
+            notifyEmail('Routine Task', 'updated');
         }
         exit;
 
@@ -58,6 +60,7 @@ switch ($action) {
             $stmt = $pdo->prepare("DELETE FROM routine_tasks WHERE id = ? AND user_id = ?");
             $stmt->execute([$id, $userId]);
             echo json_encode(['status' => 'success', 'message' => 'Task deleted successfully.']);
+            notifyEmail('Routine Task', 'deleted');
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Invalid task ID.']);
         }
@@ -73,6 +76,7 @@ switch ($action) {
             $stmt = $pdo->prepare("UPDATE routine_tasks SET status = ? WHERE id = ? AND user_id = ?");
             $stmt->execute([$newStatus, $id, $userId]);
             echo json_encode(['status' => 'success', 'message' => 'Task status updated.', 'newStatus' => $newStatus]);
+            notifyEmail('Routine Task', 'status updated');
             exit;
         }
         echo json_encode(['status' => 'error', 'message' => 'Task not found.']);

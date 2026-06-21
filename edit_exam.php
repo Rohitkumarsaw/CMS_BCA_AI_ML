@@ -55,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$semester, $examName, $subject, $date, $startTime, $endTime, $roomNo, $type, $status, $exam_id, $user_id]);
 
         setFlashMessage('success', 'Exam updated successfully!');
+        notifyEmail('Exam', 'updated');
         header('Location: exam.php?semester=' . $semester);
         exit();
     }

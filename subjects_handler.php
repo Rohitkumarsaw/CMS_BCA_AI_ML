@@ -26,6 +26,7 @@ if ($action === 'add') {
             $stmt = $pdo->prepare("INSERT INTO user_subjects (user_id, semester, subject_name) VALUES (?, ?, ?)");
             $stmt->execute([$userId, $semester, $subjectName]);
             setFlashMessage('success', 'Subject added successfully.');
+            notifyEmail('Subject', 'added');
         }
     }
     redirect('manage_subjects.php?semester=' . $semester);
@@ -63,6 +64,7 @@ if ($action === 'add') {
                 }
                 
                 setFlashMessage('success', 'Subject updated successfully.');
+                notifyEmail('Subject', 'updated');
             }
         }
     }
@@ -84,6 +86,7 @@ if ($action === 'add') {
             $stmt = $pdo->prepare("DELETE FROM user_subjects WHERE id = ? AND user_id = ?");
             $stmt->execute([$id, $userId]);
             setFlashMessage('success', 'Subject deleted successfully.');
+            notifyEmail('Subject', 'deleted');
         } else {
             setFlashMessage('danger', 'Subject not found.');
         }

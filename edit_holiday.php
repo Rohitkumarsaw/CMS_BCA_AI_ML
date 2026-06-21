@@ -40,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute([$date, $holidayName, $type, $holiday_id, $userId]);
 
     setFlashMessage('success', 'Holiday updated successfully');
+    notifyEmail('Holiday', 'updated');
     header('Location: holiday.php');
     exit;
 }

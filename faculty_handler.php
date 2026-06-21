@@ -27,6 +27,7 @@ switch ($action) {
         $stmt = $pdo->prepare("INSERT INTO faculty (name, subjects, email, phone, department) VALUES (?, ?, ?, ?, ?)");
         $stmt->execute([$name, $subjects, $email, $phone, $department]);
         echo json_encode(['status' => 'success', 'message' => 'Faculty added successfully.']);
+        notifyEmail('Faculty', 'added');
         exit;
 
     case 'edit':
@@ -45,6 +46,7 @@ switch ($action) {
         $stmt = $pdo->prepare("UPDATE faculty SET name = ?, subjects = ?, email = ?, phone = ?, department = ? WHERE id = ?");
         $stmt->execute([$name, $subjects, $email, $phone, $department, $id]);
         echo json_encode(['status' => 'success', 'message' => 'Faculty updated successfully.']);
+        notifyEmail('Faculty', 'updated');
         exit;
 
     case 'delete':
@@ -54,6 +56,7 @@ switch ($action) {
             $stmt->execute([$id]);
         }
         echo json_encode(['status' => 'success', 'message' => 'Faculty removed.']);
+        notifyEmail('Faculty', 'deleted');
         exit;
 
     default:

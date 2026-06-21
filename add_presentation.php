@@ -47,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$user_id, $title, $subject, $date, $status, $file_path]);
 
         setFlashMessage('success', 'Presentation added successfully.');
+        notifyEmail('Presentation', 'added');
         redirect('presentation.php');
     }
 }

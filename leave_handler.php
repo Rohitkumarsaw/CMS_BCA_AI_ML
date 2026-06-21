@@ -31,6 +31,7 @@ switch ($action) {
         $stmt = $pdo->prepare("INSERT INTO leave_applications (user_id, subject, reason, start_date, end_date) VALUES (?, ?, ?, ?, ?)");
         $stmt->execute([$userId, $subject, $reason, $startDate, $endDate]);
         echo json_encode(['status' => 'success', 'message' => 'Leave application submitted.']);
+        notifyEmail('Leave', 'submitted');
         exit;
 
     case 'cancel':
@@ -40,6 +41,7 @@ switch ($action) {
             $stmt->execute([$id, $userId]);
         }
         echo json_encode(['status' => 'success', 'message' => 'Leave application cancelled.']);
+        notifyEmail('Leave', 'cancelled');
         exit;
 
     case 'edit':
@@ -61,6 +63,7 @@ switch ($action) {
         $stmt = $pdo->prepare("UPDATE leave_applications SET subject = ?, reason = ?, start_date = ?, end_date = ? WHERE id = ? AND user_id = ? AND status = 'pending'");
         $stmt->execute([$subject, $reason, $startDate, $endDate, $id, $userId]);
         echo json_encode(['status' => 'success', 'message' => 'Leave application updated.']);
+        notifyEmail('Leave', 'updated');
         exit;
 
     // Admin actions
@@ -71,6 +74,7 @@ switch ($action) {
             $stmt->execute([$id]);
         }
         echo json_encode(['status' => 'success', 'message' => 'Leave approved.']);
+        notifyEmail('Leave', 'approved');
         exit;
 
     case 'reject':
@@ -81,6 +85,7 @@ switch ($action) {
             $stmt->execute([$remark, $id]);
         }
         echo json_encode(['status' => 'success', 'message' => 'Leave rejected.']);
+        notifyEmail('Leave', 'rejected');
         exit;
 
     default:

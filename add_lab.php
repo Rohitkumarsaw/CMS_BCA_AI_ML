@@ -47,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$user_id, $lab_name, $subject, $date, $status, $report_path]);
 
         setFlashMessage('success', 'Lab work added successfully.');
+        notifyEmail('Lab', 'added');
         redirect('lab.php');
     }
 }

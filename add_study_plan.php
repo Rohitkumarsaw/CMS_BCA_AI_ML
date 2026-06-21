@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute([$userId, $subject, $topic, $date, $timeSlot, $priority, $status]);
 
     setFlashMessage('success', 'Study plan added successfully');
+    notifyEmail('Study Plan', 'added');
     header('Location: study_plan.php');
     exit;
 }

@@ -60,6 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ]);
     
     setFlashMessage('success', 'Project added successfully');
+    notifyEmail('Project', 'added');
     header('Location: projects.php');
     exit;
 }

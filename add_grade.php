@@ -35,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ]);
     
     setFlashMessage('success', 'Grade added successfully');
+    notifyEmail('Grade', 'added');
     header('Location: grades.php');
     exit;
 }

@@ -25,6 +25,7 @@ if ($action === 'update_status' && $examId > 0) {
     $stmt = $pdo->prepare("UPDATE exams SET status = ? WHERE id = ? AND user_id = ?");
     $stmt->execute([$status, $examId, $userId]);
     echo json_encode(['status' => 'success', 'message' => 'Status updated to ' . ucfirst($status)]);
+    notifyEmail('Exam', 'status updated');
     exit;
 }
 

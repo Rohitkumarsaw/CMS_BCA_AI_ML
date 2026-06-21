@@ -74,6 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['user_semester'] = $semester;
 
     setFlashMessage('success', 'Profile updated successfully');
+    notifyEmail('Profile', 'updated');
     header('Location: profile.php');
     exit;
 }

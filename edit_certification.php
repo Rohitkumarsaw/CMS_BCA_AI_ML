@@ -63,6 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$certName, $issuingOrg, $date, $duration, $certificatePath, $link, $cert_id, $user_id]);
 
         setFlashMessage('success', 'Certification updated successfully.');
+        notifyEmail('Certification', 'updated');
         redirect('certifications.php');
     }
 }

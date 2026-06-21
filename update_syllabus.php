@@ -34,10 +34,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $pdo->prepare("UPDATE syllabus SET status = ? WHERE id = ?");
             $stmt->execute([$status, $existing['id']]);
             setFlashMessage('success', 'Topic status updated successfully!');
+            notifyEmail('Syllabus', 'updated');
         } else {
             $stmt = $pdo->prepare("INSERT INTO syllabus (user_id, semester, subject, topic, status, created_at) VALUES (?, ?, ?, ?, ?, NOW())");
             $stmt->execute([$userId, $semester, $subject, $topicName, $status]);
             setFlashMessage('success', 'New topic added successfully!');
+            notifyEmail('Syllabus', 'added');
         }
         
         header('Location: syllabus.php?semester=' . $semester);

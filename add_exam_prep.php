@@ -51,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$user_id, $exam_name, $subject, $topics_to_cover, $start_date, $end_date, $status, $progress]);
 
         setFlashMessage('success', 'Exam preparation added successfully.');
+        notifyEmail('Exam Preparation', 'added');
         redirect('exam_prep.php');
     }
 }

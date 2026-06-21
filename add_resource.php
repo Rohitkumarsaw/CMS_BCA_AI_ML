@@ -28,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute([$userId, $name, $type, $link, $subject, $tags]);
 
     setFlashMessage('success', 'Resource added successfully');
+    notifyEmail('Resource', 'added');
     header('Location: resources.php');
     exit;
 }

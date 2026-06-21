@@ -48,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$user_id, $user_semester, $title, $subject, $description, $due_date, $file_path]);
 
         setFlashMessage('success', 'Homework added successfully.');
+        notifyEmail('Homework', 'added');
         redirect('homework.php');
     }
 }

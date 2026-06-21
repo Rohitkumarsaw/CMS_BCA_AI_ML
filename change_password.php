@@ -31,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $pdo->prepare("UPDATE users SET password = ? WHERE id = ?");
             $stmt->execute([$hash, $userId]);
             setFlashMessage('success', 'Password changed successfully.');
+            notifyEmail('Password', 'changed');
             redirect('profile.php');
         }
     }

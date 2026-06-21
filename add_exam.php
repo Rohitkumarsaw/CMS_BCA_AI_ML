@@ -39,6 +39,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$userId, $semester, $examName, $subject, $date, $startTime, $endTime, $roomNo, $type, $status]);
         
         setFlashMessage('success', 'Exam added successfully!');
+        notifyEmail('Exam', 'added');
         header('Location: exam.php?semester=' . $semester);
         exit();
     }

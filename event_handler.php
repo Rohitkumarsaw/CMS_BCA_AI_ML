@@ -25,12 +25,14 @@ if ($action === 'add' || $action === 'update') {
         $stmt = $pdo->prepare("INSERT INTO events (user_id, event_name, date, time, type) VALUES (?, ?, ?, ?, ?)");
         $stmt->execute([$userId, $title, $date, $time ?: null, $type]);
         setFlashMessage('success', 'Event added successfully.');
+        notifyEmail('Event', 'added');
     } else {
         $eventId = (int)($_POST['event_id'] ?? 0);
         if ($eventId > 0) {
             $stmt = $pdo->prepare("UPDATE events SET event_name = ?, date = ?, time = ?, type = ? WHERE id = ? AND user_id = ?");
             $stmt->execute([$title, $date, $time ?: null, $type, $eventId, $userId]);
             setFlashMessage('success', 'Event updated successfully.');
+        notifyEmail('Event', 'updated');
         }
     }
 
@@ -45,6 +47,7 @@ if ($action === 'delete_json') {
         $stmt = $pdo->prepare("DELETE FROM events WHERE id = ? AND user_id = ?");
         $stmt->execute([$eventId, $userId]);
         echo json_encode(['status' => 'success', 'message' => 'Event deleted']);
+        notifyEmail('Event', 'deleted');
         exit;
     }
     echo json_encode(['status' => 'error', 'message' => 'Invalid event']);

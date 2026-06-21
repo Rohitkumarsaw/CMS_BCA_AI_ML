@@ -62,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$title, $subject, $type, $file_path, $semester, $tags, $note_id, $user_id]);
 
         setFlashMessage('success', 'Note updated successfully.');
+        notifyEmail('Note', 'updated');
         redirect('notes.php');
     }
 }

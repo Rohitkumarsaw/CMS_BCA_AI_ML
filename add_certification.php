@@ -38,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute([$userId, $certName, $issuingOrg, $date, $duration, $certificatePath, $link]);
 
     setFlashMessage('success', 'Certification added successfully');
+    notifyEmail('Certification', 'added');
     header('Location: certifications.php');
     exit;
 }

@@ -68,6 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$title, $subject, $due_date, $status, $file_path, $assign_id, $user_id]);
 
         setFlashMessage('success', 'Assignment updated successfully.');
+        notifyEmail('Assignment', 'updated');
         redirect('assignment.php');
     }
 }

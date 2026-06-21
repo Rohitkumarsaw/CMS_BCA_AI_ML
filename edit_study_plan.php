@@ -56,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$subject, $topic, $date, $timeSlot, $priority, $status, $plan_id, $user_id]);
 
         setFlashMessage('success', 'Study plan updated successfully.');
+        notifyEmail('Study Plan', 'updated');
         redirect('study_plan.php');
     }
 }

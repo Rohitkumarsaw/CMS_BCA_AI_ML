@@ -42,6 +42,7 @@ switch ($action) {
         $stmt = $pdo->prepare("INSERT INTO meeting_links (user_id, title, platform, url, description, meeting_date) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->execute([$userId, $title, $platform, $url, $description, $meetingDate]);
         echo json_encode(['status' => 'success', 'message' => 'Meeting link added.']);
+        notifyEmail('Meeting', 'added');
         exit;
 
     case 'edit':
@@ -60,6 +61,7 @@ switch ($action) {
         $stmt = $pdo->prepare("UPDATE meeting_links SET title = ?, platform = ?, url = ?, description = ?, meeting_date = ? WHERE id = ? AND user_id = ?");
         $stmt->execute([$title, $platform, $url, $description, $meetingDate, $id, $userId]);
         echo json_encode(['status' => 'success', 'message' => 'Meeting link updated.']);
+        notifyEmail('Meeting', 'updated');
         exit;
 
     case 'delete':
@@ -69,6 +71,7 @@ switch ($action) {
             $stmt->execute([$id, $userId]);
         }
         echo json_encode(['status' => 'success', 'message' => 'Meeting link removed.']);
+        notifyEmail('Meeting', 'deleted');
         exit;
 
     default:

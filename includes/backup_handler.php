@@ -71,6 +71,7 @@ if ($action === 'export') {
     header('Content-Length: ' . strlen($output));
     header('Pragma: no-cache');
     header('Expires: 0');
+    notifyEmail('Backup', 'exported');
     echo $output;
     exit;
 }
@@ -234,6 +235,7 @@ if ($action === 'import') {
 
         $response['success'] = true;
         $response['message'] = 'Database restored successfully. All data has been imported.';
+        notifyEmail('Backup', 'imported');
     } catch (PDOException $e) {
         $response['message'] = 'Restore failed: ' . $e->getMessage();
     }

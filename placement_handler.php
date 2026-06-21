@@ -44,6 +44,7 @@ switch ($action) {
         $stmt = $pdo->prepare("INSERT INTO placement_tracker (user_id, company_name, role, application_date, status, round_details, notes) VALUES (?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([$userId, $company, $role, $appDate, $status, $roundDetails, $notes]);
         echo json_encode(['status' => 'success', 'message' => 'Application added.']);
+        notifyEmail('Placement', 'added');
         exit;
 
     case 'edit':
@@ -63,6 +64,7 @@ switch ($action) {
         $stmt = $pdo->prepare("UPDATE placement_tracker SET company_name = ?, role = ?, application_date = ?, status = ?, round_details = ?, notes = ? WHERE id = ? AND user_id = ?");
         $stmt->execute([$company, $role, $appDate, $status, $roundDetails, $notes, $id, $userId]);
         echo json_encode(['status' => 'success', 'message' => 'Application updated.']);
+        notifyEmail('Placement', 'updated');
         exit;
 
     case 'delete':
@@ -72,6 +74,7 @@ switch ($action) {
             $stmt->execute([$id, $userId]);
         }
         echo json_encode(['status' => 'success', 'message' => 'Application removed.']);
+        notifyEmail('Placement', 'deleted');
         exit;
 
     default:

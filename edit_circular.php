@@ -62,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$title, $message, $date, $file_path, $circular_id, $user_id]);
 
         setFlashMessage('success', 'Circular updated successfully.');
+        notifyEmail('Circular', 'updated');
         redirect('circular.php');
     }
 }

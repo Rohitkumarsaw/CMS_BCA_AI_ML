@@ -61,6 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$title, $author, $subject, $borrow_date, $return_date, $status, $book_id, $user_id]);
 
         setFlashMessage('success', 'Book updated successfully.');
+        notifyEmail('Book', 'updated');
         redirect('library.php');
     }
 }

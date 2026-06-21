@@ -68,6 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$exam_name, $subject, $topics_to_cover, $start_date, $end_date, $status, $progress, $prep_id, $user_id]);
 
         setFlashMessage('success', 'Exam preparation updated successfully.');
+        notifyEmail('Exam Preparation', 'updated');
         redirect('exam_prep.php');
     }
 }

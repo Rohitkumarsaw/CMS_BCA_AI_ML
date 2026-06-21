@@ -42,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$title, $message, $type, $priority, $announce_id, $user_id]);
 
         setFlashMessage('success', 'Announcement updated successfully.');
+        notifyEmail('Announcement', 'updated');
         redirect('announcement.php');
     }
 }

@@ -56,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$jobTitle, $company, $location, $applicationDate, $status, $jobLink, $salary, $job_id, $user_id]);
 
         setFlashMessage('success', 'Job application updated successfully.');
+        notifyEmail('Job', 'updated');
         redirect('jobs.php');
     }
 }

@@ -78,6 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$title, $description, $semester, $subject, $tech_stack, $file_path, $image_path, $link, $category, $start_date, $end_date, $project_id, $user_id]);
 
         setFlashMessage('success', 'Project updated successfully.');
+        notifyEmail('Project', 'updated');
         redirect('projects.php');
     }
 }
