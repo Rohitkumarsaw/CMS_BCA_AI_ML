@@ -47,8 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $status
     ]);
 
+    $detail = "Type: " . $paymentType . " - Amount: ₹" . $amount;
     setFlashMessage('success', 'Payment record added successfully');
-    notifyEmail('Payment', 'added');
+    notifyEmail('Payment', 'added', $detail);
     header('Location: payment.php');
     exit;
 }

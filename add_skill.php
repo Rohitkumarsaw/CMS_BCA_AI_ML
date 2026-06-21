@@ -27,8 +27,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare("INSERT INTO skills (user_id, skill_name, level, category, status, date_completed, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())");
     $stmt->execute([$userId, $skillName, $level, $category, $status, $dateCompleted]);
 
+    $detail = "Skill: " . $skillName . " - Level: " . $level;
     setFlashMessage('success', 'Skill added successfully');
-    notifyEmail('Skill', 'added');
+    notifyEmail('Skill', 'added', $detail);
     header('Location: skills.php');
     exit;
 }

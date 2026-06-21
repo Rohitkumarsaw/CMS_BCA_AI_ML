@@ -51,8 +51,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $status
     ]);
 
+    $detail = "Company: " . $company . " - Role: " . $role;
     setFlashMessage('success', 'Internship added successfully');
-    notifyEmail('Internship', 'added');
+    notifyEmail('Internship', 'added', $detail);
     header('Location: internship.php');
     exit;
 }

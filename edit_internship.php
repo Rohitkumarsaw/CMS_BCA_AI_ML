@@ -70,8 +70,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("UPDATE internships SET company = ?, role = ?, duration_start = ?, duration_end = ?, location = ?, description = ?, skills_gained = ?, certificate_path = ?, payment = ?, status = ? WHERE id = ? AND user_id = ?");
         $stmt->execute([$company, $role, $duration_start, $duration_end, $location, $description, $skills_gained, $certificate_path, $payment, $status, $internship_id, $user_id]);
 
+        $detail = "Company: " . $company . " - Role: " . $role;
         setFlashMessage('success', 'Internship updated successfully.');
-        notifyEmail('Internship', 'updated');
+        notifyEmail('Internship', 'updated', $detail);
         redirect('internship.php');
     }
 }

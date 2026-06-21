@@ -41,8 +41,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("UPDATE announcements SET title = ?, message = ?, type = ?, priority = ? WHERE id = ? AND user_id = ?");
         $stmt->execute([$title, $message, $type, $priority, $announce_id, $user_id]);
 
+        $detail = "Title: " . $title . " - Priority: " . $priority;
         setFlashMessage('success', 'Announcement updated successfully.');
-        notifyEmail('Announcement', 'updated');
+        notifyEmail('Announcement', 'updated', $detail);
         redirect('announcement.php');
     }
 }

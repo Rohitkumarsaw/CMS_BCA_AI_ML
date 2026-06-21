@@ -67,8 +67,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("UPDATE labs SET lab_name = ?, subject = ?, date = ?, status = ?, report_path = ? WHERE id = ? AND user_id = ?");
         $stmt->execute([$lab_name, $subject, $date, $status, $report_path, $lab_id, $user_id]);
 
+        $detail = "Title: " . $lab_name . " - Subject: " . $subject;
         setFlashMessage('success', 'Lab work updated successfully.');
-        notifyEmail('Lab', 'updated');
+        notifyEmail('Lab', 'updated', $detail);
         redirect('lab.php');
     }
 }

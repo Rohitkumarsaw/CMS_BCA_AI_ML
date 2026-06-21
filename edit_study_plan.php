@@ -55,8 +55,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("UPDATE study_plans SET subject = ?, topic = ?, date = ?, time_slot = ?, priority = ?, status = ? WHERE id = ? AND user_id = ?");
         $stmt->execute([$subject, $topic, $date, $timeSlot, $priority, $status, $plan_id, $user_id]);
 
+        $detail = "Topic: " . $topic;
         setFlashMessage('success', 'Study plan updated successfully.');
-        notifyEmail('Study Plan', 'updated');
+        notifyEmail('Study Plan', 'updated', $detail);
         redirect('study_plan.php');
     }
 }

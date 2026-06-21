@@ -67,8 +67,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $userId
     ]);
 
+    $detail = "Type: " . $paymentType . " - Amount: ₹" . $amount;
     setFlashMessage('success', 'Payment record updated successfully');
-    notifyEmail('Payment', 'updated');
+    notifyEmail('Payment', 'updated', $detail);
     header('Location: payment.php');
     exit;
 }

@@ -47,8 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("INSERT INTO homework (user_id, semester, title, subject, description, due_date, status, file_path, created_at) VALUES (?, ?, ?, ?, ?, ?, 'Not Submitted', ?, NOW())");
         $stmt->execute([$user_id, $user_semester, $title, $subject, $description, $due_date, $file_path]);
 
+        $detail = "Title: " . $title . " - Subject: " . $subject . " - Due: " . $due_date;
         setFlashMessage('success', 'Homework added successfully.');
-        notifyEmail('Homework', 'added');
+        notifyEmail('Homework', 'added', $detail);
         redirect('homework.php');
     }
 }

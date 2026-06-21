@@ -319,21 +319,71 @@ function sendMail($subject, $body) {
 
 function notifyEmail($section, $action, $details = null) {
     $userName = $_SESSION['user_name'] ?? 'System';
+    $time = date('d M Y h:i A');
     $subject = "CMS Update - {$section} - " . ucfirst($action);
-    $body = "<div style='font-family:Inter,sans-serif;max-width:600px;margin:0 auto;padding:30px;background:#191c24;border-radius:12px;border:1px solid #2c2e3e;color:#ffffff'>";
-    $body .= "<div style='text-align:center;margin-bottom:25px'><h2 style='margin:0;background:linear-gradient(90deg,#00d2ff,#0090e7,#8a2be2);-webkit-background-clip:text;-webkit-text-fill-color:transparent'>CMS BCA AI/ML</h2></div>";
-    $body .= "<hr style='border-color:#2c2e3e'>";
-    $body .= "<p style='color:#a3a6b7;font-size:14px'>Hello Rohit,</p>";
-    $body .= "<p style='color:#ffffff;font-size:15px'>A new update has been made in the <strong style='color:#00d2ff'>" . htmlspecialchars($section) . "</strong> section.</p>";
-    $body .= "<table style='width:100%;border-collapse:collapse;margin:15px 0'><tr><td style='padding:10px 15px;background:rgba(0,210,255,0.06);border-radius:8px'>";
-    $body .= "<p style='margin:3px 0;color:#a3a6b7'>Action: <strong style='color:#ffffff'>" . ucfirst($action) . "</strong></p>";
-    $body .= "<p style='margin:3px 0;color:#a3a6b7'>By: <strong style='color:#ffffff'>" . htmlspecialchars($userName) . "</strong></p>";
-    if ($details) {
-        $body .= "<p style='margin:3px 0;color:#a3a6b7'>Details: <strong style='color:#ffffff'>" . htmlspecialchars($details) . "</strong></p>";
-    }
-    $body .= "</td></tr></table>";
-    $body .= "<hr style='border-color:#2c2e3e'>";
-    $body .= "<p style='color:#6c7293;font-size:12px;text-align:center'>This is an automated notification from CMS BCA AI/ML.</p>";
+
+    $actionColor = match(strtolower($action)) {
+        'added', 'created', 'submitted' => '#00d25b',
+        'updated', 'changed', 'status updated' => '#0090e7',
+        'deleted', 'removed', 'cancelled' => '#fc424a',
+        'approved' => '#00d25b',
+        'rejected' => '#fc424a',
+        'exported', 'imported' => '#8a2be2',
+        default => '#00d2ff'
+    };
+    $actionIcon = match(strtolower($action)) {
+        'added', 'created', 'submitted' => '&#10003;',
+        'updated', 'changed', 'status updated' => '&#9881;',
+        'deleted', 'removed', 'cancelled' => '&#10007;',
+        'approved' => '&#10003;',
+        'rejected' => '&#10007;',
+        default => '&#9654;'
+    };
+
+    $body = "<div style='font-family:Inter,Segoe UI,sans-serif;max-width:580px;margin:0 auto;background:#ffffff;border-radius:16px;overflow:hidden;border:1px solid #e5e7eb;box-shadow:0 20px 60px rgba(0,0,0,0.12)'>";
+
+    $body .= "<div style='background:linear-gradient(135deg,#0a0a1a 0%,#1a0a2e 50%,#0a1a2e 100%);padding:35px 35px 25px;text-align:center'>";
+    $body .= "<div style='display:inline-block;width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,#00d2ff,#8a2be2);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:26px;line-height:56px;color:#fff'>&#127891;</div>";
+    $body .= "<h1 style='margin:0;font-size:22px;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(90deg,#00d2ff,#0090e7,#8a2be2);-webkit-background-clip:text;-webkit-text-fill-color:transparent'>CMS BCA AI/ML</h1>";
+    $body .= "<p style='margin:5px 0 0;color:#6c7293;font-size:13px;letter-spacing:0.5px'>Course Management System &bull; SITM College</p>";
     $body .= "</div>";
+
+    $body .= "<div style='padding:30px 35px'>";
+
+    $body .= "<p style='color:#4a4a6a;font-size:14px;margin:0 0 5px'>Hello Rohit,</p>";
+    $body .= "<p style='color:#6b7280;font-size:14px;margin:0 0 20px'>A new activity has been recorded in the system.</p>";
+
+    $body .= "<div style='display:flex;align-items:center;gap:12px;margin-bottom:20px'>";
+    $body .= "<div style='display:inline-flex;align-items:center;justify-content:center;min-width:50px;height:32px;padding:0 16px;border-radius:20px;background:{$actionColor}15;color:{$actionColor};font-size:13px;font-weight:700;letter-spacing:0.3px;text-transform:uppercase'>{$actionIcon} " . ucfirst($action) . "</div>";
+    $body .= "<span style='color:#9ca3af;font-size:13px'>{$time}</span>";
+    $body .= "</div>";
+
+    $body .= "<table style='width:100%;border-collapse:collapse;background:#f9fafb;border-radius:12px;overflow:hidden;margin-bottom:20px'>";
+    $body .= "<tr><td style='padding:14px 18px;border-bottom:1px solid #f0f0f0;width:120px;color:#6b7280;font-size:13px'>Section</td><td style='padding:14px 18px;border-bottom:1px solid #f0f0f0;color:#1a1a2e;font-size:14px;font-weight:600'>" . htmlspecialchars($section) . "</td></tr>";
+    $body .= "<tr><td style='padding:14px 18px;border-bottom:1px solid #f0f0f0;width:120px;color:#6b7280;font-size:13px'>Action</td><td style='padding:14px 18px;border-bottom:1px solid #f0f0f0;color:#1a1a2e;font-size:14px'>" . ucfirst($action) . "</td></tr>";
+    $body .= "<tr><td style='padding:14px 18px;border-bottom:1px solid #f0f0f0;width:120px;color:#6b7280;font-size:13px'>Performed By</td><td style='padding:14px 18px;border-bottom:1px solid #f0f0f0;color:#1a1a2e;font-size:14px'>" . htmlspecialchars($userName) . "</td></tr>";
+    $body .= "<tr><td style='padding:14px 18px;width:120px;color:#6b7280;font-size:13px'>Date &amp; Time</td><td style='padding:14px 18px;color:#1a1a2e;font-size:14px'>{$time}</td></tr>";
+    if ($details) {
+        $body .= "<tr><td style='padding:14px 18px;border-top:1px solid #f0f0f0;width:120px;color:#6b7280;font-size:13px'>Details</td><td style='padding:14px 18px;border-top:1px solid #f0f0f0;color:#1a1a2e;font-size:14px'>" . htmlspecialchars($details) . "</td></tr>";
+    }
+    $body .= "</table>";
+
+    $body .= "<div style='background:linear-gradient(135deg,rgba(0,210,255,0.04),rgba(138,43,226,0.04));border-radius:10px;padding:16px 20px;text-align:center;margin-bottom:20px'>";
+    $body .= "<p style='margin:0;color:#6b7280;font-size:13px'>You are receiving this email because you are registered as the administrator of <strong style='color:#1a1a2e'>CMS BCA AI/ML</strong>.</p>";
+    $body .= "</div>";
+
+    $body .= "<div style='text-align:center'>";
+    $body .= "<a href='http://localhost/bca-portal' style='display:inline-block;padding:12px 32px;background:linear-gradient(90deg,#00d2ff,#0090e7,#8a2be2);color:#ffffff;text-decoration:none;border-radius:10px;font-size:14px;font-weight:600'>Open Dashboard</a>";
+    $body .= "</div>";
+
+    $body .= "</div>";
+
+    $body .= "<div style='background:#f9fafb;padding:18px 35px;text-align:center;border-top:1px solid #f0f0f0'>";
+    $body .= "<p style='margin:0;color:#9ca3af;font-size:12px'>This is an automated notification from CMS BCA AI/ML &bull; SITM College</p>";
+    $body .= "<p style='margin:3px 0 0;color:#d1d5db;font-size:11px'>&copy; " . date('Y') . " Rohit Kumar Saw &bull; BCA (AI/ML)</p>";
+    $body .= "</div>";
+
+    $body .= "</div>";
+
     sendMail($subject, $body);
 }

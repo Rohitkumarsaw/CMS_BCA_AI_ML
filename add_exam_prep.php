@@ -50,8 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("INSERT INTO exam_prep (user_id, exam_name, subject, topics_to_cover, start_date, end_date, status, progress, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())");
         $stmt->execute([$user_id, $exam_name, $subject, $topics_to_cover, $start_date, $end_date, $status, $progress]);
 
+        $detail = "Topic: " . $exam_name . " - Subject: " . $subject;
         setFlashMessage('success', 'Exam preparation added successfully.');
-        notifyEmail('Exam Preparation', 'added');
+        notifyEmail('Exam Preparation', 'added', $detail);
         redirect('exam_prep.php');
     }
 }

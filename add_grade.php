@@ -34,8 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ':semester' => $semester
     ]);
     
+    $detail = "Subject: " . $subject . " - Marks: " . $marksObtained . "/" . $totalMarks;
     setFlashMessage('success', 'Grade added successfully');
-    notifyEmail('Grade', 'added');
+    notifyEmail('Grade', 'added', $detail);
     header('Location: grades.php');
     exit;
 }

@@ -46,8 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("INSERT INTO presentations (user_id, title, subject, date, status, file_path, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())");
         $stmt->execute([$user_id, $title, $subject, $date, $status, $file_path]);
 
+        $detail = "Title: " . $title;
         setFlashMessage('success', 'Presentation added successfully.');
-        notifyEmail('Presentation', 'added');
+        notifyEmail('Presentation', 'added', $detail);
         redirect('presentation.php');
     }
 }

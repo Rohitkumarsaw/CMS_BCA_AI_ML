@@ -36,8 +36,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("INSERT INTO schedule (semester, day, subject, start_time, end_time, teacher_name, room_no, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([$semester, $day, $subject, $startTime, $endTime, $teacherName, $roomNo, $type]);
         
+        $detail = "Subject: " . $subject . " - Day: " . $day . " - Time: " . $startTime;
         setFlashMessage('success', 'Schedule added successfully!');
-        notifyEmail('Schedule', 'added');
+        notifyEmail('Schedule', 'added', $detail);
         header('Location: schedule.php?semester=' . $semester . '&day=' . $day);
         exit();
     }

@@ -39,8 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare("UPDATE holidays SET date = ?, holiday_name = ?, type = ? WHERE id = ? AND user_id = ?");
     $stmt->execute([$date, $holidayName, $type, $holiday_id, $userId]);
 
+    $detail = "Holiday: " . $holidayName . " - Date: " . $date;
     setFlashMessage('success', 'Holiday updated successfully');
-    notifyEmail('Holiday', 'updated');
+    notifyEmail('Holiday', 'updated', $detail);
     header('Location: holiday.php');
     exit;
 }

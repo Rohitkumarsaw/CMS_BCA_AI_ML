@@ -60,8 +60,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("UPDATE books SET title = ?, author = ?, subject = ?, borrow_date = ?, return_date = ?, status = ? WHERE id = ? AND user_id = ?");
         $stmt->execute([$title, $author, $subject, $borrow_date, $return_date, $status, $book_id, $user_id]);
 
+        $detail = "Book: " . $title . " - Author: " . $author;
         setFlashMessage('success', 'Book updated successfully.');
-        notifyEmail('Book', 'updated');
+        notifyEmail('Book', 'updated', $detail);
         redirect('library.php');
     }
 }

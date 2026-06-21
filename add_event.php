@@ -45,8 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $imagePath
     ]);
 
+    $detail = "Event: " . $eventName . " - Date: " . $date;
     setFlashMessage('success', 'Event added successfully');
-    notifyEmail('Event', 'added');
+    notifyEmail('Event', 'added', $detail);
     header('Location: event.php');
     exit;
 }

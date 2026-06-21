@@ -67,8 +67,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("UPDATE exam_prep SET exam_name = ?, subject = ?, topics_to_cover = ?, start_date = ?, end_date = ?, status = ?, progress = ? WHERE id = ? AND user_id = ?");
         $stmt->execute([$exam_name, $subject, $topics_to_cover, $start_date, $end_date, $status, $progress, $prep_id, $user_id]);
 
+        $detail = "Topic: " . $exam_name . " - Subject: " . $subject;
         setFlashMessage('success', 'Exam preparation updated successfully.');
-        notifyEmail('Exam Preparation', 'updated');
+        notifyEmail('Exam Preparation', 'updated', $detail);
         redirect('exam_prep.php');
     }
 }

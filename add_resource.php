@@ -27,8 +27,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare("INSERT INTO resources (user_id, name, type, link, subject, tags, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())");
     $stmt->execute([$userId, $name, $type, $link, $subject, $tags]);
 
+    $detail = "Title: " . $name . " - Type: " . $type;
     setFlashMessage('success', 'Resource added successfully');
-    notifyEmail('Resource', 'added');
+    notifyEmail('Resource', 'added', $detail);
     header('Location: resources.php');
     exit;
 }

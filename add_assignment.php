@@ -46,8 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("INSERT INTO assignments (user_id, title, subject, due_date, status, file_path, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())");
         $stmt->execute([$user_id, $title, $subject, $due_date, $status, $file_path]);
 
+        $detail = "Title: " . $title . " - Subject: " . $subject . " - Due: " . $due_date;
         setFlashMessage('success', 'Assignment added successfully.');
-        notifyEmail('Assignment', 'added');
+        notifyEmail('Assignment', 'added', $detail);
         redirect('assignment.php');
     }
 }

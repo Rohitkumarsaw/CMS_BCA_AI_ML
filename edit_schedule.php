@@ -51,8 +51,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("UPDATE schedule SET semester = ?, day = ?, subject = ?, start_time = ?, end_time = ?, teacher_name = ?, room_no = ?, type = ? WHERE id = ?");
         $stmt->execute([$semester, $day, $subject, $startTime, $endTime, $teacherName, $roomNo, $type, $schedule_id]);
 
+        $detail = "Subject: " . $subject . " - Day: " . $day . " - Time: " . $startTime;
         setFlashMessage('success', 'Schedule updated successfully!');
-        notifyEmail('Schedule', 'updated');
+        notifyEmail('Schedule', 'updated', $detail);
         header('Location: schedule.php?semester=' . $semester . '&day=' . $day);
         exit();
     }

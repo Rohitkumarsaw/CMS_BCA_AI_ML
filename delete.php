@@ -74,6 +74,7 @@ foreach ($fileColumns as $col) {
 $stmt = $pdo->prepare("DELETE FROM $table WHERE id = ?");
 $stmt->execute([$id]);
 
+$detail = "ID: " . $id . " from " . $type;
 setFlashMessage('success', 'Record deleted successfully.');
-notifyEmail('Record', 'deleted');
+notifyEmail('Record', 'deleted', $detail);
 redirect($redirect);

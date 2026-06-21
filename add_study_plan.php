@@ -26,8 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare("INSERT INTO study_plans (user_id, subject, topic, date, time_slot, priority, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())");
     $stmt->execute([$userId, $subject, $topic, $date, $timeSlot, $priority, $status]);
 
+    $detail = "Topic: " . $topic;
     setFlashMessage('success', 'Study plan added successfully');
-    notifyEmail('Study Plan', 'added');
+    notifyEmail('Study Plan', 'added', $detail);
     header('Location: study_plan.php');
     exit;
 }

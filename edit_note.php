@@ -61,8 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("UPDATE notes SET title = ?, subject = ?, type = ?, file_path = ?, semester = ?, tags = ? WHERE id = ? AND user_id = ?");
         $stmt->execute([$title, $subject, $type, $file_path, $semester, $tags, $note_id, $user_id]);
 
+        $detail = "Title: " . $title . " - Subject: " . $subject;
         setFlashMessage('success', 'Note updated successfully.');
-        notifyEmail('Note', 'updated');
+        notifyEmail('Note', 'updated', $detail);
         redirect('notes.php');
     }
 }

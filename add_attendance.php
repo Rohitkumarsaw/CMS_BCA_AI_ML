@@ -35,8 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("INSERT INTO attendance (user_id, semester, subject, date, status, created_at) VALUES (?, ?, ?, ?, ?, NOW())");
         $stmt->execute([$user_id, $user_semester, $subject, $date, ucfirst(strtolower($status))]);
 
+        $detail = "Subject: " . $subject . " - Status: " . $status;
         setFlashMessage('success', 'Attendance added successfully.');
-        notifyEmail('Attendance', 'added');
+        notifyEmail('Attendance', 'added', $detail);
         redirect('attendance.php');
     }
 }

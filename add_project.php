@@ -59,8 +59,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ':end_date' => $endDate
     ]);
     
+    $detail = "Project: " . $title . " - Type: " . $category;
     setFlashMessage('success', 'Project added successfully');
-    notifyEmail('Project', 'added');
+    notifyEmail('Project', 'added', $detail);
     header('Location: projects.php');
     exit;
 }

@@ -40,8 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("INSERT INTO circulars (user_id, title, message, date, file_path, created_at) VALUES (?, ?, ?, ?, ?, NOW())");
         $stmt->execute([$user_id, $title, $message, $date, $file_path]);
 
+        $detail = "Title: " . $title;
         setFlashMessage('success', 'Circular added successfully.');
-        notifyEmail('Circular', 'added');
+        notifyEmail('Circular', 'added', $detail);
         redirect('circular.php');
     }
 }

@@ -37,8 +37,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare("INSERT INTO certifications (user_id, cert_name, issuing_org, date, duration, certificate_path, link, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())");
     $stmt->execute([$userId, $certName, $issuingOrg, $date, $duration, $certificatePath, $link]);
 
+    $detail = "Certification: " . $certName . " - Issuer: " . $issuingOrg;
     setFlashMessage('success', 'Certification added successfully');
-    notifyEmail('Certification', 'added');
+    notifyEmail('Certification', 'added', $detail);
     header('Location: certifications.php');
     exit;
 }

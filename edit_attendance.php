@@ -51,8 +51,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("UPDATE attendance SET date = ?, subject = ?, status = ? WHERE id = ? AND user_id = ?");
         $stmt->execute([$date, $subject, $status, $att_id, $user_id]);
 
+        $detail = "Subject: " . $subject . " - Status: " . $status;
         setFlashMessage('success', 'Attendance updated successfully.');
-        notifyEmail('Attendance', 'updated');
+        notifyEmail('Attendance', 'updated', $detail);
         redirect('attendance.php');
     }
 }

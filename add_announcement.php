@@ -24,8 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare("INSERT INTO announcements (user_id, title, message, type, priority, created_at) VALUES (?, ?, ?, ?, ?, NOW())");
     $stmt->execute([$userId, $title, $message, $type, $priority]);
 
+    $detail = "Title: " . $title . " - Priority: " . $priority;
     setFlashMessage('success', 'Announcement added successfully');
-    notifyEmail('Announcement', 'added');
+    notifyEmail('Announcement', 'added', $detail);
     header('Location: announcement.php');
     exit;
 }

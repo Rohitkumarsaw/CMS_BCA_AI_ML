@@ -38,8 +38,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("INSERT INTO exams (user_id, semester, exam_name, subject, date, start_time, end_time, room_no, type, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->execute([$userId, $semester, $examName, $subject, $date, $startTime, $endTime, $roomNo, $type, $status]);
         
+        $detail = "Exam: " . $examName . " - Subject: " . $subject . " - Date: " . $date;
         setFlashMessage('success', 'Exam added successfully!');
-        notifyEmail('Exam', 'added');
+        notifyEmail('Exam', 'added', $detail);
         header('Location: exam.php?semester=' . $semester);
         exit();
     }

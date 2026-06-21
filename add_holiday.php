@@ -23,8 +23,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare("INSERT INTO holidays (user_id, date, holiday_name, type, created_at) VALUES (?, ?, ?, ?, NOW())");
     $stmt->execute([$userId, $date, $holidayName, $type]);
 
+    $detail = "Holiday: " . $holidayName . " - Date: " . $date;
     setFlashMessage('success', 'Holiday added successfully');
-    notifyEmail('Holiday', 'added');
+    notifyEmail('Holiday', 'added', $detail);
     header('Location: holiday.php');
     exit;
 }

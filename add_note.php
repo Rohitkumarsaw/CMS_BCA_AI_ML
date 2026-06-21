@@ -40,8 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ':tags' => $tags
     ]);
     
+    $detail = "Title: " . $title . " - Subject: " . $subject;
     setFlashMessage('success', 'Note added successfully');
-    notifyEmail('Note', 'added');
+    notifyEmail('Note', 'added', $detail);
     header('Location: notes.php');
     exit;
 }

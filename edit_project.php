@@ -77,8 +77,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("UPDATE projects SET title = ?, description = ?, semester = ?, subject = ?, tech_stack = ?, file_path = ?, image_path = ?, link = ?, category = ?, start_date = ?, end_date = ? WHERE id = ? AND user_id = ?");
         $stmt->execute([$title, $description, $semester, $subject, $tech_stack, $file_path, $image_path, $link, $category, $start_date, $end_date, $project_id, $user_id]);
 
+        $detail = "Project: " . $title . " - Type: " . $category;
         setFlashMessage('success', 'Project updated successfully.');
-        notifyEmail('Project', 'updated');
+        notifyEmail('Project', 'updated', $detail);
         redirect('projects.php');
     }
 }

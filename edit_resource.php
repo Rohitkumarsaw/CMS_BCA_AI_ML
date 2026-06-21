@@ -50,8 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("UPDATE resources SET name = ?, type = ?, link = ?, subject = ?, tags = ? WHERE id = ? AND user_id = ?");
         $stmt->execute([$name, $type, $link, $subject, $tags, $resource_id, $user_id]);
 
+        $detail = "Title: " . $name . " - Type: " . $type;
         setFlashMessage('success', 'Resource updated successfully.');
-        notifyEmail('Resource', 'updated');
+        notifyEmail('Resource', 'updated', $detail);
         redirect('resources.php');
     }
 }

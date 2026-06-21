@@ -65,8 +65,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $user_id
         ]);
 
+        $detail = "Event: " . $event_name . " - Date: " . $date;
         setFlashMessage('success', 'Event updated successfully.');
-        notifyEmail('Event', 'updated');
+        notifyEmail('Event', 'updated', $detail);
         redirect('event.php');
     }
 }

@@ -71,8 +71,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("UPDATE homework SET title = ?, subject = ?, description = ?, due_date = ?, status = ?, file_path = ? WHERE id = ? AND user_id = ?");
         $stmt->execute([$title, $subject, $description, $due_date, $status, $file_path, $hw_id, $user_id]);
 
+        $detail = "Title: " . $title . " - Subject: " . $subject . " - Due: " . $due_date;
         setFlashMessage('success', 'Homework updated successfully.');
-        notifyEmail('Homework', 'updated');
+        notifyEmail('Homework', 'updated', $detail);
         redirect('homework.php');
     }
 }

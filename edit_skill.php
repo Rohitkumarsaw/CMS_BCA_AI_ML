@@ -53,8 +53,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("UPDATE skills SET skill_name = ?, level = ?, category = ?, status = ?, date_completed = ? WHERE id = ? AND user_id = ?");
         $stmt->execute([$skillName, $level, $category, $status, $dateCompleted, $skill_id, $user_id]);
 
+        $detail = "Skill: " . $skillName . " - Level: " . $level;
         setFlashMessage('success', 'Skill updated successfully.');
-        notifyEmail('Skill', 'updated');
+        notifyEmail('Skill', 'updated', $detail);
         redirect('skills.php');
     }
 }

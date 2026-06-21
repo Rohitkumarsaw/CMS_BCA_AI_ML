@@ -67,8 +67,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("UPDATE assignments SET title = ?, subject = ?, due_date = ?, status = ?, file_path = ? WHERE id = ? AND user_id = ?");
         $stmt->execute([$title, $subject, $due_date, $status, $file_path, $assign_id, $user_id]);
 
+        $detail = "Title: " . $title . " - Subject: " . $subject . " - Due: " . $due_date;
         setFlashMessage('success', 'Assignment updated successfully.');
-        notifyEmail('Assignment', 'updated');
+        notifyEmail('Assignment', 'updated', $detail);
         redirect('assignment.php');
     }
 }

@@ -29,8 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare("INSERT INTO jobs (user_id, job_title, company, location, application_date, status, job_link, salary, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())");
     $stmt->execute([$userId, $jobTitle, $company, $location, $applicationDate, $status, $jobLink, $salary]);
 
+    $detail = "Company: " . $company . " - Position: " . $jobTitle;
     setFlashMessage('success', 'Job application added successfully');
-    notifyEmail('Job', 'added');
+    notifyEmail('Job', 'added', $detail);
     header('Location: jobs.php');
     exit;
 }

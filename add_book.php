@@ -28,8 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare("INSERT INTO books (user_id, title, author, subject, borrow_date, return_date, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())");
     $stmt->execute([$userId, $title, $author, $subject, $borrowDate, $returnDate, $status]);
 
+    $detail = "Book: " . $title . " - Author: " . $author;
     setFlashMessage('success', 'Book added successfully');
-    notifyEmail('Book', 'added');
+    notifyEmail('Book', 'added', $detail);
     header('Location: library.php');
     exit;
 }

@@ -54,8 +54,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("UPDATE exams SET semester = ?, exam_name = ?, subject = ?, date = ?, start_time = ?, end_time = ?, room_no = ?, type = ?, status = ? WHERE id = ? AND user_id = ?");
         $stmt->execute([$semester, $examName, $subject, $date, $startTime, $endTime, $roomNo, $type, $status, $exam_id, $user_id]);
 
+        $detail = "Exam: " . $examName . " - Subject: " . $subject . " - Date: " . $date;
         setFlashMessage('success', 'Exam updated successfully!');
-        notifyEmail('Exam', 'updated');
+        notifyEmail('Exam', 'updated', $detail);
         header('Location: exam.php?semester=' . $semester);
         exit();
     }

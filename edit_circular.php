@@ -61,8 +61,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("UPDATE circulars SET title = ?, message = ?, date = ?, file_path = ? WHERE id = ? AND user_id = ?");
         $stmt->execute([$title, $message, $date, $file_path, $circular_id, $user_id]);
 
+        $detail = "Title: " . $title;
         setFlashMessage('success', 'Circular updated successfully.');
-        notifyEmail('Circular', 'updated');
+        notifyEmail('Circular', 'updated', $detail);
         redirect('circular.php');
     }
 }

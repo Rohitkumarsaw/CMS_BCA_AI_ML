@@ -67,8 +67,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("UPDATE presentations SET title = ?, subject = ?, date = ?, status = ?, file_path = ? WHERE id = ? AND user_id = ?");
         $stmt->execute([$title, $subject, $date, $status, $file_path, $pres_id, $user_id]);
 
+        $detail = "Title: " . $title;
         setFlashMessage('success', 'Presentation updated successfully.');
-        notifyEmail('Presentation', 'updated');
+        notifyEmail('Presentation', 'updated', $detail);
         redirect('presentation.php');
     }
 }

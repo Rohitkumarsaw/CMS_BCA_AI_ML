@@ -62,8 +62,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("UPDATE certifications SET cert_name = ?, issuing_org = ?, date = ?, duration = ?, certificate_path = ?, link = ? WHERE id = ? AND user_id = ?");
         $stmt->execute([$certName, $issuingOrg, $date, $duration, $certificatePath, $link, $cert_id, $user_id]);
 
+        $detail = "Certification: " . $certName . " - Issuer: " . $issuingOrg;
         setFlashMessage('success', 'Certification updated successfully.');
-        notifyEmail('Certification', 'updated');
+        notifyEmail('Certification', 'updated', $detail);
         redirect('certifications.php');
     }
 }

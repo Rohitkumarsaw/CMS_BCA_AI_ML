@@ -55,8 +55,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("UPDATE jobs SET job_title = ?, company = ?, location = ?, application_date = ?, status = ?, job_link = ?, salary = ? WHERE id = ? AND user_id = ?");
         $stmt->execute([$jobTitle, $company, $location, $applicationDate, $status, $jobLink, $salary, $job_id, $user_id]);
 
+        $detail = "Company: " . $company . " - Position: " . $jobTitle;
         setFlashMessage('success', 'Job application updated successfully.');
-        notifyEmail('Job', 'updated');
+        notifyEmail('Job', 'updated', $detail);
         redirect('jobs.php');
     }
 }

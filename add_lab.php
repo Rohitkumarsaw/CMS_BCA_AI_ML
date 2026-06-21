@@ -46,8 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("INSERT INTO labs (user_id, lab_name, subject, date, status, report_path, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())");
         $stmt->execute([$user_id, $lab_name, $subject, $date, $status, $report_path]);
 
+        $detail = "Title: " . $lab_name . " - Subject: " . $subject;
         setFlashMessage('success', 'Lab work added successfully.');
-        notifyEmail('Lab', 'added');
+        notifyEmail('Lab', 'added', $detail);
         redirect('lab.php');
     }
 }
