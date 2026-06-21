@@ -48,6 +48,7 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
         <a href="leave.php" style="--nav-color:#ffab00" class="<?php echo $currentPage == 'leave' ? 'active' : ''; ?>"><i class="fas fa-file-signature"></i><span>Leave</span></a>
         <a href="faculty.php" style="--nav-color:#00d25b" class="<?php echo $currentPage == 'faculty' ? 'active' : ''; ?>"><i class="fas fa-chalkboard-teacher"></i><span>Faculty</span></a>
         <a href="profile.php" style="--nav-color:#8a2be2" class="<?php echo $currentPage == 'profile' ? 'active' : ''; ?>"><i class="fas fa-user-circle"></i><span>Profile</span></a>
+        <a href="smtp_settings.php" style="--nav-color:#ff6b6b" class="<?php echo $currentPage == 'smtp_settings' ? 'active' : ''; ?>"><i class="fas fa-cogs"></i><span>SMTP Settings</span></a>
         <a href="logout.php" style="--nav-color:#fc424a" class="text-danger"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
     </div>
 </div>

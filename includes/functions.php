@@ -291,22 +291,60 @@ function getUnreadNotificationCount($pdo, $userId) {
 }
 
 function sendMail($subject, $body) {
-    require_once __DIR__ . '/../config/mail.php';
     require_once __DIR__ . '/../libraries/PHPMailer/src/Exception.php';
     require_once __DIR__ . '/../libraries/PHPMailer/src/PHPMailer.php';
     require_once __DIR__ . '/../libraries/PHPMailer/src/SMTP.php';
 
+    $host = 'smtp.gmail.com';
+    $port = 587;
+    $username = '';
+    $password = '';
+    $from = '';
+    $fromName = 'CMS BCA AI/ML';
+    $to = '';
+    $encryption = 'tls';
+
+    try {
+        global $pdo;
+        if (isset($pdo) && $pdo) {
+            $stmt = $pdo->prepare("SELECT mail_config FROM system_settings LIMIT 1");
+            $stmt->execute();
+            $row = $stmt->fetch();
+            if ($row && $row['mail_config']) {
+                $cfg = json_decode($row['mail_config'], true);
+                if ($cfg) {
+                    $host = $cfg['mail_host'] ?? $host;
+                    $port = $cfg['mail_port'] ?? $port;
+                    $username = $cfg['mail_username'] ?? $username;
+                    $password = $cfg['mail_password'] ?? $password;
+                    $from = $cfg['mail_from'] ?? $from;
+                    $fromName = $cfg['mail_from_name'] ?? $fromName;
+                    $to = $cfg['mail_to'] ?? $to;
+                    $encryption = $cfg['mail_encryption'] ?? $encryption;
+                }
+            }
+        }
+    } catch (PDOException $e) {}
+
+    if (empty($username) || empty($password) || empty($to)) {
+        require_once __DIR__ . '/../config/mail.php';
+        $username = MAIL_USERNAME;
+        $password = MAIL_PASSWORD;
+        $from = MAIL_FROM;
+        $to = MAIL_TO;
+    }
+
     try {
         $mail = new PHPMailer\PHPMailer\PHPMailer(true);
         $mail->isSMTP();
-        $mail->Host = MAIL_HOST;
+        $mail->Host = $host;
         $mail->SMTPAuth = true;
-        $mail->Username = MAIL_USERNAME;
-        $mail->Password = MAIL_PASSWORD;
-        $mail->SMTPSecure = 'tls';
-        $mail->Port = MAIL_PORT;
-        $mail->setFrom(MAIL_FROM, MAIL_FROM_NAME);
-        $mail->addAddress(MAIL_TO);
+        $mail->Username = $username;
+        $mail->Password = $password;
+        $mail->SMTPSecure = $encryption;
+        $mail->Port = $port;
+        $mail->setFrom($from, $fromName);
+        $mail->addAddress($to);
         $mail->Subject = $subject;
         $mail->isHTML(true);
         $mail->Body = $body;
