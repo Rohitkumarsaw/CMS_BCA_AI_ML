@@ -399,7 +399,7 @@ BCA (AI/ML) — SITM College
 ---
 
 <div align="center">
-  <sub>Built with for BCA (AI/ML) at SITM College</sub>
+  <sub>Built with ❤️ for BCA (AI/ML) at SITM College</sub>
   <br/>
   <sub>&copy; 2026 Rohit Kumar Saw &mdash; Educational Project</sub>
 </div>
