@@ -1,151 +1,208 @@
-# 🎓 CMS (BCA AI/ML) — Course Management System
+<div align="center">
+  <img src="favicon.svg" width="64" height="64" alt="CMS Logo"/>
+  <h1>CMS (BCA AI/ML)</h1>
+  <p><strong>Course Management System — SITM College</strong></p>
 
-A premium, full‑stack **Course Management System** built with **PHP 8**, **MySQL**, and a cyberpunk‑glassmorphism dark UI. Designed for BCA (AI/ML) students at **SITM College**, this CMS streamlines attendance tracking, homework submission, examination management, project portfolios, internship tracking, and more — all wrapped in a modern, responsive dashboard.
+  [![PHP](https://img.shields.io/badge/PHP-8.2-777BB4?logo=php&logoColor=white)](https://php.net)
+  [![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?logo=mysql&logoColor=white)](https://mysql.com)
+  [![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-7952B3?logo=bootstrap&logoColor=white)](https://getbootstrap.com)
+  [![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+  [![License](https://img.shields.io/badge/License-Educational-8a2be2)](LICENSE)
+  [![Last Commit](https://img.shields.io/github/last-commit/Rohitkumarsaw/CMS_BCA_AI_ML)](https://github.com/Rohitkumarsaw/CMS_BCA_AI_ML/commits/main)
 
----
-
-## ✨ Features
-
-### 🧑‍🎓 Student Module
-- **Dashboard** — Centralized overview with key metrics, charts, and quick actions
-- **Attendance** — Mark, view, and track attendance with status filters (Present/Absent/Late)
-- **Homework** — Submit assignments with file uploads and status tracking
-- **Schedule** — Weekly class timetable with lecture/lab/tutorial types
-- **Syllabus** — Topic‑wise syllabus tracking (Not Started / In Progress / Completed)
-
-### 📚 Academics
-- **Exams** — Exam schedule with date, time, room, and type (Theory/Practical/Viva/Internal)
-- **Exam Preparation** — Planned study sessions with topic coverage and progress tracking
-- **Grades** — Marks entry and percentage calculation per exam
-- **Notes** — Upload and organize PDF, image, text, and video notes by subject
-- **Study Plans** — Daily/weekly study planning with priority levels
-
-### 📁 Portfolio & Career
-- **Projects** — Academic, personal, internship, and final‑year project management
-- **Internships** — Track applications, interviews, selections, and completions
-- **Jobs** — Job application tracker with status pipeline
-- **Certifications** — Certificate repository with issuing org, date, and link
-- **Skills** — Skill catalog with beginner/intermediate/advanced levels
-- **Presentations** — Presentation planner with status tracking
-- **Resources** — Curated learning resources (videos, articles, courses, books)
-
-### 📋 Administration
-- **Events Calendar** — Monthly grid view with event dots, live clock, add‑event form, CRUD
-- **Announcements** — Important notices with priority levels (High/Medium/Low)
-- **Circulars** — Official circulars with file attachments
-- **Groups** — Create and manage student groups
-- **Backup & Restore** — Full database export (`.sql`) and import with character‑by‑character parser
-- **PDF Export** — Server‑side report generation via **Dompdf** (A4, DejaVu Sans)
-- **Excel Export** — CSV report downloads for all modules
-- **Change Password** — Secure password update with current password verification
-
-### 🎨 UI/UX
-- **Cyberpunk Glassmorphism** — Dark theme with glass‑card effects, neon gradients, and blur backdrops
-- **Responsive** — Fully mobile‑friendly with collapsible sidebar
-- **Search Bar** — Centered glassmorphism search with neon focus glow
-- **Notifications** — Real‑time bell icon with AJAX polling every 30 seconds
-- **SweetAlert2** — Beautiful dark‑theme modal alerts with custom styling
-- **Particle Animation** — Floating cyan particle network on the login page
-- **Cache‑Busted Assets** — Automatic cache refresh via `filemtime()` versioning
+  <hr/>
+</div>
 
 ---
 
-## 🛠 Tech Stack
+A full-stack **Course Management System** built for BCA (AI/ML) students at **SITM College**. Features a cyberpunk-glassmorphism dark UI, 30+ modules, and real-time AJAX interactions.
+
+## Features
+
+<details open>
+<summary><strong>Student</strong></summary>
+
+| Module | Description |
+|---|---|
+| **Dashboard** | Centralized analytics with charts, progress bars, and quick actions |
+| **Attendance** | Mark, view, and filter attendance (Present/Absent/Late) |
+| **Homework** | Submit assignments with file uploads and status tracking |
+| **Schedule** | Weekly timetable with lecture/lab/tutorial slots |
+| **Syllabus** | Topic-wise progress tracking (Not Started / In Progress / Completed) |
+
+</details>
+
+<details open>
+<summary><strong>Academics</strong></summary>
+
+| Module | Description |
+|---|---|
+| **Exams** | Schedule with date, time, room, and exam type |
+| **Exam Preparation** | Study sessions with topic coverage and progress |
+| **Grades** | Marks entry and percentage calculation per exam |
+| **Notes** | Upload and organize notes by subject (PDF, image, video) |
+| **Study Plans** | Daily/weekly planning with priority levels |
+
+</details>
+
+<details open>
+<summary><strong>Portfolio & Career</strong></summary>
+
+| Module | Description |
+|---|---|
+| **Projects** | Academic, personal, internship, and final-year project tracking |
+| **Internships** | Application pipeline — applied, interview, selected, completed |
+| **Jobs** | Job application tracker with status pipeline |
+| **Certifications** | Certificate repository with issuing org, date, links |
+| **Skills** | Skill catalog with beginner/intermediate/advanced levels |
+| **Presentations** | Presentation planner with status tracking |
+| **Resources** | Curated learning resources (videos, articles, courses, books) |
+| **Academic Roadmap** | Checklist-based progress tracking with completion bars |
+
+</details>
+
+<details open>
+<summary><strong>Administration</strong></summary>
+
+| Module | Description |
+|---|---|
+| **Events Calendar** | Monthly grid view, live clock, CRUD operations |
+| **Announcements** | Priority-based notices (High/Medium/Low) |
+| **Circulars** | Official circulars with file attachments |
+| **Groups** | Create and manage student groups |
+| **Activity History** | Full audit log with CSV export |
+| **Backup & Restore** | Full database export/import with character-level SQL parser |
+| **PDF Export** | Server-side A4 reports via Dompdf |
+| **CSV Export** | Downloadable reports for all modules |
+
+</details>
+
+<details open>
+<summary><strong>UI/UX</strong></summary>
+
+| Feature | Description |
+|---|---|
+| **Cyberpunk Glassmorphism** | Dark theme with glass-card effects, neon gradients, blur backdrops |
+| **Section Search** | 43 per-module instant client-side search bars |
+| **Responsive** | Mobile-first with collapsible sidebar |
+| **SweetAlert2** | Custom dark-theme modal alerts |
+| **Particle Animation** | Canvas-based cyan particle network on login |
+| **Cache-Busting** | Automatic refreshing via `filemtime()` versioning |
+
+</details>
+
+---
+
+## Tech Stack
+
+<div align="center">
 
 | Layer | Technology |
 |---|---|
 | **Frontend** | HTML5, CSS3, JavaScript, Bootstrap 5.3, Font Awesome 6 |
-| **Backend** | PHP 8.2 (PDO, prepared statements, sessions, CSRF protection) |
-| **Database** | MySQL / MariaDB (31 tables, relational) |
-| **PDF Engine** | Dompdf 2.0.4 (custom PSR‑4 autoloader) |
-| **Animations** | Canvas particle system, CSS transitions, backdrop‑filter |
-| **Security** | CSRF tokens, password hashing (`bcrypt`), session‑based auth |
+| **Backend** | PHP 8.2 — PDO, prepared statements, sessions, CSRF |
+| **Database** | MySQL / MariaDB — 31 relational tables |
+| **PDF** | Dompdf 2.0.4 with custom PSR-4 autoloader |
+| **Security** | CSRF tokens, bcrypt hashing, prepared statements |
 | **Server** | Apache (XAMPP) |
 
----
-
-## 📁 Database Structure (31 Tables)
-
-`announcements`, `assignments`, `attendance`, `books`, `certifications`, `circulars`, `events`, `exam_prep`, `exams`, `grades`, `group_members`, `groups`, `holidays`, `homework`, `internships`, `jobs`, `labs`, `notes`, `notifications`, `payments`, `presentations`, `profiles`, `projects`, `reports`, `resources`, `schedule`, `skills`, `study_plans`, `syllabus`, `user_subjects`, `users`
+</div>
 
 ---
 
-## 🚀 Installation
-
-### Prerequisites
-- [XAMPP](https://www.apachefriends.org/) (PHP 8+, MySQL, Apache)
-- Git (for cloning)
-- A modern web browser (Chrome, Firefox, Edge)
-
-### Setup
+## Installation
 
 ```bash
-# 1. Clone the repository
+# Clone the repo
 git clone https://github.com/Rohitkumarsaw/CMS_BCA_AI_ML.git
 
-# 2. Move to XAMPP htdocs
+# Move to XAMPP htdocs
 copy CMS_BCA_AI_ML C:\xampp\htdocs\bca-portal
 
-# 3. Start Apache & MySQL via XAMPP Control Panel
+# Start Apache & MySQL via XAMPP Control Panel
 
-# 4. Create the database
-# Open phpMyAdmin (http://localhost/phpmyadmin) and import:
-#    database/bca_portal_db.sql
+# Open phpMyAdmin and import:
+#   database/bca_portal_db.sql
 
-# 5. Configure database connection
-# Edit: config/config.php (default: root, no password)
+# Configure database connection:
+#   Edit config/config.php (default: root, no password)
 
-# 6. Access the portal
-#    http://localhost/bca-portal
+# Access: http://localhost/bca-portal
+```
+
+### Default Login
+
+| Username | Password |
+|---|---|
+| `rohit_sitm` | `Sitm@2026` |
+
+---
+
+## Database Schema
+
+<details>
+<summary><strong>31 Tables</strong></summary>
+
+```  
+announcements    assignments     attendance     books
+certifications   circulars       events         exam_prep
+exams            grades          group_members  groups
+holidays         homework        internships    jobs
+labs             notes           notifications  payments
+presentations    profiles        projects       reports
+resources        schedule        skills         study_plans
+syllabus         user_subjects   users
+```
+
+</details>
+
+<details>
+<summary><strong>Additional Tables (v2)</strong></summary>
+
+```
+activity_logs      academic_roadmaps     roadmap_items
+```
+
+</details>
+
+---
+
+## Security
+
+- **CSRF Protection** — Token validation on every form submission
+- **Password Hashing** — `password_hash()` with bcrypt
+- **Session Management** — Strict login enforcement on all protected routes
+- **Prepared Statements** — SQL injection prevention via PDO
+- **Input Sanitization** — Output escaped with `htmlspecialchars()`
+
+---
+
+## Project Structure
+
+```
+bca-portal/
+├── config/              # Database and app configuration
+├── css/                 # Stylesheets (45 files)
+├── js/                  # JavaScript modules (40 files)
+├── includes/            # Header, navbar, sidebar, footer, functions
+├── sql/                 # Database migrations and schema
+├── uploads/             # User-uploaded files
+└── *.php                # 100+ module pages and handlers
 ```
 
 ---
 
-## 🎯 Sample Data
-
-The database comes pre‑seeded with one sample entry per module for immediate testing:
-- 📅 Upcoming events and holidays
-- 📝 Homework assignments with due dates
-- 📊 Attendance records and grade entries
-- 📚 Books, notes, and study resources
-- 💼 Internship and job applications
-- 🏆 Certifications and project portfolios
-- 📋 Exam schedules and syllabus topics
-
----
-
-## 🔐 Security
-
-- **CSRF Protection** — Every form includes a unique token validated server‑side
-- **Password Hashing** — `password_hash()` with `PASSWORD_DEFAULT` (bcrypt)
-- **Session Management** — Strict login checks on every protected page
-- **Prepared Statements** — All SQL queries use PDO prepared statements to prevent SQL injection
-- **Input Sanitization** — User input is sanitized before display
-
----
-
-## 📸 Preview
-
-> *Login — Cyberpunk glassmorphism with particle animation*
-> ![Login](https://via.placeholder.com/800x450/0a0a1a/00d4ff?text=Login+Page)
-
-> *Dashboard — Dark theme with neon accents*
-> ![Dashboard](https://via.placeholder.com/800x450/191c24/8a2be2?text=Dashboard)
-
-> *Events Calendar — Monthly grid with live clock*
-> ![Events](https://via.placeholder.com/800x450/191c24/da70d6?text=Events+Calendar)
-
----
-
-## 🧑‍💻 Developer
+## Developer
 
 **Rohit Kumar Saw**  
 BCA (AI/ML) — SITM College
 
-[![GitHub](https://img.shields.io/badge/GitHub-Rohitkumarsaw-8a2be2?style=flat&logo=github)](https://github.com/Rohitkumarsaw)
+[![GitHub](https://img.shields.io/badge/GitHub-Rohitkumarsaw-8a2be2?logo=github&logoColor=white)](https://github.com/Rohitkumarsaw)
 
 ---
 
-## 📄 License
-
-This project is developed for educational purposes as part of the BCA (AI/ML) programme at **SITM College**.
+<div align="center">
+  <sub>Built with for BCA (AI/ML) at SITM College</sub>
+  <br/>
+  <sub>&copy; 2026 Rohit Kumar Saw &mdash; Educational Project</sub>
+</div>
