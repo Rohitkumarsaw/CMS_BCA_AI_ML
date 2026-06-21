@@ -1,81 +1,109 @@
 <?php
+require_once 'config/config.php';
 require_once 'config/db_connection.php';
 require_once 'includes/functions.php';
 requireLogin();
+
 header('Content-Type: application/json');
-
-$pdo->exec("CREATE TABLE IF NOT EXISTS system_settings (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    site_name VARCHAR(255) DEFAULT NULL,
-    site_description TEXT DEFAULT NULL,
-    partner_details TEXT DEFAULT NULL,
-    mail_config TEXT DEFAULT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
-
-try {
-    $pdo->exec("ALTER TABLE system_settings ADD COLUMN mail_config TEXT DEFAULT NULL");
-} catch (PDOException $e) {}
 
 $action = $_POST['action'] ?? '';
 
 if ($action === 'save') {
-    $config = json_encode([
-        'mail_host' => $_POST['mail_host'] ?? 'smtp.gmail.com',
-        'mail_port' => (int)($_POST['mail_port'] ?? 587),
-        'mail_username' => $_POST['mail_username'] ?? '',
-        'mail_password' => $_POST['mail_password'] ?? '',
-        'mail_from' => $_POST['mail_from'] ?? '',
-        'mail_from_name' => $_POST['mail_from_name'] ?? 'CMS BCA AI/ML',
-        'mail_to' => $_POST['mail_to'] ?? '',
-        'mail_encryption' => $_POST['mail_encryption'] ?? 'tls'
-    ]);
-    $stmt = $pdo->prepare("SELECT id FROM system_settings LIMIT 1");
+    $mailTo = trim($_POST['mail_to'] ?? '');
+
+    if (!filter_var($mailTo, FILTER_VALIDATE_EMAIL)) {
+        echo json_encode(['status' => 'error', 'message' => 'Invalid email address']);
+        exit;
+    }
+
+    // Get existing config
+    $stmt = $pdo->prepare("SELECT mail_config FROM system_settings LIMIT 1");
     $stmt->execute();
     $row = $stmt->fetch();
-    if ($row) {
-        $pdo->prepare("UPDATE system_settings SET mail_config = ? WHERE id = ?")->execute([$config, $row['id']]);
-    } else {
-        $pdo->prepare("INSERT INTO system_settings (mail_config) VALUES (?)")->execute([$config]);
+    $config = $row && $row['mail_config'] ? json_decode($row['mail_config'], true) : [];
+
+    // Fallback to config/mail.php constants if no DB config yet
+    if (empty($config) && file_exists('config/mail.php')) {
+        require_once 'config/mail.php';
+        $config = [
+            'mail_host' => defined('MAIL_HOST') ? MAIL_HOST : 'smtp.gmail.com',
+            'mail_port' => defined('MAIL_PORT') ? MAIL_PORT : 587,
+            'mail_username' => defined('MAIL_USERNAME') ? MAIL_USERNAME : '',
+            'mail_password' => defined('MAIL_PASSWORD') ? MAIL_PASSWORD : '',
+            'mail_from' => defined('MAIL_FROM') ? MAIL_FROM : '',
+            'mail_from_name' => defined('MAIL_FROM_NAME') ? MAIL_FROM_NAME : 'CMS BCA AI/ML',
+            'mail_to' => defined('MAIL_TO') ? MAIL_TO : '',
+            'mail_encryption' => 'tls'
+        ];
     }
-    echo json_encode(['status' => 'success', 'message' => 'SMTP settings saved successfully.']);
+
+    // Update only mail_to
+    $config['mail_to'] = $mailTo;
+
+    $json = json_encode($config);
+    $stmt = $pdo->prepare("SELECT id FROM system_settings LIMIT 1");
+    $stmt->execute();
+    $existing = $stmt->fetch();
+
+    if ($existing) {
+        $stmt = $pdo->prepare("UPDATE system_settings SET mail_config = ? WHERE id = ?");
+        $stmt->execute([$json, $existing['id']]);
+    } else {
+        $stmt = $pdo->prepare("INSERT INTO system_settings (mail_config) VALUES (?)");
+        $stmt->execute([$json]);
+    }
+
+    echo json_encode(['status' => 'success', 'message' => 'Notification email updated successfully!']);
     exit;
 }
 
 if ($action === 'test') {
-    $cfg = [
-        'mail_host' => $_POST['mail_host'] ?? 'smtp.gmail.com',
-        'mail_port' => (int)($_POST['mail_port'] ?? 587),
-        'mail_username' => $_POST['mail_username'] ?? '',
-        'mail_password' => $_POST['mail_password'] ?? '',
-        'mail_from' => $_POST['mail_from'] ?? '',
-        'mail_from_name' => $_POST['mail_from_name'] ?? 'CMS BCA AI/ML',
-        'mail_to' => $_POST['mail_to'] ?? '',
-        'mail_encryption' => $_POST['mail_encryption'] ?? 'tls'
-    ];
+    require_once 'config/mail.php';
     require_once 'libraries/PHPMailer/src/Exception.php';
     require_once 'libraries/PHPMailer/src/PHPMailer.php';
     require_once 'libraries/PHPMailer/src/SMTP.php';
+
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\Exception;
+
+    // Get recipient from DB first, fallback to POST or config
+    $stmt = $pdo->prepare("SELECT mail_config FROM system_settings LIMIT 1");
+    $stmt->execute();
+    $row = $stmt->fetch();
+    $dbConfig = $row && $row['mail_config'] ? json_decode($row['mail_config'], true) : [];
+
+    $mailTo = $dbConfig['mail_to'] ?? $_POST['mail_to'] ?? MAIL_TO;
+
+    $mail = new PHPMailer(true);
     try {
-        $mail = new PHPMailer\PHPMailer\PHPMailer(true);
         $mail->isSMTP();
-        $mail->Host = $cfg['mail_host'];
+        $mail->Host = MAIL_HOST;
         $mail->SMTPAuth = true;
-        $mail->Username = $cfg['mail_username'];
-        $mail->Password = $cfg['mail_password'];
-        $mail->SMTPSecure = $cfg['mail_encryption'];
-        $mail->Port = $cfg['mail_port'];
-        $mail->setFrom($cfg['mail_from'], $cfg['mail_from_name']);
-        $mail->addAddress($cfg['mail_to']);
-        $mail->Subject = 'CMS - SMTP Test Email';
+        $mail->Username = MAIL_USERNAME;
+        $mail->Password = MAIL_PASSWORD;
+        $mail->SMTPSecure = defined('MAIL_ENCRYPTION') ? MAIL_ENCRYPTION : 'tls';
+        $mail->Port = MAIL_PORT;
+
+        $mail->setFrom(MAIL_FROM, MAIL_FROM_NAME);
+        $mail->addAddress($mailTo);
+
         $mail->isHTML(true);
-        $mail->Body = '<div style="font-family:Inter,sans-serif;padding:30px"><h2 style="color:#00d2ff">SMTP Test Successful</h2><p style="color:#4a4a6a">Your SMTP configuration is working correctly.</p><p style="color:#6b7280;font-size:13px">Sent from: ' . htmlspecialchars($cfg['mail_from']) . '<br>To: ' . htmlspecialchars($cfg['mail_to']) . '</p></div>';
+        $mail->Subject = 'Test Email - CMS BCA AI/ML';
+        $mail->Body = '<div style="background:#0c0e1a;padding:40px;font-family:Arial,sans-serif">
+            <div style="max-width:500px;margin:auto;background:#191c24;border-radius:10px;padding:30px;border:1px solid #2c2e3e">
+                <h2 style="color:#fff;margin:0 0 10px;text-align:center">&#x2705; Test Successful!</h2>
+                <p style="color:#a3a6b7;text-align:center;font-size:14px">Your SMTP settings are working correctly.</p>
+                <hr style="border-color:#2c2e3e;margin:20px 0">
+                <p style="color:#8f94a8;font-size:12px;text-align:center">CMS BCA AI/ML &bull; SITM College</p>
+            </div>
+        </div>';
+
         $mail->send();
-        echo json_encode(['status' => 'success', 'message' => 'Test email sent successfully! Check your inbox.']);
+        echo json_encode(['status' => 'success', 'message' => 'Test email sent successfully to ' . htmlspecialchars($mailTo) . '! Check your inbox.']);
     } catch (Exception $e) {
-        echo json_encode(['status' => 'error', 'message' => 'Test failed: ' . $mail->ErrorInfo]);
+        echo json_encode(['status' => 'error', 'message' => 'Test email failed: ' . $mail->ErrorInfo]);
     }
     exit;
 }
 
-echo json_encode(['status' => 'error', 'message' => 'Invalid action.']);
+echo json_encode(['status' => 'error', 'message' => 'Invalid action']);
