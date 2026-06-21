@@ -7,6 +7,7 @@
   [![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?logo=mysql&logoColor=white)](https://mysql.com)
   [![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-7952B3?logo=bootstrap&logoColor=white)](https://getbootstrap.com)
   [![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+  [![PHPMailer](https://img.shields.io/badge/PHPMailer-v7.1-FF5722?logo=gmail&logoColor=white)](https://github.com/PHPMailer/PHPMailer)
   [![License](https://img.shields.io/badge/License-Educational-8a2be2)](LICENSE)
   [![Last Commit](https://img.shields.io/github/last-commit/Rohitkumarsaw/CMS_BCA_AI_ML)](https://github.com/Rohitkumarsaw/CMS_BCA_AI_ML/commits/main)
 
@@ -71,6 +72,8 @@ A full-stack **Course Management System** built for BCA (AI/ML) students at **SI
 | **Circulars** | Official circulars with file attachments |
 | **Groups** | Create and manage student groups |
 | **Activity History** | Full audit log with CSV export |
+| **Email Notifications** | Real-time email alerts via PHPMailer + Gmail SMTP for all CRUD operations |
+| **SMTP Settings** | In-app SMTP configuration with test email — recipient email editable from UI |
 | **Backup & Restore** | Full database export/import with character-level SQL parser |
 | **PDF Export** | Server-side A4 reports via Dompdf |
 | **CSV Export** | Downloadable reports for all modules |
@@ -102,6 +105,7 @@ A full-stack **Course Management System** built for BCA (AI/ML) students at **SI
 | **Frontend** | HTML5, CSS3, JavaScript, Bootstrap 5.3, Font Awesome 6 |
 | **Backend** | PHP 8.2 — PDO, prepared statements, sessions, CSRF |
 | **Database** | MySQL / MariaDB — 31 relational tables |
+| **Email** | PHPMailer 7.1.1 — Gmail SMTP with App Password |
 | **PDF** | Dompdf 2.0.4 with custom PSR-4 autoloader |
 | **Security** | CSRF tokens, bcrypt hashing, prepared statements |
 | **Server** | Apache (XAMPP) |
@@ -123,6 +127,10 @@ copy CMS_BCA_AI_ML C:\xampp\htdocs\bca-portal
 
 # Open phpMyAdmin and import:
 #   database/bca_portal_db.sql
+
+# [Optional] Configure email notifications:
+#   Copy config/mail.example.php → config/mail.php
+#   Edit config/mail.php with your Gmail App Password
 
 # Configure database connection:
 #   Edit config/config.php (default: root, no password)
@@ -149,10 +157,11 @@ syllabus         user_subjects   users
 </details>
 
 <details>
-<summary><strong>Additional Tables (v2)</strong></summary>
+<summary><strong>Additional Tables (v2+)</strong></summary>
 
 ```
 activity_logs      academic_roadmaps     roadmap_items
+system_settings
 ```
 
 </details>
@@ -166,6 +175,7 @@ activity_logs      academic_roadmaps     roadmap_items
 - **Session Management** — Strict login enforcement on all protected routes
 - **Prepared Statements** — SQL injection prevention via PDO
 - **Input Sanitization** — Output escaped with `htmlspecialchars()`
+- **Credential Protection** — SMTP credentials excluded from git via `.gitignore`
 
 ---
 
@@ -177,7 +187,9 @@ bca-portal/
 │   └── notifications.php
 ├── config/
 │   ├── config.php
-│   └── db_connection.php
+│   ├── db_connection.php
+│   ├── mail.example.php
+│   └── mail.php (gitignored)
 ├── css/
 │   ├── about_settings.css
 │   ├── achievements.css
@@ -219,6 +231,7 @@ bca-portal/
 │   ├── schedule.css
 │   ├── skills.css
 │   ├── study_plan.css
+│   ├── smtp_settings.css
 │   ├── style.css
 │   ├── sweetalert2-dark.css
 │   └── syllabus.css
@@ -380,6 +393,8 @@ bca-portal/
 ├── routine_handler.php
 ├── schedule.php
 ├── skills.php
+├── smtp_settings.php
+├── smtp_settings_handler.php
 ├── study_plan.php
 ├── subjects_handler.php
 ├── syllabus.php
