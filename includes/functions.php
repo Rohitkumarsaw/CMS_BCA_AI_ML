@@ -6,6 +6,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+date_default_timezone_set('Asia/Kolkata');
 
 function isLoggedIn() {
     return isset($_SESSION['user_id']);
