@@ -343,7 +343,7 @@ function notifyEmail($section, $action, $details = null) {
     $body = "<div style='font-family:Inter,Segoe UI,sans-serif;max-width:580px;margin:0 auto;background:#ffffff;border-radius:16px;overflow:hidden;border:1px solid #e5e7eb;box-shadow:0 20px 60px rgba(0,0,0,0.12)'>";
 
     $body .= "<div style='background:linear-gradient(135deg,#0a0a1a 0%,#1a0a2e 50%,#0a1a2e 100%);padding:35px 35px 25px;text-align:center'>";
-    $body .= "<div style='display:inline-block;width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,#00d2ff,#8a2be2);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:26px;line-height:56px;color:#fff'>&#127891;</div>";
+    $body .= "<div style='width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,#00d2ff,#8a2be2);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:26px;color:#fff'>&#127891;</div>";
     $body .= "<h1 style='margin:0;font-size:22px;font-weight:800;letter-spacing:-0.5px;background:linear-gradient(90deg,#00d2ff,#0090e7,#8a2be2);-webkit-background-clip:text;-webkit-text-fill-color:transparent'>CMS BCA AI/ML</h1>";
     $body .= "<p style='margin:5px 0 0;color:#6c7293;font-size:13px;letter-spacing:0.5px'>Course Management System &bull; SITM College</p>";
     $body .= "</div>";
