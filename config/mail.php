@@ -5,4 +5,4 @@ define('MAIL_USERNAME', 'cms.notify.sitm@gmail.com');
 define('MAIL_PASSWORD', 'gpxz qkno zpfe cwae');
 define('MAIL_FROM', 'cms.notify.sitm@gmail.com');
 define('MAIL_FROM_NAME', 'CMS BCA AI/ML');
-define('MAIL_TO', 'rrrohitsaw@gmail.com');
+define('MAIL_TO', 'rk7736806@gmail.com');
