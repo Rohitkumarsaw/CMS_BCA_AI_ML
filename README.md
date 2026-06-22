@@ -16,7 +16,7 @@
 
 ---
 
-A full-stack **Course Management System** built for BCA (AI/ML) students at **SITM College**. Features a cyberpunk-glassmorphism dark UI, 30+ modules, and real-time AJAX interactions.
+A full-stack **Course Management System** built for BCA (AI/ML) students at **SITM College**. Features a cyberpunk-glassmorphism dark UI, 42+ modules, real-time AJAX interactions, email notifications, and PDF/CSV reporting.
 
 ## Features
 
@@ -30,6 +30,8 @@ A full-stack **Course Management System** built for BCA (AI/ML) students at **SI
 | **Homework** | Submit assignments with file uploads and status tracking |
 | **Schedule** | Weekly timetable with lecture/lab/tutorial slots |
 | **Syllabus** | Topic-wise progress tracking (Not Started / In Progress / Completed) |
+| **Labs** | Lab session management and tracking |
+| **Assignments** | Full assignment lifecycle with submission tracking |
 
 </details>
 
@@ -43,6 +45,8 @@ A full-stack **Course Management System** built for BCA (AI/ML) students at **SI
 | **Grades** | Marks entry and percentage calculation per exam |
 | **Notes** | Upload and organize notes by subject (PDF, image, video) |
 | **Study Plans** | Daily/weekly planning with priority levels |
+| **Subjects** | Manage and organize academic subjects |
+| **Routine** | Daily class routine viewer |
 
 </details>
 
@@ -54,6 +58,7 @@ A full-stack **Course Management System** built for BCA (AI/ML) students at **SI
 | **Projects** | Academic, personal, internship, and final-year project tracking |
 | **Internships** | Application pipeline — applied, interview, selected, completed |
 | **Jobs** | Job application tracker with status pipeline |
+| **Placement** | Placement preparation and tracking |
 | **Certifications** | Certificate repository with issuing org, date, links |
 | **Skills** | Skill catalog with beginner/intermediate/advanced levels |
 | **Presentations** | Presentation planner with status tracking |
@@ -67,16 +72,20 @@ A full-stack **Course Management System** built for BCA (AI/ML) students at **SI
 
 | Module | Description |
 |---|---|
+| **Home** | Premium welcome page with hero, stats, features, activity timeline |
 | **Events Calendar** | Monthly grid view, live clock, CRUD operations |
 | **Announcements** | Priority-based notices (High/Medium/Low) |
 | **Circulars** | Official circulars with file attachments |
 | **Groups** | Create and manage student groups |
+| **Faculty** | Faculty management and directory |
+| **Leave** | Leave application and approval system |
+| **Profile** | User profile management |
 | **Activity History** | Full audit log with CSV export |
 | **Email Notifications** | Real-time email alerts via PHPMailer + Gmail SMTP for all CRUD operations |
 | **SMTP Settings** | In-app SMTP configuration with test email — recipient email editable from UI |
 | **Backup & Restore** | Full database export/import with character-level SQL parser |
-| **PDF Export** | Server-side A4 reports via Dompdf |
-| **CSV Export** | Downloadable reports for all modules |
+| **About Settings** | Site information and configuration |
+| **Reports** | Analytics dashboard with PDF/CSV export and email reporting |
 
 </details>
 
@@ -85,12 +94,15 @@ A full-stack **Course Management System** built for BCA (AI/ML) students at **SI
 
 | Feature | Description |
 |---|---|
+| **Sections Hub** | Visual grid of all 42 modules with instant client-side search |
+| **Sidebar Toggle** | Enable/disable sidebar for full-screen mode (persisted via localStorage) |
 | **Cyberpunk Glassmorphism** | Dark theme with glass-card effects, neon gradients, blur backdrops |
-| **Section Search** | 43 per-module instant client-side search bars |
-| **Responsive** | Mobile-first with collapsible sidebar |
+| **Module Search** | Instant client-side search bar on every module page |
+| **Responsive** | Mobile-first with collapsible sidebar and overlay |
 | **SweetAlert2** | Custom dark-theme modal alerts |
 | **Particle Animation** | Canvas-based cyan particle network on login |
 | **Cache-Busting** | Automatic refreshing via `filemtime()` versioning |
+| **Back to Sections** | Navigation button on all module pages |
 
 </details>
 
@@ -104,9 +116,10 @@ A full-stack **Course Management System** built for BCA (AI/ML) students at **SI
 |---|---|
 | **Frontend** | HTML5, CSS3, JavaScript, Bootstrap 5.3, Font Awesome 6 |
 | **Backend** | PHP 8.2 — PDO, prepared statements, sessions, CSRF |
-| **Database** | MySQL / MariaDB — 31 relational tables |
+| **Database** | MySQL / MariaDB — 31+ relational tables |
 | **Email** | PHPMailer 7.1.1 — Gmail SMTP with App Password |
 | **PDF** | Dompdf 2.0.4 with custom PSR-4 autoloader |
+| **CSV** | Custom CSV export with proper encoding |
 | **Security** | CSRF tokens, bcrypt hashing, prepared statements |
 | **Server** | Apache (XAMPP) |
 
@@ -136,22 +149,26 @@ copy CMS_BCA_AI_ML C:\xampp\htdocs\bca-portal
 #   Edit config/config.php (default: root, no password)
 
 # Access: http://localhost/bca-portal
+
+# Default login credentials are seeded in the database
 ```
+
+---
 
 ## Database Schema
 
 <details>
-<summary><strong>31 Tables</strong></summary>
+<summary><strong>Core Tables</strong></summary>
 
-```  
-announcements    assignments     attendance     books
-certifications   circulars       events         exam_prep
-exams            grades          group_members  groups
-holidays         homework        internships    jobs
-labs             notes           notifications  payments
-presentations    profiles        projects       reports
-resources        schedule        skills         study_plans
-syllabus         user_subjects   users
+```
+announcements     assignments     attendance     books
+certifications    circulars       events         exam_prep
+exams             grades          group_members  groups
+holidays          homework        internships    jobs
+labs              notes           notifications  payments
+presentations     profiles        projects       reports
+resources         schedule        skills         study_plans
+syllabus          user_subjects   users
 ```
 
 </details>
@@ -179,6 +196,20 @@ system_settings
 
 ---
 
+## New in Latest Version
+
+| Feature | Details |
+|---|---|
+| **Home Page** | Premium welcome page with hero, stats, features panel, activity timeline, CTA section |
+| **Sections Hub** | Visual grid of all 42 modules with instant search, deployed at `/sections.php` |
+| **Sidebar Toggle** | Enable/disable sidebar for full-screen mode, persists via localStorage across all pages |
+| **Reports Module** | Analytics dashboard with PDF export, CSV download, and email reporting in `/reports/` |
+| **Redirect Flow** | Login redirects to home page, index redirects to home, navbar "Back to Sections" on all module pages |
+| **42 Modules** | All sidebar modules now have matching cards in the Sections Hub |
+| **Updated Branding** | "CMS (BCA AI/ML)" branding across the system |
+
+---
+
 ## Project Structure
 
 ```
@@ -191,215 +222,40 @@ bca-portal/
 │   ├── mail.example.php
 │   └── mail.php (gitignored)
 ├── css/
-│   ├── about_settings.css
-│   ├── achievements.css
-│   ├── announcement.css
-│   ├── assignment.css
-│   ├── attendance.css
-│   ├── auth.css
-│   ├── backup.css
-│   ├── certifications.css
-│   ├── circular.css
+│   ├── [module].css          # Per-module stylesheets
+│   ├── style.css             # Core layout + sidebar collapse CSS
 │   ├── dark-fix.css
-│   ├── dashboard.css
-│   ├── event.css
-│   ├── exam.css
-│   ├── exam_prep.css
-│   ├── faculty.css
-│   ├── grades.css
-│   ├── groups.css
-│   ├── history.css
-│   ├── holiday.css
-│   ├── homework.css
-│   ├── internship.css
-│   ├── jobs.css
-│   ├── lab.css
-│   ├── leave.css
-│   ├── library.css
-│   ├── meetings.css
-│   ├── notes.css
-│   ├── payment.css
-│   ├── placement.css
-│   ├── planner.css
-│   ├── presentation.css
-│   ├── profile.css
-│   ├── projects.css
-│   ├── reports.css
-│   ├── resources.css
-│   ├── roadmap.css
-│   ├── routine.css
-│   ├── schedule.css
-│   ├── skills.css
-│   ├── study_plan.css
-│   ├── smtp_settings.css
-│   ├── style.css
-│   ├── sweetalert2-dark.css
-│   └── syllabus.css
+│   └── sweetalert2-dark.css
 ├── includes/
-│   ├── backup_handler.php
 │   ├── footer.php
 │   ├── functions.php
-│   ├── header.php
-│   ├── navbar.php
-│   └── sidebar.php
+│   ├── header.php            # Global sidebar-collapse inline script
+│   ├── navbar.php            # Sidebar toggle button (mobile)
+│   └── sidebar.php           # 42 navigation links
 ├── js/
-│   ├── about_settings.js
-│   ├── achievements.js
-│   ├── announcement.js
-│   ├── assignment.js
-│   ├── attendance.js
-│   ├── certifications.js
-│   ├── circular.js
-│   ├── dashboard.js
-│   ├── event_calendar.js
-│   ├── exam.js
-│   ├── exam_prep.js
-│   ├── faculty.js
-│   ├── grades.js
-│   ├── groups.js
-│   ├── history.js
-│   ├── holiday.js
-│   ├── homework.js
-│   ├── internship.js
-│   ├── jobs.js
-│   ├── lab.js
-│   ├── leave.js
-│   ├── library.js
-│   ├── main.js
-│   ├── meetings.js
-│   ├── notes.js
-│   ├── payment.js
-│   ├── placement.js
-│   ├── planner.js
-│   ├── presentation.js
-│   ├── profile.js
-│   ├── projects.js
-│   ├── reports.js
-│   ├── resources.js
-│   ├── roadmap.js
-│   ├── routine.js
-│   ├── schedule.js
-│   ├── skills.js
-│   ├── study_plan.js
-│   ├── subjects.js
-│   └── syllabus.js
+│   ├── [module].js           # Per-module JavaScript
+│   └── main.js               # Core JS (toggleSidebar, notifications)
+├── reports/
+│   ├── reports.php           # Reports dashboard
+│   ├── generate_pdf.php      # PDF generation
+│   ├── export_csv.php        # CSV export
+│   ├── get_data.php          # AJAX data endpoint
+│   └── email_report.php      # Email report distribution
 ├── sql/
 │   ├── bca_portal_db.sql
 │   └── migration_v2.sql
 ├── uploads/
-├── about_settings.php
-├── about_settings_handler.php
-├── achievements.php
-├── achievements_handler.php
-├── add_announcement.php
-├── add_assignment.php
-├── add_attendance.php
-├── add_book.php
-├── add_certification.php
-├── add_circular.php
-├── add_event.php
-├── add_exam.php
-├── add_exam_prep.php
-├── add_grade.php
-├── add_holiday.php
-├── add_homework.php
-├── add_internship.php
-├── add_job.php
-├── add_lab.php
-├── add_note.php
-├── add_payment.php
-├── add_presentation.php
-├── add_project.php
-├── add_resource.php
-├── add_schedule.php
-├── add_skill.php
-├── add_study_plan.php
-├── announcement.php
-├── assignment.php
-├── attendance.php
-├── backup.php
-├── certifications.php
-├── change_password.php
-├── circular.php
-├── create_group.php
+├── home.php                  # Premium welcome page
+├── sections.php              # Sections hub with search + sidebar toggle
 ├── dashboard.php
-├── delete.php
-├── edit_announcement.php
-├── edit_assignment.php
-├── edit_attendance.php
-├── edit_book.php
-├── edit_certification.php
-├── edit_circular.php
-├── edit_event.php
-├── edit_exam.php
-├── edit_exam_prep.php
-├── edit_grade.php
-├── edit_group.php
-├── edit_holiday.php
-├── edit_homework.php
-├── edit_internship.php
-├── edit_job.php
-├── edit_lab.php
-├── edit_note.php
-├── edit_payment.php
-├── edit_presentation.php
-├── edit_profile.php
-├── edit_project.php
-├── edit_resource.php
-├── edit_schedule.php
-├── edit_skill.php
-├── edit_study_plan.php
-├── event.php
-├── event_handler.php
-├── exam.php
-├── exam_actions.php
-├── exam_prep.php
-├── export_excel.php
-├── export_pdf.php
-├── faculty.php
-├── faculty_handler.php
-├── grades.php
-├── group.php
-├── history.php
-├── history_handler.php
-├── holiday.php
+├── attendance.php
 ├── homework.php
-├── index.php
-├── internship.php
-├── jobs.php
-├── lab.php
-├── leave.php
-├── leave_handler.php
-├── library.php
+├── schedule.php
+├── [all 42 module pages].php
 ├── login.php
 ├── logout.php
-├── manage_subjects.php
-├── meetings.php
-├── meetings_handler.php
-├── notes.php
-├── payment.php
-├── placement.php
-├── placement_handler.php
-├── planner.php
-├── planner_handler.php
-├── presentation.php
-├── profile.php
-├── projects.php
-├── reports.php
-├── resources.php
-├── roadmap.php
-├── roadmap_handler.php
-├── routine.php
-├── routine_handler.php
-├── schedule.php
-├── skills.php
-├── smtp_settings.php
-├── smtp_settings_handler.php
-├── study_plan.php
-├── subjects_handler.php
-├── syllabus.php
-├── update_syllabus.php
-└── view.php
+├── index.php
+└── ...
 ```
 
 ---
