@@ -240,12 +240,14 @@ function logActivity($pdo, $userId, $userName, $actionType, $sectionName, $refer
             section_name VARCHAR(100) NOT NULL,
             reference_id INT DEFAULT NULL,
             details TEXT,
+            ip_address VARCHAR(50) DEFAULT NULL,
             logged_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4")->execute();
     } catch (PDOException $e) {}
-    $stmt = $pdo->prepare("INSERT INTO activity_logs (user_id, user_name, action_type, section_name, reference_id, details) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->execute([$userId, $userName, $actionType, $sectionName, $referenceId, $details]);
+    $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+    $stmt = $pdo->prepare("INSERT INTO activity_logs (user_id, user_name, action_type, section_name, reference_id, details, ip_address) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt->execute([$userId, $userName, $actionType, $sectionName, $referenceId, $details, $ip]);
 }
 
 function syncNotifications($pdo, $userId) {

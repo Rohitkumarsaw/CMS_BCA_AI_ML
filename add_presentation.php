@@ -49,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $detail = "Title: " . $title;
         setFlashMessage('success', 'Presentation added successfully.');
         notifyEmail('Presentation', 'added', $detail);
+        logActivity($pdo, $user_id, $_SESSION['user_name'] ?? 'User', 'Added', 'Presentation', $pdo->lastInsertId(), $detail);
         redirect('presentation.php');
     }
 }

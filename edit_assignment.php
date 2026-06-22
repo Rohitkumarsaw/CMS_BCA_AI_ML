@@ -70,6 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $detail = "Title: " . $title . " - Subject: " . $subject . " - Due: " . $due_date;
         setFlashMessage('success', 'Assignment updated successfully.');
         notifyEmail('Assignment', 'updated', $detail);
+        logActivity($pdo, $user_id, $_SESSION['user_name'] ?? 'User', 'Updated', 'Assignment', $assign_id, $detail);
         redirect('assignment.php');
     }
 }

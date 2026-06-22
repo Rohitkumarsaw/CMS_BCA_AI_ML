@@ -44,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $detail = "Title: " . $title . " - Priority: " . $priority;
         setFlashMessage('success', 'Announcement updated successfully.');
         notifyEmail('Announcement', 'updated', $detail);
+        logActivity($pdo, $user_id, $_SESSION['user_name'] ?? 'User', 'Updated', 'Announcement', $announce_id, $detail);
         redirect('announcement.php');
     }
 }

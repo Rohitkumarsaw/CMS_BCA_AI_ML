@@ -53,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $detail = "Title: " . $name . " - Type: " . $type;
         setFlashMessage('success', 'Resource updated successfully.');
         notifyEmail('Resource', 'updated', $detail);
+        logActivity($pdo, $user_id, $_SESSION['user_name'] ?? 'User', 'Updated', 'Resource', $resource_id, $detail);
         redirect('resources.php');
     }
 }

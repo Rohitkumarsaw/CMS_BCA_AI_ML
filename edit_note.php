@@ -64,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $detail = "Title: " . $title . " - Subject: " . $subject;
         setFlashMessage('success', 'Note updated successfully.');
         notifyEmail('Note', 'updated', $detail);
+        logActivity($pdo, $user_id, $_SESSION['user_name'] ?? 'User', 'Updated', 'Note', $note_id, $detail);
         redirect('notes.php');
     }
 }

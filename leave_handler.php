@@ -32,6 +32,7 @@ switch ($action) {
         $stmt->execute([$userId, $subject, $reason, $startDate, $endDate]);
         echo json_encode(['status' => 'success', 'message' => 'Leave application submitted.']);
         notifyEmail('Leave', 'submitted');
+        logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Applied', 'Leave', $pdo->lastInsertId(), 'Subject: ' . $subject);
         exit;
 
     case 'cancel':
@@ -42,6 +43,7 @@ switch ($action) {
         }
         echo json_encode(['status' => 'success', 'message' => 'Leave application cancelled.']);
         notifyEmail('Leave', 'cancelled');
+        logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Cancelled', 'Leave', $id);
         exit;
 
     case 'edit':
@@ -64,6 +66,7 @@ switch ($action) {
         $stmt->execute([$subject, $reason, $startDate, $endDate, $id, $userId]);
         echo json_encode(['status' => 'success', 'message' => 'Leave application updated.']);
         notifyEmail('Leave', 'updated');
+        logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Updated', 'Leave', $id, 'Subject: ' . $subject);
         exit;
 
     // Admin actions
@@ -75,6 +78,7 @@ switch ($action) {
         }
         echo json_encode(['status' => 'success', 'message' => 'Leave approved.']);
         notifyEmail('Leave', 'approved');
+        logActivity($pdo, $_SESSION['user_id'], $_SESSION['user_name'] ?? 'User', 'Approved', 'Leave', $id);
         exit;
 
     case 'reject':
@@ -86,6 +90,7 @@ switch ($action) {
         }
         echo json_encode(['status' => 'success', 'message' => 'Leave rejected.']);
         notifyEmail('Leave', 'rejected');
+        logActivity($pdo, $_SESSION['user_id'], $_SESSION['user_name'] ?? 'User', 'Rejected', 'Leave', $id);
         exit;
 
     default:

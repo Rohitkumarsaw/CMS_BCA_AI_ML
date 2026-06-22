@@ -70,6 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $detail = "Title: " . $lab_name . " - Subject: " . $subject;
         setFlashMessage('success', 'Lab work updated successfully.');
         notifyEmail('Lab', 'updated', $detail);
+        logActivity($pdo, $user_id, $_SESSION['user_name'] ?? 'User', 'Updated', 'Lab', $lab_id, $detail);
         redirect('lab.php');
     }
 }

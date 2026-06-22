@@ -70,6 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $detail = "Title: " . $title;
         setFlashMessage('success', 'Presentation updated successfully.');
         notifyEmail('Presentation', 'updated', $detail);
+        logActivity($pdo, $user_id, $_SESSION['user_name'] ?? 'User', 'Updated', 'Presentation', $pres_id, $detail);
         redirect('presentation.php');
     }
 }

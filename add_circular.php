@@ -43,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $detail = "Title: " . $title;
         setFlashMessage('success', 'Circular added successfully.');
         notifyEmail('Circular', 'added', $detail);
+        logActivity($pdo, $user_id, $_SESSION['user_name'] ?? 'User', 'Added', 'Circular', $pdo->lastInsertId(), $detail);
         redirect('circular.php');
     }
 }

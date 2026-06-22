@@ -48,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $detail = "Event: " . $eventName . " - Date: " . $date;
     setFlashMessage('success', 'Event added successfully');
     notifyEmail('Event', 'added', $detail);
+    logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Added', 'Event', $pdo->lastInsertId(), $detail);
     header('Location: event.php');
     exit;
 }

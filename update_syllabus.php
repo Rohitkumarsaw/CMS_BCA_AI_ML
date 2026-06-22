@@ -35,11 +35,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([$status, $existing['id']]);
             setFlashMessage('success', 'Topic status updated successfully!');
             notifyEmail('Syllabus', 'updated');
+            logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Updated', 'Syllabus', $existing['id'], 'Topic: ' . $topicName . ' - Status: ' . $status);
         } else {
             $stmt = $pdo->prepare("INSERT INTO syllabus (user_id, semester, subject, topic, status, created_at) VALUES (?, ?, ?, ?, ?, NOW())");
             $stmt->execute([$userId, $semester, $subject, $topicName, $status]);
             setFlashMessage('success', 'New topic added successfully!');
             notifyEmail('Syllabus', 'added');
+            logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Added', 'Syllabus', $pdo->lastInsertId(), 'Topic: ' . $topicName . ' - Subject: ' . $subject);
         }
         
         header('Location: syllabus.php?semester=' . $semester);

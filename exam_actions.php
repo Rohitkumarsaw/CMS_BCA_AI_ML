@@ -26,6 +26,7 @@ if ($action === 'update_status' && $examId > 0) {
     $stmt->execute([$status, $examId, $userId]);
     echo json_encode(['status' => 'success', 'message' => 'Status updated to ' . ucfirst($status)]);
     notifyEmail('Exam', 'status updated');
+    logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Updated', 'Exam', $examId, 'Status changed to: ' . $status);
     exit;
 }
 

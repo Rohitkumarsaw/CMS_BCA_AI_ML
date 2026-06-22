@@ -64,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $detail = "Title: " . $title;
         setFlashMessage('success', 'Circular updated successfully.');
         notifyEmail('Circular', 'updated', $detail);
+        logActivity($pdo, $user_id, $_SESSION['user_name'] ?? 'User', 'Updated', 'Circular', $circular_id, $detail);
         redirect('circular.php');
     }
 }

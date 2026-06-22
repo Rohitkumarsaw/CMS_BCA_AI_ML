@@ -31,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $detail = "Book: " . $title . " - Author: " . $author;
     setFlashMessage('success', 'Book added successfully');
     notifyEmail('Book', 'added', $detail);
+    logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Added', 'Book', $pdo->lastInsertId(), $detail);
     header('Location: library.php');
     exit;
 }

@@ -30,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $detail = "Title: " . $name . " - Type: " . $type;
     setFlashMessage('success', 'Resource added successfully');
     notifyEmail('Resource', 'added', $detail);
+    logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Added', 'Resource', $pdo->lastInsertId(), $detail);
     header('Location: resources.php');
     exit;
 }

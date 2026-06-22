@@ -39,6 +39,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $detail = "Subject: " . $subject . " - Day: " . $day . " - Time: " . $startTime;
         setFlashMessage('success', 'Schedule added successfully!');
         notifyEmail('Schedule', 'added', $detail);
+        logActivity($pdo, $_SESSION['user_id'], $_SESSION['user_name'] ?? 'User', 'Added', 'Schedule', $pdo->lastInsertId(), $detail);
         header('Location: schedule.php?semester=' . $semester . '&day=' . $day);
         exit();
     }

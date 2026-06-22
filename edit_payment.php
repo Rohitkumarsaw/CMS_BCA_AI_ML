@@ -70,6 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $detail = "Type: " . $paymentType . " - Amount: ₹" . $amount;
     setFlashMessage('success', 'Payment record updated successfully');
     notifyEmail('Payment', 'updated', $detail);
+    logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Updated', 'Payment', $payment_id, $detail);
     header('Location: payment.php');
     exit;
 }

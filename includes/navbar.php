@@ -3,6 +3,7 @@
         <button class="sidebar-toggle-btn" onclick="toggleSidebar()" aria-label="Toggle sidebar">
             <i class="fas fa-bars"></i>
         </button>
+        <a href="sections.php" class="back-sections-btn" id="backSectionsBtn" style="display:none;"><i class="fas fa-arrow-left"></i> <span>Sections</span></a>
         <span class="app-navbar-brand"><i class="fas fa-graduation-cap"></i><?php echo SITE_NAME; ?></span>
     </div>
 
@@ -42,6 +43,26 @@
 </div>
 
 <style>
+.back-sections-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 8px;
+    background: rgba(102,126,234,0.1);
+    border: 1px solid rgba(102,126,234,0.2);
+    color: #667eea;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    margin-right: 10px;
+}
+.back-sections-btn:hover {
+    background: rgba(102,126,234,0.18);
+    color: #8899ff;
+    border-color: rgba(102,126,234,0.35);
+}
 .nav-icon-btn {
     width: 40px;
     height: 40px;
@@ -164,9 +185,19 @@
 (function() {
     'use strict';
 
+    // Show Back to Sections button on module pages
+    var btn = document.getElementById('backSectionsBtn');
+    if (btn) {
+        var exclude = ['sections', 'profile', 'change_password', 'login', 'logout', 'index', 'edit_profile'];
+        var path = window.location.pathname.split('/').pop().replace('.php', '');
+        if (exclude.indexOf(path) === -1 && path !== '') {
+            btn.style.display = 'inline-flex';
+        }
+    }
+
     function loadNotifications() {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'ajax/notifications.php', true);
+        xhr.open('GET', '<?php echo SITE_URL; ?>/ajax/notifications.php', true);
         xhr.onload = function() {
             if (xhr.status === 200) {
                 try {
@@ -224,7 +255,7 @@
 
     window.markNotifRead = function(id) {
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'ajax/notifications.php', true);
+        xhr.open('POST', '<?php echo SITE_URL; ?>/ajax/notifications.php', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function() { loadNotifications(); };
         xhr.send('action=mark_read&id=' + id);
@@ -233,7 +264,7 @@
     document.getElementById('markAllRead')?.addEventListener('click', function(e) {
         e.preventDefault();
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'ajax/notifications.php', true);
+        xhr.open('POST', '<?php echo SITE_URL; ?>/ajax/notifications.php', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function() { loadNotifications(); };
         xhr.send('action=mark_all_read');

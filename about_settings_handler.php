@@ -30,6 +30,7 @@ switch ($action) {
 
         echo json_encode(['status' => 'success', 'message' => 'About section updated successfully!']);
         notifyEmail('About Settings', 'updated');
+        logActivity($pdo, $_SESSION['user_id'], $_SESSION['user_name'] ?? 'User', 'Updated', 'About Settings');
         exit;
 
     case 'update_partner':
@@ -54,6 +55,7 @@ switch ($action) {
 
         echo json_encode(['status' => 'success', 'message' => 'Partner section updated successfully!']);
         notifyEmail('About Settings', 'updated');
+        logActivity($pdo, $_SESSION['user_id'], $_SESSION['user_name'] ?? 'User', 'Updated', 'Partner Settings', null, 'Partner: ' . $partnerName);
         exit;
 
     default:

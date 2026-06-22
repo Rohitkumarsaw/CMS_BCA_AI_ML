@@ -45,6 +45,7 @@ switch ($action) {
         $stmt->execute([$userId, $title, $category, $description, $issuer, $dateAchieved, $link]);
         echo json_encode(['status' => 'success', 'message' => 'Achievement added.']);
         notifyEmail('Achievement', 'added');
+        logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Added', 'Achievement', $pdo->lastInsertId(), 'Title: ' . $title);
         exit;
 
     case 'edit':
@@ -65,6 +66,7 @@ switch ($action) {
         $stmt->execute([$title, $category, $description, $issuer, $dateAchieved, $link, $id, $userId]);
         echo json_encode(['status' => 'success', 'message' => 'Achievement updated.']);
         notifyEmail('Achievement', 'updated');
+        logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Updated', 'Achievement', $id, 'Title: ' . $title);
         exit;
 
     case 'delete':
@@ -75,6 +77,7 @@ switch ($action) {
         }
         echo json_encode(['status' => 'success', 'message' => 'Achievement removed.']);
         notifyEmail('Achievement', 'deleted');
+        logActivity($pdo, $_SESSION['user_id'], $_SESSION['user_name'] ?? 'User', 'Deleted', 'Achievement', $id);
         exit;
 
     default:

@@ -49,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $detail = "Title: " . $lab_name . " - Subject: " . $subject;
         setFlashMessage('success', 'Lab work added successfully.');
         notifyEmail('Lab', 'added', $detail);
+        logActivity($pdo, $user_id, $_SESSION['user_name'] ?? 'User', 'Added', 'Lab', $pdo->lastInsertId(), $detail);
         redirect('lab.php');
     }
 }

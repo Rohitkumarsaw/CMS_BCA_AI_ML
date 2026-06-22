@@ -54,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $detail = "Subject: " . $subject . " - Day: " . $day . " - Time: " . $startTime;
         setFlashMessage('success', 'Schedule updated successfully!');
         notifyEmail('Schedule', 'updated', $detail);
+        logActivity($pdo, $_SESSION['user_id'], $_SESSION['user_name'] ?? 'User', 'Updated', 'Schedule', $schedule_id, $detail);
         header('Location: schedule.php?semester=' . $semester . '&day=' . $day);
         exit();
     }

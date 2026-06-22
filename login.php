@@ -3,7 +3,7 @@ require_once 'config/db_connection.php';
 require_once 'includes/functions.php';
 
 if (isLoggedIn()) {
-    redirect('dashboard.php');
+    redirect('home.php');
 }
 
 $error = '';
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->execute([$user['id'], $user['name'], $user['college'], $user['semester'], $user['roll_no'], $user['email'], $user['phone']]);
             }
 
-            redirect('dashboard.php');
+            redirect('home.php');
         } else {
             $error = 'Invalid username or password.';
         }

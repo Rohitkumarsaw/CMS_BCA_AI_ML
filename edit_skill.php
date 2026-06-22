@@ -56,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $detail = "Skill: " . $skillName . " - Level: " . $level;
         setFlashMessage('success', 'Skill updated successfully.');
         notifyEmail('Skill', 'updated', $detail);
+        logActivity($pdo, $user_id, $_SESSION['user_name'] ?? 'User', 'Updated', 'Skill', $skill_id, $detail);
         redirect('skills.php');
     }
 }

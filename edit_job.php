@@ -58,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $detail = "Company: " . $company . " - Position: " . $jobTitle;
         setFlashMessage('success', 'Job application updated successfully.');
         notifyEmail('Job', 'updated', $detail);
+        logActivity($pdo, $user_id, $_SESSION['user_name'] ?? 'User', 'Updated', 'Job', $job_id, $detail);
         redirect('jobs.php');
     }
 }

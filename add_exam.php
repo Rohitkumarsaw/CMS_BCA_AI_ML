@@ -41,6 +41,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $detail = "Exam: " . $examName . " - Subject: " . $subject . " - Date: " . $date;
         setFlashMessage('success', 'Exam added successfully!');
         notifyEmail('Exam', 'added', $detail);
+        logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Added', 'Exam', $pdo->lastInsertId(), $detail);
         header('Location: exam.php?semester=' . $semester);
         exit();
     }

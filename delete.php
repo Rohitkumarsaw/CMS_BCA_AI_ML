@@ -14,6 +14,34 @@ if ($id <= 0 || empty($type)) {
 
 $user_id = $_SESSION['user_id'];
 
+$sectionNames = [
+    'attendance'   => 'Attendance',
+    'holiday'      => 'Holiday',
+    'homework'     => 'Homework',
+    'payment'      => 'Payment',
+    'exam'         => 'Exam',
+    'schedule'     => 'Schedule',
+    'grade'        => 'Grade',
+    'note'         => 'Note',
+    'project'      => 'Project',
+    'internship'   => 'Internship',
+    'resource'     => 'Resource',
+    'book'         => 'Book',
+    'lab'          => 'Lab',
+    'assignment'   => 'Assignment',
+    'presentation' => 'Presentation',
+    'exam_prep'    => 'Exam Preparation',
+    'circular'     => 'Circular',
+    'announcement' => 'Announcement',
+    'event'        => 'Event',
+    'syllabus'     => 'Syllabus',
+    'study_plan'   => 'Study Plan',
+    'skill'        => 'Skill',
+    'certification'=> 'Certification',
+    'job'          => 'Job',
+    'group'        => 'Group',
+];
+
 $allowed = [
     'attendance'   => ['table' => 'attendance',   'redirect' => 'attendance.php'],
     'holiday'      => ['table' => 'holidays',      'redirect' => 'holiday.php'],
@@ -77,4 +105,5 @@ $stmt->execute([$id]);
 $detail = "ID: " . $id . " from " . $type;
 setFlashMessage('success', 'Record deleted successfully.');
 notifyEmail('Record', 'deleted', $detail);
+logActivity($pdo, $_SESSION['user_id'], $_SESSION['user_name'] ?? 'User', 'Deleted', $sectionNames[$type], $id, $detail);
 redirect($redirect);

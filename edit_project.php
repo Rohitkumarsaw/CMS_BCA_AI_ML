@@ -80,6 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $detail = "Project: " . $title . " - Type: " . $category;
         setFlashMessage('success', 'Project updated successfully.');
         notifyEmail('Project', 'updated', $detail);
+        logActivity($pdo, $user_id, $_SESSION['user_name'] ?? 'User', 'Updated', 'Project', $project_id, $detail);
         redirect('projects.php');
     }
 }

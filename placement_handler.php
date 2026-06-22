@@ -45,6 +45,7 @@ switch ($action) {
         $stmt->execute([$userId, $company, $role, $appDate, $status, $roundDetails, $notes]);
         echo json_encode(['status' => 'success', 'message' => 'Application added.']);
         notifyEmail('Placement', 'added');
+        logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Added', 'Placement', $pdo->lastInsertId(), 'Company: ' . $company . ' - Role: ' . $role);
         exit;
 
     case 'edit':
@@ -65,6 +66,7 @@ switch ($action) {
         $stmt->execute([$company, $role, $appDate, $status, $roundDetails, $notes, $id, $userId]);
         echo json_encode(['status' => 'success', 'message' => 'Application updated.']);
         notifyEmail('Placement', 'updated');
+        logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Updated', 'Placement', $id, 'Company: ' . $company . ' - Role: ' . $role);
         exit;
 
     case 'delete':
@@ -75,6 +77,7 @@ switch ($action) {
         }
         echo json_encode(['status' => 'success', 'message' => 'Application removed.']);
         notifyEmail('Placement', 'deleted');
+        logActivity($pdo, $_SESSION['user_id'], $_SESSION['user_name'] ?? 'User', 'Deleted', 'Placement', $id);
         exit;
 
     default:

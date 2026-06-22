@@ -73,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $detail = "Company: " . $company . " - Role: " . $role;
         setFlashMessage('success', 'Internship updated successfully.');
         notifyEmail('Internship', 'updated', $detail);
+        logActivity($pdo, $user_id, $_SESSION['user_name'] ?? 'User', 'Updated', 'Internship', $internship_id, $detail);
         redirect('internship.php');
     }
 }

@@ -63,6 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $detail = "Book: " . $title . " - Author: " . $author;
         setFlashMessage('success', 'Book updated successfully.');
         notifyEmail('Book', 'updated', $detail);
+        logActivity($pdo, $user_id, $_SESSION['user_name'] ?? 'User', 'Updated', 'Book', $book_id, $detail);
         redirect('library.php');
     }
 }

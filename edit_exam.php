@@ -57,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $detail = "Exam: " . $examName . " - Subject: " . $subject . " - Date: " . $date;
         setFlashMessage('success', 'Exam updated successfully!');
         notifyEmail('Exam', 'updated', $detail);
+        logActivity($pdo, $user_id, $_SESSION['user_name'] ?? 'User', 'Updated', 'Exam', $exam_id, $detail);
         header('Location: exam.php?semester=' . $semester);
         exit();
     }

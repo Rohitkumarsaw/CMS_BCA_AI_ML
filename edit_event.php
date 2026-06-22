@@ -68,6 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $detail = "Event: " . $event_name . " - Date: " . $date;
         setFlashMessage('success', 'Event updated successfully.');
         notifyEmail('Event', 'updated', $detail);
+        logActivity($pdo, $user_id, $_SESSION['user_name'] ?? 'User', 'Updated', 'Event', $event_id, $detail);
         redirect('event.php');
     }
 }

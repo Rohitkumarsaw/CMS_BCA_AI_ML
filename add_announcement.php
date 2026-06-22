@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $detail = "Title: " . $title . " - Priority: " . $priority;
     setFlashMessage('success', 'Announcement added successfully');
     notifyEmail('Announcement', 'added', $detail);
+    logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Added', 'Announcement', $pdo->lastInsertId(), $detail);
     header('Location: announcement.php');
     exit;
 }

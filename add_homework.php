@@ -50,6 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $detail = "Title: " . $title . " - Subject: " . $subject . " - Due: " . $due_date;
         setFlashMessage('success', 'Homework added successfully.');
         notifyEmail('Homework', 'added', $detail);
+        logActivity($pdo, $user_id, $_SESSION['user_name'] ?? 'User', 'Added', 'Homework', $pdo->lastInsertId(), $detail);
         redirect('homework.php');
     }
 }

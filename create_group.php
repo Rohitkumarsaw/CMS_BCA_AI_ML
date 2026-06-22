@@ -41,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         setFlashMessage('success', 'Group "' . htmlspecialchars($groupName) . '" created successfully!');
         notifyEmail('Group', 'created', 'Group name: ' . $groupName);
+        logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Created', 'Group', $groupId, 'Group: ' . $groupName . ' - Type: ' . $groupType);
         redirect('group.php');
     } catch (PDOException $e) {
         setFlashMessage('danger', 'Error creating group. Please try again.');

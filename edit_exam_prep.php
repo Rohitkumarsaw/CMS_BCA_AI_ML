@@ -70,6 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $detail = "Topic: " . $exam_name . " - Subject: " . $subject;
         setFlashMessage('success', 'Exam preparation updated successfully.');
         notifyEmail('Exam Preparation', 'updated', $detail);
+        logActivity($pdo, $user_id, $_SESSION['user_name'] ?? 'User', 'Updated', 'Exam Preparation', $prep_id, $detail);
         redirect('exam_prep.php');
     }
 }

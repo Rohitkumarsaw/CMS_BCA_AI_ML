@@ -43,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $detail = "Title: " . $title . " - Subject: " . $subject;
     setFlashMessage('success', 'Note added successfully');
     notifyEmail('Note', 'added', $detail);
+    logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Added', 'Note', $pdo->lastInsertId(), $detail);
     header('Location: notes.php');
     exit;
 }

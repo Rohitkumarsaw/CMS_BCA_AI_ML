@@ -65,6 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $detail = "Certification: " . $certName . " - Issuer: " . $issuingOrg;
         setFlashMessage('success', 'Certification updated successfully.');
         notifyEmail('Certification', 'updated', $detail);
+        logActivity($pdo, $user_id, $_SESSION['user_name'] ?? 'User', 'Updated', 'Certification', $cert_id, $detail);
         redirect('certifications.php');
     }
 }

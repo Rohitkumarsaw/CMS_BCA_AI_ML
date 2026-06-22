@@ -53,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $detail = "Subject: " . $subject . " - Marks: " . $marksObtained . "/" . $totalMarks;
     setFlashMessage('success', 'Grade updated successfully');
     notifyEmail('Grade', 'updated', $detail);
+    logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Updated', 'Grade', $grade_id, $detail);
     header('Location: grades.php');
     exit;
 }

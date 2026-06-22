@@ -30,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $detail = "Skill: " . $skillName . " - Level: " . $level;
     setFlashMessage('success', 'Skill added successfully');
     notifyEmail('Skill', 'added', $detail);
+    logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Added', 'Skill', $pdo->lastInsertId(), $detail);
     header('Location: skills.php');
     exit;
 }

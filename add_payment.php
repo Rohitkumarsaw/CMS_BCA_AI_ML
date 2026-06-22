@@ -50,6 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $detail = "Type: " . $paymentType . " - Amount: ₹" . $amount;
     setFlashMessage('success', 'Payment record added successfully');
     notifyEmail('Payment', 'added', $detail);
+    logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Added', 'Payment', $pdo->lastInsertId(), $detail);
     header('Location: payment.php');
     exit;
 }

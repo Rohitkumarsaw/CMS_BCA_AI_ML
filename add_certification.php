@@ -40,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $detail = "Certification: " . $certName . " - Issuer: " . $issuingOrg;
     setFlashMessage('success', 'Certification added successfully');
     notifyEmail('Certification', 'added', $detail);
+    logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Added', 'Certification', $pdo->lastInsertId(), $detail);
     header('Location: certifications.php');
     exit;
 }

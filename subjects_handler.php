@@ -27,6 +27,7 @@ if ($action === 'add') {
             $stmt->execute([$userId, $semester, $subjectName]);
             setFlashMessage('success', 'Subject added successfully.');
             notifyEmail('Subject', 'added');
+            logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Added', 'Subject', $pdo->lastInsertId(), 'Subject: ' . $subjectName . ' - Semester: ' . $semester);
         }
     }
     redirect('manage_subjects.php?semester=' . $semester);
@@ -65,6 +66,7 @@ if ($action === 'add') {
                 
                 setFlashMessage('success', 'Subject updated successfully.');
                 notifyEmail('Subject', 'updated');
+                logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Updated', 'Subject', $id, 'Subject: ' . $subjectName);
             }
         }
     }
@@ -87,6 +89,7 @@ if ($action === 'add') {
             $stmt->execute([$id, $userId]);
             setFlashMessage('success', 'Subject deleted successfully.');
             notifyEmail('Subject', 'deleted');
+            logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Deleted', 'Subject', $id, 'Subject: ' . ($sub['subject_name'] ?? ''));
         } else {
             setFlashMessage('danger', 'Subject not found.');
         }

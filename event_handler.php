@@ -26,6 +26,7 @@ if ($action === 'add' || $action === 'update') {
         $stmt->execute([$userId, $title, $date, $time ?: null, $type]);
         setFlashMessage('success', 'Event added successfully.');
         notifyEmail('Event', 'added');
+        logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Added', 'Event', $pdo->lastInsertId(), 'Title: ' . $title);
     } else {
         $eventId = (int)($_POST['event_id'] ?? 0);
         if ($eventId > 0) {
@@ -33,6 +34,7 @@ if ($action === 'add' || $action === 'update') {
             $stmt->execute([$title, $date, $time ?: null, $type, $eventId, $userId]);
             setFlashMessage('success', 'Event updated successfully.');
         notifyEmail('Event', 'updated');
+        logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Updated', 'Event', $eventId, 'Title: ' . $title);
         }
     }
 
@@ -48,6 +50,7 @@ if ($action === 'delete_json') {
         $stmt->execute([$eventId, $userId]);
         echo json_encode(['status' => 'success', 'message' => 'Event deleted']);
         notifyEmail('Event', 'deleted');
+        logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Deleted', 'Event', $eventId);
         exit;
     }
     echo json_encode(['status' => 'error', 'message' => 'Invalid event']);

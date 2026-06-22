@@ -54,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $detail = "Company: " . $company . " - Role: " . $role;
     setFlashMessage('success', 'Internship added successfully');
     notifyEmail('Internship', 'added', $detail);
+    logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Added', 'Internship', $pdo->lastInsertId(), $detail);
     header('Location: internship.php');
     exit;
 }

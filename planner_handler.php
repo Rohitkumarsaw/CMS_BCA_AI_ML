@@ -31,6 +31,7 @@ switch ($action) {
         $stmt->execute([$userId, $itemName, $reasonWhy, $purposeWork, $targetDate ?: null]);
         echo json_encode(['status' => 'success', 'message' => 'Item added to shopping list.']);
         notifyEmail('Planner', 'added');
+        logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Added', 'Shopping Planner', $pdo->lastInsertId(), 'Item: ' . $itemName);
         exit;
 
     case 'edit_shopping':
@@ -49,6 +50,7 @@ switch ($action) {
         $stmt->execute([$itemName, $reasonWhy, $purposeWork, $targetDate ?: null, $id, $userId]);
         echo json_encode(['status' => 'success', 'message' => 'Shopping item updated.']);
         notifyEmail('Planner', 'updated');
+        logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Updated', 'Shopping Planner', $id, 'Item: ' . $itemName);
         exit;
 
     case 'delete_shopping':
@@ -59,6 +61,7 @@ switch ($action) {
         }
         echo json_encode(['status' => 'success', 'message' => 'Item removed from shopping list.']);
         notifyEmail('Planner', 'deleted');
+        logActivity($pdo, $_SESSION['user_id'], $_SESSION['user_name'] ?? 'User', 'Deleted', 'Shopping Planner', $id);
         exit;
 
     case 'toggle_shopping':
@@ -72,6 +75,7 @@ switch ($action) {
             $stmt->execute([$newStatus, $id, $userId]);
             echo json_encode(['status' => 'success', 'message' => $newStatus === 'purchased' ? 'Marked as purchased.' : 'Marked as pending.']);
             notifyEmail('Planner', 'status updated');
+            logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Updated', 'Shopping Planner', $id, 'Toggled status to: ' . $newStatus);
             exit;
         }
         echo json_encode(['status' => 'error', 'message' => 'Item not found.']);
@@ -93,6 +97,7 @@ switch ($action) {
         $stmt->execute([$userId, $itemName, $quantity, $availability]);
         echo json_encode(['status' => 'success', 'message' => 'Inventory item added.']);
         notifyEmail('Planner', 'added');
+        logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Added', 'Current Inventory', $pdo->lastInsertId(), 'Item: ' . $itemName . ' - Qty: ' . $quantity);
         exit;
 
     case 'edit_inventory':
@@ -110,6 +115,7 @@ switch ($action) {
         $stmt->execute([$itemName, $quantity, $availability, $id, $userId]);
         echo json_encode(['status' => 'success', 'message' => 'Inventory item updated.']);
         notifyEmail('Planner', 'updated');
+        logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Updated', 'Current Inventory', $id, 'Item: ' . $itemName);
         exit;
 
     case 'delete_inventory':
@@ -120,6 +126,7 @@ switch ($action) {
         }
         echo json_encode(['status' => 'success', 'message' => 'Inventory item removed.']);
         notifyEmail('Planner', 'deleted');
+        logActivity($pdo, $_SESSION['user_id'], $_SESSION['user_name'] ?? 'User', 'Deleted', 'Current Inventory', $id);
         exit;
 
     default:

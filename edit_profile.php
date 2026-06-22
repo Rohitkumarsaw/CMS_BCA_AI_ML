@@ -75,6 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     setFlashMessage('success', 'Profile updated successfully');
     notifyEmail('Profile', 'updated');
+    logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Updated', 'Profile', $userId);
     header('Location: profile.php');
     exit;
 }

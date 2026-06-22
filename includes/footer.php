@@ -9,7 +9,7 @@
             <?php if ($js !== 'main.js'):
                 $jsPath = __DIR__ . '/../js/' . $js;
                 $v = file_exists($jsPath) ? filemtime($jsPath) : time(); ?>
-                <script src="js/<?php echo $js; ?>?v=<?php echo $v; ?>"></script>
+                <script src="<?php echo SITE_URL; ?>/js/<?php echo $js; ?>?v=<?php echo $v; ?>"></script>
             <?php endif; ?>
         <?php endforeach; ?>
     <?php endif; ?>

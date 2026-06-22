@@ -31,6 +31,7 @@ switch ($action) {
             $stmt->execute([$userId, $taskName, $startTime, $endTime, $category, $taskDate]);
             echo json_encode(['status' => 'success', 'message' => 'Task added successfully.']);
             notifyEmail('Routine Task', 'added');
+            logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Added', 'Routine Task', $pdo->lastInsertId(), 'Task: ' . $taskName . ' - Category: ' . $category);
         }
         exit;
 
@@ -51,6 +52,7 @@ switch ($action) {
             $stmt->execute([$taskName, $startTime, $endTime, $category, $id, $userId]);
             echo json_encode(['status' => 'success', 'message' => 'Task updated successfully.']);
             notifyEmail('Routine Task', 'updated');
+            logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Updated', 'Routine Task', $id, 'Task: ' . $taskName);
         }
         exit;
 
@@ -61,6 +63,7 @@ switch ($action) {
             $stmt->execute([$id, $userId]);
             echo json_encode(['status' => 'success', 'message' => 'Task deleted successfully.']);
             notifyEmail('Routine Task', 'deleted');
+            logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Deleted', 'Routine Task', $id, 'Task ID: ' . $id);
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Invalid task ID.']);
         }
@@ -77,6 +80,7 @@ switch ($action) {
             $stmt->execute([$newStatus, $id, $userId]);
             echo json_encode(['status' => 'success', 'message' => 'Task status updated.', 'newStatus' => $newStatus]);
             notifyEmail('Routine Task', 'status updated');
+            logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Updated', 'Routine Task', $id, 'Toggled status to: ' . $newStatus);
             exit;
         }
         echo json_encode(['status' => 'error', 'message' => 'Task not found.']);

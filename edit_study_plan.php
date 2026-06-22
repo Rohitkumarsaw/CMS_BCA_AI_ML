@@ -58,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $detail = "Topic: " . $topic;
         setFlashMessage('success', 'Study plan updated successfully.');
         notifyEmail('Study Plan', 'updated', $detail);
+        logActivity($pdo, $user_id, $_SESSION['user_name'] ?? 'User', 'Updated', 'Study Plan', $plan_id, $detail);
         redirect('study_plan.php');
     }
 }

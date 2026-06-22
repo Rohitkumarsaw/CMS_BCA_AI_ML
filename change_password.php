@@ -32,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->execute([$hash, $userId]);
             setFlashMessage('success', 'Password changed successfully.');
             notifyEmail('Password', 'changed');
+            logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Changed', 'Password', $userId);
             redirect('profile.php');
         }
     }

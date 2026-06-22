@@ -62,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $detail = "Project: " . $title . " - Type: " . $category;
     setFlashMessage('success', 'Project added successfully');
     notifyEmail('Project', 'added', $detail);
+    logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Added', 'Project', $pdo->lastInsertId(), $detail);
     header('Location: projects.php');
     exit;
 }

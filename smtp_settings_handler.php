@@ -68,6 +68,7 @@ if ($action === 'save') {
         $stmt->execute([$json]);
     }
 
+    logActivity($pdo, $_SESSION['user_id'], $_SESSION['user_name'] ?? 'User', 'Updated', 'SMTP Settings', null, 'Notification email set to: ' . $mailTo);
     echo json_encode(['status' => 'success', 'message' => 'Notification email updated successfully!']);
     exit;
 }

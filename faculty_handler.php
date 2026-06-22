@@ -28,6 +28,7 @@ switch ($action) {
         $stmt->execute([$name, $subjects, $email, $phone, $department]);
         echo json_encode(['status' => 'success', 'message' => 'Faculty added successfully.']);
         notifyEmail('Faculty', 'added');
+        logActivity($pdo, $_SESSION['user_id'], $_SESSION['user_name'] ?? 'User', 'Added', 'Faculty', $pdo->lastInsertId(), 'Name: ' . $name . ' - Dept: ' . $department);
         exit;
 
     case 'edit':
@@ -47,6 +48,7 @@ switch ($action) {
         $stmt->execute([$name, $subjects, $email, $phone, $department, $id]);
         echo json_encode(['status' => 'success', 'message' => 'Faculty updated successfully.']);
         notifyEmail('Faculty', 'updated');
+        logActivity($pdo, $_SESSION['user_id'], $_SESSION['user_name'] ?? 'User', 'Updated', 'Faculty', $id, 'Name: ' . $name);
         exit;
 
     case 'delete':
@@ -57,6 +59,7 @@ switch ($action) {
         }
         echo json_encode(['status' => 'success', 'message' => 'Faculty removed.']);
         notifyEmail('Faculty', 'deleted');
+        logActivity($pdo, $_SESSION['user_id'], $_SESSION['user_name'] ?? 'User', 'Deleted', 'Faculty', $id);
         exit;
 
     default:

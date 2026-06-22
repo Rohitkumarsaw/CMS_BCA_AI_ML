@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $detail = "Topic: " . $topic;
     setFlashMessage('success', 'Study plan added successfully');
     notifyEmail('Study Plan', 'added', $detail);
+    logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Added', 'Study Plan', $pdo->lastInsertId(), $detail);
     header('Location: study_plan.php');
     exit;
 }

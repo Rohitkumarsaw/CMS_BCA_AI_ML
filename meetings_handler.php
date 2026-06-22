@@ -43,6 +43,7 @@ switch ($action) {
         $stmt->execute([$userId, $title, $platform, $url, $description, $meetingDate]);
         echo json_encode(['status' => 'success', 'message' => 'Meeting link added.']);
         notifyEmail('Meeting', 'added');
+        logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Added', 'Meeting', $pdo->lastInsertId(), 'Title: ' . $title . ' - Platform: ' . $platform);
         exit;
 
     case 'edit':
@@ -62,6 +63,7 @@ switch ($action) {
         $stmt->execute([$title, $platform, $url, $description, $meetingDate, $id, $userId]);
         echo json_encode(['status' => 'success', 'message' => 'Meeting link updated.']);
         notifyEmail('Meeting', 'updated');
+        logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Updated', 'Meeting', $id, 'Title: ' . $title);
         exit;
 
     case 'delete':
@@ -72,6 +74,7 @@ switch ($action) {
         }
         echo json_encode(['status' => 'success', 'message' => 'Meeting link removed.']);
         notifyEmail('Meeting', 'deleted');
+        logActivity($pdo, $_SESSION['user_id'], $_SESSION['user_name'] ?? 'User', 'Deleted', 'Meeting', $id);
         exit;
 
     default:

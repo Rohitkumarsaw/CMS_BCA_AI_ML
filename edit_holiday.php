@@ -42,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $detail = "Holiday: " . $holidayName . " - Date: " . $date;
     setFlashMessage('success', 'Holiday updated successfully');
     notifyEmail('Holiday', 'updated', $detail);
+    logActivity($pdo, $userId, $_SESSION['user_name'] ?? 'User', 'Updated', 'Holiday', $holiday_id, $detail);
     header('Location: holiday.php');
     exit;
 }

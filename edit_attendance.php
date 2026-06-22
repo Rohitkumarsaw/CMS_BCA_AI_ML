@@ -54,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $detail = "Subject: " . $subject . " - Status: " . $status;
         setFlashMessage('success', 'Attendance updated successfully.');
         notifyEmail('Attendance', 'updated', $detail);
+        logActivity($pdo, $user_id, $_SESSION['user_name'] ?? 'User', 'Updated', 'Attendance', $att_id, $detail);
         redirect('attendance.php');
     }
 }
