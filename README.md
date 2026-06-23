@@ -81,7 +81,7 @@ A full-stack **Course Management System** built for BCA (AI/ML) students at **SI
 | **Leave** | Leave application and approval system |
 | **Profile** | User profile management |
 | **Activity History** | Full audit log with CSV export |
-| **Email Notifications** | Real-time email alerts via PHPMailer + Gmail SMTP for all CRUD operations |
+| **Email Notifications** | Real-time email alerts via PHPMailer + Gmail SMTP for all CRUD operations (OTP removed, kept for system alerts) |
 | **SMTP Settings** | In-app SMTP configuration with test email — recipient email editable from UI |
 | **Backup & Restore** | Full database export/import with character-level SQL parser |
 | **About Settings** | Site information and configuration |
@@ -103,6 +103,7 @@ A full-stack **Course Management System** built for BCA (AI/ML) students at **SI
 | **Particle Animation** | Canvas-based cyan particle network on login |
 | **Cache-Busting** | Automatic refreshing via `filemtime()` versioning |
 | **Back to Sections** | Navigation button on all module pages |
+| **Two-Factor Auth** | Google Authenticator TOTP with backup password |
 
 </details>
 
@@ -120,7 +121,7 @@ A full-stack **Course Management System** built for BCA (AI/ML) students at **SI
 | **Email** | PHPMailer 7.1.1 — Gmail SMTP with App Password |
 | **PDF** | Dompdf 2.0.4 with custom PSR-4 autoloader |
 | **CSV** | Custom CSV export with proper encoding |
-| **Security** | CSRF tokens, bcrypt hashing, prepared statements |
+| **Security** | CSRF tokens, bcrypt hashing, prepared statements, TOTP 2FA |
 | **Server** | Apache (XAMPP) |
 
 </div>
@@ -189,6 +190,8 @@ system_settings
 
 - **CSRF Protection** — Token validation on every form submission
 - **Password Hashing** — `password_hash()` with bcrypt
+- **Two-Factor Auth** — Google Authenticator TOTP (time-based one-time密码) for login
+- **Backup Password** — bcrypt-hashed fallback for TOTP unavailability
 - **Session Management** — Strict login enforcement on all protected routes
 - **Prepared Statements** — SQL injection prevention via PDO
 - **Input Sanitization** — Output escaped with `htmlspecialchars()`
@@ -200,13 +203,11 @@ system_settings
 
 | Feature | Details |
 |---|---|
-| **Home Page** | Premium welcome page with hero, stats, features panel, activity timeline, CTA section |
-| **Sections Hub** | Visual grid of all 42 modules with instant search, deployed at `/sections.php` |
-| **Sidebar Toggle** | Enable/disable sidebar for full-screen mode, persists via localStorage across all pages |
-| **Reports Module** | Analytics dashboard with PDF export, CSV download, and email reporting in `/reports/` |
-| **Redirect Flow** | Login redirects to home page, index redirects to home, navbar "Back to Sections" on all module pages |
-| **42 Modules** | All sidebar modules now have matching cards in the Sections Hub |
-| **Updated Branding** | "CMS (BCA AI/ML)" branding across the system |
+| **Google Authenticator 2FA** | Replaced email OTP with TOTP via Google Authenticator. QR code setup (client-side qrcodejs), copy secret key, enable/disable |
+| **Backup Password** | bcrypt-hashed fallback login when GA app is unavailable. Set, verify (AJAX), change, or remove from GA setup page |
+| **Session-Resilient TOTP** | `totp_uid` hidden field in forms survives session loss — no more "Session expired" errors |
+| **SweetAlert2 Confirmations** | All destructive actions (disable GA, remove backup) use Swal instead of native `confirm()` |
+| **Profile Navbar Button** | "Back to Sections" now visible on profile page |
 
 ---
 
@@ -214,6 +215,8 @@ system_settings
 
 ```
 bca-portal/
+├── libraries/
+│   └── GoogleAuthenticator.php  # TOTP secret generation, code verification, QR URL
 ├── ajax/
 │   └── notifications.php
 ├── config/
@@ -245,8 +248,9 @@ bca-portal/
 │   ├── bca_portal_db.sql
 │   └── migration_v2.sql
 ├── uploads/
-├── home.php                  # Premium welcome page
-├── sections.php              # Sections hub with search + sidebar toggle
+├── ga_setup.php               # Google Authenticator 2FA setup + backup password management
+├── home.php                    # Premium welcome page
+├── sections.php                # Sections hub with search + sidebar toggle
 ├── dashboard.php
 ├── attendance.php
 ├── homework.php
