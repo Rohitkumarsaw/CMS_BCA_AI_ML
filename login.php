@@ -1,6 +1,7 @@
 <?php
 require_once 'config/db_connection.php';
 require_once 'includes/functions.php';
+require_once 'libraries/GoogleAuthenticator.php';
 
 if (isLoggedIn()) {
     redirect('home.php');
@@ -8,7 +9,90 @@ if (isLoggedIn()) {
 
 $error = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// ─── Clear TOTP (back to login) ───
+if (isset($_GET['clear_totp'])) {
+    unset($_SESSION['totp_user_id']);
+}
+
+// ─── Handle backup password verification ───
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['verify_backup'])) {
+    $backup = $_POST['backup_password'] ?? '';
+    $uid = $_POST['totp_uid'] ?? $_SESSION['totp_user_id'] ?? null;
+
+    if (!$uid) {
+        unset($_SESSION['totp_user_id']);
+        $error = 'Session expired. Please login again.';
+    } elseif (empty($backup)) {
+        $error = 'Please enter your backup password.';
+    } else {
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
+        $stmt->execute([$uid]);
+        $user = $stmt->fetch();
+
+        if ($user && !empty($user['ga_backup_code']) && password_verify($backup, $user['ga_backup_code'])) {
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_name'] = $user['name'];
+            $_SESSION['user_role'] = $user['role'];
+            $_SESSION['user_semester'] = $user['semester'];
+
+            $stmt2 = $pdo->prepare("SELECT id FROM profiles WHERE user_id = ?");
+            $stmt2->execute([$user['id']]);
+            if (!$stmt2->fetch()) {
+                $stmt2 = $pdo->prepare("INSERT INTO profiles (user_id, name, college, semester, roll_no, email, phone) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                $stmt2->execute([$user['id'], $user['name'], $user['college'] ?? '', $user['semester'], $user['roll_no'] ?? '', $user['email'] ?? '', $user['phone'] ?? '']);
+            }
+
+            unset($_SESSION['totp_user_id']);
+            redirect('home.php');
+        } else {
+            $error = 'Invalid backup password.';
+        }
+    }
+}
+
+// ─── Handle TOTP verification ───
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['verify_totp'])) {
+    $code = preg_replace('/[^0-9]/', '', $_POST['totp_code'] ?? '');
+    $uid = $_POST['totp_uid'] ?? $_SESSION['totp_user_id'] ?? null;
+
+    if (!$uid) {
+        unset($_SESSION['totp_user_id']);
+        $error = 'Session expired. Please login again.';
+    } elseif (strlen($code) !== 6) {
+        $error = 'Please enter a valid 6-digit code.';
+    } else {
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
+        $stmt->execute([$uid]);
+        $user = $stmt->fetch();
+
+        if ($user && !empty($user['google_auth_enabled']) && !empty($user['google_auth_secret'])) {
+            if (GoogleAuthenticator::verify($code, $user['google_auth_secret'])) {
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['user_name'] = $user['name'];
+                $_SESSION['user_role'] = $user['role'];
+                $_SESSION['user_semester'] = $user['semester'];
+
+                $stmt2 = $pdo->prepare("SELECT id FROM profiles WHERE user_id = ?");
+                $stmt2->execute([$user['id']]);
+                if (!$stmt2->fetch()) {
+                    $stmt2 = $pdo->prepare("INSERT INTO profiles (user_id, name, college, semester, roll_no, email, phone) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                    $stmt2->execute([$user['id'], $user['name'], $user['college'] ?? '', $user['semester'], $user['roll_no'] ?? '', $user['email'] ?? '', $user['phone'] ?? '']);
+                }
+
+                unset($_SESSION['totp_user_id']);
+                redirect('home.php');
+            } else {
+                $error = 'Invalid code. Please try again.';
+            }
+        } else {
+            $error = 'Two-factor authentication not configured. Please login again.';
+            unset($_SESSION['totp_user_id']);
+        }
+    }
+}
+
+// ─── Handle initial login ───
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['verify_totp']) && !isset($_POST['verify_backup'])) {
     $username = sanitize($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
 
@@ -20,25 +104,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = $stmt->fetch();
 
         if ($user && password_verify($password, $user['password'])) {
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_name'] = $user['name'];
-            $_SESSION['user_role'] = $user['role'];
-            $_SESSION['user_semester'] = $user['semester'];
+            if (!empty($user['google_auth_enabled']) && !empty($user['google_auth_secret'])) {
+                $_SESSION['totp_user_id'] = $user['id'];
+            } else {
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['user_name'] = $user['name'];
+                $_SESSION['user_role'] = $user['role'];
+                $_SESSION['user_semester'] = $user['semester'];
 
-            $stmt = $pdo->prepare("SELECT id FROM profiles WHERE user_id = ?");
-            $stmt->execute([$user['id']]);
-            if (!$stmt->fetch()) {
-                $stmt = $pdo->prepare("INSERT INTO profiles (user_id, name, college, semester, roll_no, email, phone) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                $stmt->execute([$user['id'], $user['name'], $user['college'], $user['semester'], $user['roll_no'], $user['email'], $user['phone']]);
+                $stmt2 = $pdo->prepare("SELECT id FROM profiles WHERE user_id = ?");
+                $stmt2->execute([$user['id']]);
+                if (!$stmt2->fetch()) {
+                    $stmt2 = $pdo->prepare("INSERT INTO profiles (user_id, name, college, semester, roll_no, email, phone) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                    $stmt2->execute([$user['id'], $user['name'], $user['college'] ?? '', $user['semester'], $user['roll_no'] ?? '', $user['email'] ?? '', $user['phone'] ?? '']);
+                }
+
+                redirect('home.php');
             }
-
-            redirect('home.php');
         } else {
             $error = 'Invalid username or password.';
         }
     }
 }
-?><!DOCTYPE html>
+
+// ─── Show TOTP form if needed ───
+$showTotpForm = isset($_SESSION['totp_user_id']);
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -57,7 +149,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>document.documentElement.setAttribute('data-theme', 'dark');</script>
     <style>
-      /* ===== PASSWORD INPUT — kill ALL native white/blue backgrounds ===== */
       .auth-input-wrap input[type="password"],
       .auth-input-wrap input#password {
         background: transparent !important;
@@ -80,7 +171,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         box-shadow: none !important;
         outline: none !important;
       }
-      /* Chrome autofill BULLETPROOF fix — blends with wrapper glass */
       .auth-input-wrap input[type="password"]:-webkit-autofill,
       .auth-input-wrap input[type="password"]:-webkit-autofill:hover,
       .auth-input-wrap input[type="password"]:-webkit-autofill:focus,
@@ -94,7 +184,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         border-radius: 0 !important;
         transition: background-color 5000s ease-in-out 0s !important;
       }
-      /* ===== SWEETALERT2 DARK FIX ===== */
       .swal2-popup { background: #191c24 !important; border: 1px solid #2c2e3e !important; }
       .swal2-title { color: #ffffff !important; }
       .swal2-html-container { color: #a3a6b7 !important; }
@@ -118,68 +207,320 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         box-shadow: 0 0 24px rgba(252, 66, 74, 0.6) !important;
         transform: translateY(-1px) !important;
       }
+      /* ─── OTP INPUT STYLES ─── */
+      .otp-input-wrap {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin: 24px 0 20px;
+      }
+      .otp-input-wrap input {
+        width: 48px;
+        height: 56px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: 700;
+        color: #fff;
+        background: rgba(255,255,255,0.04);
+        border: 1.5px solid rgba(0,240,255,0.2);
+        border-radius: 12px;
+        outline: none;
+        caret-color: #00f0ff;
+        transition: all 0.2s ease;
+        font-family: 'Inter', monospace;
+      }
+      .otp-input-wrap input:focus {
+        border-color: rgba(0,240,255,0.6);
+        box-shadow: 0 0 0 4px rgba(0,240,255,0.06), 0 0 20px rgba(0,240,255,0.06);
+        background: rgba(0,240,255,0.04);
+      }
+      .otp-input-wrap input.filled {
+        border-color: rgba(0,240,255,0.35);
+        background: rgba(0,240,255,0.06);
+      }
+      .otp-info {
+        text-align: center;
+        color: rgba(255,255,255,0.35);
+        font-size: 12px;
+        margin-bottom: 20px;
+      }
+      .otp-info strong {
+        color: rgba(0,240,255,0.6);
+      }
+      .otp-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 4px;
+      }
+      .otp-actions .auth-btn {
+        flex: 1;
+      }
+      .otp-back-btn {
+        background: transparent;
+        border: 1.5px solid rgba(255,255,255,0.08);
+        color: rgba(255,255,255,0.5);
+        padding: 14px 20px;
+        border-radius: 14px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-family: 'Inter', sans-serif;
+        flex: 1;
+        text-align: center;
+        text-decoration: none;
+      }
+      .otp-back-btn:hover {
+        border-color: rgba(255,255,255,0.15);
+        color: #fff;
+        background: rgba(255,255,255,0.04);
+      }
+      .otp-resend {
+        text-align: center;
+        margin-top: 16px;
+      }
+      .otp-resend button {
+        background: none;
+        border: none;
+        color: rgba(0,240,255,0.5);
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+        transition: color 0.2s;
+      }
+      .otp-resend button:hover {
+        color: rgba(0,240,255,0.8);
+      }
+      .otp-timer {
+        text-align: center;
+        color: rgba(255,255,255,0.25);
+        font-size: 11px;
+        margin-top: 12px;
+        font-family: 'Inter', monospace;
+      }
+      #backupPassword:focus {
+        border-color: rgba(0,240,255,0.6) !important;
+        box-shadow: 0 0 0 4px rgba(0,240,255,0.06) !important;
+        background: rgba(0,240,255,0.04) !important;
+      }
+      @media (max-width: 480px) {
+        .otp-input-wrap input { width: 42px; height: 50px; font-size: 20px; }
+        .otp-input-wrap { gap: 8px; }
+      }
     </style>
 </head>
 <body class="auth-body">
     <canvas id="authCanvas"></canvas>
 
-
     <div class="auth-page">
         <div class="auth-card">
-            <div class="auth-card-top">
-                <div class="auth-brand-icon">
-                    <i class="fas fa-graduation-cap"></i>
+            <?php if ($showTotpForm): ?>
+                <!-- ═══ TOTP FORM ═══ -->
+                <div class="auth-card-top">
+                    <div class="auth-brand-icon">
+                        <i class="fas fa-shield-halved"></i>
+                    </div>
+                    <h1>Two-Factor Auth</h1>
+                    <p>Enter the code from your Google Authenticator app</p>
                 </div>
-                <h1><?php echo SITE_NAME; ?></h1>
-                <p>Sign in to your account</p>
-            </div>
 
-            <?php if ($error): ?>
-                <script>
-                document.addEventListener('DOMContentLoaded', function(){
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: <?php echo json_encode($error); ?>,
-                        confirmButtonText: 'OK',
-                        buttonsStyling: false,
-                        customClass: { confirmButton: 'swal2-confirm' }
+                <?php if ($error): ?>
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function(){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: <?php echo json_encode($error); ?>,
+                            confirmButtonText: 'OK',
+                            buttonsStyling: false,
+                            customClass: { confirmButton: 'swal2-confirm' }
+                        });
                     });
-                });
+                    </script>
+                <?php endif; ?>
+
+                <div id="totpMode">
+                    <form method="POST" action="" id="totpForm">
+                        <div class="otp-input-wrap" id="totpInputWrap">
+                            <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" class="otp-box" required autofocus>
+                            <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" class="otp-box" required>
+                            <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" class="otp-box" required>
+                            <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" class="otp-box" required>
+                            <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" class="otp-box" required>
+                            <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" class="otp-box" required>
+                        </div>
+                        <input type="hidden" name="totp_code" id="totpHidden">
+                        <input type="hidden" name="totp_uid" value="<?php echo (int)$_SESSION['totp_user_id']; ?>">
+
+                        <div class="otp-actions">
+                            <button type="submit" name="verify_totp" class="auth-btn" style="width:auto;flex:1;">
+                                <span>Verify</span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M13 4L6 12l-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                            <a href="?clear_totp=1" class="otp-back-btn">Back</a>
+                        </div>
+
+                        <div class="otp-resend" style="margin-top:16px;">
+                            <a href="#" onclick="toggleBackup();return false;" id="backupToggleLink" style="color:rgba(0,240,255,0.5);font-size:12px;font-weight:600;text-decoration:none;transition:color 0.2s;">Use backup password instead</a>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="backupMode" style="display:none;">
+                    <form method="POST" action="" id="backupForm">
+                        <div style="margin:20px 0;">
+                            <label style="color:rgba(255,255,255,0.5);font-size:12px;display:block;margin-bottom:8px;">Backup Password</label>
+                            <input type="password" name="backup_password" id="backupPassword" class="form-control form-control-lg" style="background:rgba(255,255,255,0.04);border:1.5px solid rgba(0,240,255,0.2);border-radius:12px;color:#fff;padding:14px 16px;text-align:center;font-size:16px;font-family:'Inter',sans-serif;width:100%;outline:none;" placeholder="Enter your backup password">
+                        </div>
+
+                        <input type="hidden" name="totp_uid" value="<?php echo (int)$_SESSION['totp_user_id']; ?>">
+
+                        <div class="otp-actions">
+                            <button type="submit" name="verify_backup" class="auth-btn" style="width:auto;flex:1;">
+                                <span>Verify</span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M13 4L6 12l-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                            <a href="?clear_totp=1" class="otp-back-btn">Back</a>
+                        </div>
+
+                        <div class="otp-resend" style="margin-top:16px;">
+                            <a href="#" onclick="toggleBackup();return false;" style="color:rgba(0,240,255,0.5);font-size:12px;font-weight:600;text-decoration:none;transition:color 0.2s;">Use authenticator app instead</a>
+                        </div>
+                    </form>
+                </div>
+
+                <script>
+                function toggleBackup() {
+                    var t = document.getElementById('totpMode');
+                    var b = document.getElementById('backupMode');
+                    if (t.style.display !== 'none') {
+                        t.style.display = 'none';
+                        b.style.display = 'block';
+                        document.getElementById('backupPassword').focus();
+                    } else {
+                        t.style.display = 'block';
+                        b.style.display = 'none';
+                        document.querySelector('.otp-box').focus();
+                    }
+                }
+                (function(){
+                    var boxes = document.querySelectorAll('.otp-box');
+                    var hidden = document.getElementById('totpHidden');
+
+                    function updateOtp() {
+                        var val = '';
+                        boxes.forEach(function(b){ val += b.value; });
+                        hidden.value = val;
+                        boxes.forEach(function(b){ b.classList.toggle('filled', b.value !== ''); });
+                    }
+
+                    boxes.forEach(function(box, idx){
+                        box.addEventListener('input', function(){
+                            this.value = this.value.replace(/[^0-9]/g, '').slice(0, 1);
+                            updateOtp();
+                            if (this.value && idx < boxes.length - 1) {
+                                boxes[idx + 1].focus();
+                            }
+                        });
+                        box.addEventListener('keydown', function(e){
+                            if (e.key === 'Backspace' && !this.value && idx > 0) {
+                                boxes[idx - 1].focus();
+                                boxes[idx - 1].value = '';
+                                updateOtp();
+                            }
+                            if (e.key === 'ArrowLeft' && idx > 0) { boxes[idx - 1].focus(); }
+                            if (e.key === 'ArrowRight' && idx < boxes.length - 1) { boxes[idx + 1].focus(); }
+                        });
+                        box.addEventListener('paste', function(e){
+                            e.preventDefault();
+                            var paste = (e.clipboardData || window.clipboardData).getData('text').replace(/[^0-9]/g, '').slice(0, 6);
+                            for (var i = 0; i < paste.length && i < boxes.length; i++) {
+                                boxes[i].value = paste[i];
+                            }
+                            updateOtp();
+                            var next = Math.min(paste.length, boxes.length - 1);
+                            boxes[next].focus();
+                        });
+                    });
+
+                    document.getElementById('totpForm').addEventListener('submit', function(){
+                        updateOtp();
+                    });
+
+                    document.addEventListener('input', function(){
+                        var filled = true;
+                        boxes.forEach(function(b){ if (!b.value) filled = false; });
+                        if (filled) {
+                            setTimeout(function(){
+                                document.querySelector('[name="verify_totp"]').click();
+                            }, 200);
+                        }
+                    });
+                })();
                 </script>
+
+            <?php else: ?>
+                <!-- ═══ LOGIN FORM ═══ -->
+                <div class="auth-card-top">
+                    <div class="auth-brand-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h1><?php echo SITE_NAME; ?></h1>
+                    <p>Sign in to your account</p>
+                </div>
+
+                <?php if ($error): ?>
+                    <script>
+                    document.addEventListener('DOMContentLoaded', function(){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: <?php echo json_encode($error); ?>,
+                            confirmButtonText: 'OK',
+                            buttonsStyling: false,
+                            customClass: { confirmButton: 'swal2-confirm' }
+                        });
+                    });
+                    </script>
+                <?php endif; ?>
+
+                <form method="POST" action="">
+                    <div class="auth-field">
+                        <label for="username">Username</label>
+                        <div class="auth-input-wrap">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="username" name="username"
+                                   value="<?php echo htmlspecialchars($username ?? ''); ?>" required autofocus
+                                   placeholder="Enter your username">
+                        </div>
+                    </div>
+
+                    <div class="auth-field">
+                        <label for="password">Password</label>
+                        <div class="auth-input-wrap">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="password" name="password" required
+                                   placeholder="Enter your password">
+                            <button type="button" class="auth-pass-toggle" onclick="togglePassword()" tabindex="-1">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="auth-btn">
+                        <span>Sign In</span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M3 8h10m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </form>
             <?php endif; ?>
-
-            <form method="POST" action="">
-                <div class="auth-field">
-                    <label for="username">Username</label>
-                    <div class="auth-input-wrap">
-                        <i class="fas fa-user"></i>
-                        <input type="text" id="username" name="username"
-                               value="<?php echo htmlspecialchars($username ?? ''); ?>" required autofocus
-                               placeholder="Enter your username">
-                    </div>
-                </div>
-
-                <div class="auth-field">
-                    <label for="password">Password</label>
-                    <div class="auth-input-wrap">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" id="password" name="password" required
-                               placeholder="Enter your password">
-                        <button type="button" class="auth-pass-toggle" onclick="togglePassword()" tabindex="-1">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <button type="submit" class="auth-btn">
-                    <span>Sign In</span>
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M3 8h10m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-            </form>
-
             </div>
         </div>
     </div>

@@ -188,7 +188,7 @@
     // Show Back to Sections button on module pages
     var btn = document.getElementById('backSectionsBtn');
     if (btn) {
-        var exclude = ['sections', 'profile', 'change_password', 'login', 'logout', 'index', 'edit_profile'];
+        var exclude = ['sections', 'change_password', 'login', 'logout', 'index', 'edit_profile'];
         var path = window.location.pathname.split('/').pop().replace('.php', '');
         if (exclude.indexOf(path) === -1 && path !== '') {
             btn.style.display = 'inline-flex';

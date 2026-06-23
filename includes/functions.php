@@ -292,18 +292,19 @@ function getUnreadNotificationCount($pdo, $userId) {
     return (int)$stmt->fetchColumn();
 }
 
-function sendMail($subject, $body) {
+function sendMail($subject, $body, $to = null) {
     require_once __DIR__ . '/../libraries/PHPMailer/src/Exception.php';
     require_once __DIR__ . '/../libraries/PHPMailer/src/PHPMailer.php';
     require_once __DIR__ . '/../libraries/PHPMailer/src/SMTP.php';
 
+    $customTo = $to;
     $host = 'smtp.gmail.com';
     $port = 587;
     $username = '';
     $password = '';
     $from = '';
     $fromName = 'CMS BCA AI/ML';
-    $to = '';
+    $recipient = '';
     $encryption = 'tls';
 
     try {
@@ -321,19 +322,27 @@ function sendMail($subject, $body) {
                     $password = $cfg['mail_password'] ?? $password;
                     $from = $cfg['mail_from'] ?? $from;
                     $fromName = $cfg['mail_from_name'] ?? $fromName;
-                    $to = $cfg['mail_to'] ?? $to;
+                    $recipient = $cfg['mail_to'] ?? $recipient;
                     $encryption = $cfg['mail_encryption'] ?? $encryption;
                 }
             }
         }
     } catch (PDOException $e) {}
 
-    if (empty($username) || empty($password) || empty($to)) {
+    if ($customTo !== null) {
+        $recipient = $customTo;
+        if (empty($username) || empty($password)) {
+            require_once __DIR__ . '/../config/mail.php';
+            $username = MAIL_USERNAME;
+            $password = MAIL_PASSWORD;
+            $from = MAIL_FROM;
+        }
+    } elseif (empty($username) || empty($password) || empty($recipient)) {
         require_once __DIR__ . '/../config/mail.php';
         $username = MAIL_USERNAME;
         $password = MAIL_PASSWORD;
         $from = MAIL_FROM;
-        $to = MAIL_TO;
+        $recipient = MAIL_TO;
     }
 
     try {
@@ -348,7 +357,7 @@ function sendMail($subject, $body) {
         $mail->Port = (int)$port;
         $mail->SMTPOptions = ['ssl' => ['verify_peer' => false, 'verify_peer_name' => false, 'allow_self_signed' => true]];
         $mail->setFrom($from, $fromName);
-        $mail->addAddress($to);
+        $mail->addAddress($recipient);
         $mail->Subject = $subject;
         $mail->isHTML(true);
         $mail->Body = $body;

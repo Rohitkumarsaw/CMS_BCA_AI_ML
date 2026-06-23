@@ -52,6 +52,7 @@ $siteUrl = SITE_URL;
         <a href="<?php echo $siteUrl; ?>/leave.php" style="--nav-color:#ffab00" class="<?php echo $currentPage == 'leave' ? 'active' : ''; ?>"><i class="fas fa-file-signature"></i><span>Leave</span></a>
         <a href="<?php echo $siteUrl; ?>/faculty.php" style="--nav-color:#00d25b" class="<?php echo $currentPage == 'faculty' ? 'active' : ''; ?>"><i class="fas fa-chalkboard-teacher"></i><span>Faculty</span></a>
         <a href="<?php echo $siteUrl; ?>/profile.php" style="--nav-color:#8a2be2" class="<?php echo $currentPage == 'profile' ? 'active' : ''; ?>"><i class="fas fa-user-circle"></i><span>Profile</span></a>
+        <a href="<?php echo $siteUrl; ?>/ga_setup.php" style="--nav-color:#00d2ff" class="<?php echo $currentPage == 'ga_setup' ? 'active' : ''; ?>"><i class="fas fa-shield-halved"></i><span>2FA (Google Auth)</span></a>
         <a href="<?php echo $siteUrl; ?>/smtp_settings.php" style="--nav-color:#ff6b6b" class="<?php echo $currentPage == 'smtp_settings' ? 'active' : ''; ?>"><i class="fas fa-cogs"></i><span>SMTP Settings</span></a>
         <a href="<?php echo $siteUrl; ?>/logout.php" style="--nav-color:#fc424a" class="text-danger"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
     </div>

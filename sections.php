@@ -404,6 +404,12 @@ include 'includes/sidebar.php';
                 <span class="sc-count">User profile</span>
             </a>
 
+            <a href="ga_setup.php" class="section-card" style="--sc-color:#00d2ff;">
+                <div class="sc-icon" style="background:rgba(0,210,255,0.1);color:#00d2ff;"><i class="fas fa-shield-halved"></i></div>
+                <span class="sc-name">2FA (Google Auth)</span>
+                <span class="sc-count">Two-factor authentication</span>
+            </a>
+
             <a href="smtp_settings.php" class="section-card" style="--sc-color:#ff6b6b;">
                 <div class="sc-icon" style="background:rgba(255,107,107,0.1);color:#ff6b6b;"><i class="fas fa-cogs"></i></div>
                 <span class="sc-name">SMTP Settings</span>
