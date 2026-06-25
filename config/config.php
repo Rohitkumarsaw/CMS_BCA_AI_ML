@@ -10,7 +10,8 @@ define('DB_PASS', '');
 define('DB_CHARSET', 'utf8mb4');
 
 define('SITE_NAME', 'CMS (BCA AI/ML)');
-define('SITE_URL', 'http://localhost/bca-portal');
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+define('SITE_URL', $protocol . '://' . $_SERVER['HTTP_HOST'] . '/bca-portal');
 define('UPLOAD_PATH', __DIR__ . '/../uploads/');
 define('MAX_FILE_SIZE', 50 * 1024 * 1024); // 50MB
 
