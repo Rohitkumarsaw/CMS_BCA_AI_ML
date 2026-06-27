@@ -3,7 +3,7 @@
         <button class="sidebar-toggle-btn" onclick="toggleSidebar()" aria-label="Toggle sidebar">
             <i class="fas fa-bars"></i>
         </button>
-        <a href="sections.php" class="back-sections-btn" id="backSectionsBtn" style="display:none;"><i class="fas fa-arrow-left"></i> <span>Sections</span></a>
+        <a href="<?php echo SITE_URL; ?>/sections.php" class="back-sections-btn" id="backSectionsBtn" style="display:none;"><i class="fas fa-arrow-left"></i> <span>Sections</span></a>
         <span class="app-navbar-brand"><i class="fas fa-graduation-cap"></i><?php echo SITE_NAME; ?></span>
     </div>
 
