@@ -37,11 +37,9 @@ $stmtSubjects = $pdo->prepare("SELECT DISTINCT subject FROM exams WHERE user_id 
 $stmtSubjects->execute([$userId]);
 $subjects = $stmtSubjects->fetchAll(PDO::FETCH_COLUMN);
 
-$upcomingExams = array_filter($exams, function($exam) {
-    $examDate = strtotime($exam['date']);
-    $threeDaysLater = strtotime('+3 days');
-    return $examDate >= strtotime('today') && $examDate <= $threeDaysLater;
-});
+$upcomingCount = count(array_filter($exams, function($exam) {
+    return $exam['status'] === 'upcoming';
+}));
 
 require 'includes/header.php';
 require 'includes/navbar.php';
@@ -49,19 +47,6 @@ require 'includes/sidebar.php';
 ?>
 
 <div class="app-content">
-
-    <?php if(!empty($upcomingExams)): ?>
-    <div class="exam-upcoming-banner">
-        <h5><i class="fas fa-exclamation-triangle me-2"></i>Upcoming Exams (Next 3 Days)</h5>
-        <ul>
-            <?php foreach($upcomingExams as $exam): ?>
-            <li><strong><?php echo htmlspecialchars($exam['subject']); ?></strong> — <?php echo htmlspecialchars($exam['exam_name']); ?> on <?php echo formatDate($exam['date']); ?></li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
-    <?php endif; ?>
-
-        <?= csrfField() ?>
 
     <div class="page-header">
         <div>
@@ -100,7 +85,7 @@ require 'includes/sidebar.php';
                 <i class="fa-solid fa-clock"></i>
                 <span>Upcoming</span>
             </div>
-            <h3 class="counter-number" style="color: #fde68a;"><?php echo count($upcomingExams); ?></h3>
+            <h3 class="counter-number" style="color: #fde68a;"><?php echo $upcomingCount; ?></h3>
         </div>
     </div>
 
